@@ -84,11 +84,67 @@ If the user picks a tier, scale the army composition to match. If they skip or s
 - Tasks with heavy sequential dependencies where parallelism adds no value
 - Single-file changes
 
+## Modes
+
+The army supports two execution modes. Detect which one to use from context.
+
+### Full Mode (default for complex tasks)
+Used when the task is ambiguous, large, or the user wants visibility into the plan. Runs the full protocol: questions, recon, plan, confirm, deploy, verify.
+
+### Quick Mode (for clear, well-scoped tasks)
+Used when the user says "just do it", "use army", or gives a clear, specific task. Skip the questions and plan confirmation. Go straight to: recon (silent) → compose → deploy. Still use sub-agents, still verify at the end, but don't pause for approval.
+
+**Detection heuristic:** If the user's request contains specific file paths, exact changes, or clear scope -- use Quick Mode. If it's vague ("make the site better", "audit everything") -- use Full Mode and ask questions.
+
+## Progress Updates
+
+As agents complete, report their status immediately. Don't wait for all agents to finish before saying anything.
+
+```
+[Agent 3/8 complete] forms-agent: 4 files modified, 0 flags
+[Agent 4/8 complete] charts-agent: 6 files modified, 1 flag (missing type export)
+```
+
+This keeps the user informed and lets them catch issues early.
+
+## Continuous Deployment Mode
+
+If the user says "keep going", "burn tokens", or "don't stop" -- enter continuous mode:
+- As each agent completes, immediately launch a new agent for the next batch of work
+- Don't wait for all agents to finish before starting more
+- Keep deploying until the task is fully complete or the user says stop
+- Report completions as they come in
+
+## Sub-agent Enforcement
+
+Before deploying Layer 1 agents, verify the plan includes sub-agents. Run this checklist:
+
+```
+Sub-agent Checklist:
+[ ] Every Layer 1 agent has 2+ sub-agents assigned
+[ ] Every sub-agent has specific file ownership
+[ ] No files are unassigned
+[ ] Sub-agent briefs are included in Layer 1 instructions
+```
+
+If any check fails, fix the plan before deploying. NEVER skip sub-agents unless the task genuinely has fewer than 6 units of work (in which case, ask the user if single agents are OK).
+
 ## Execution Protocol
 
 Follow these steps precisely when this skill is invoked.
 
-### Step 0: Git Safety Net
+### Step 0: Intake Questions (Full Mode only)
+
+Ask the user before starting recon:
+
+1. **What's the goal?** (one sentence)
+2. **What's the scope?** (specific files, directories, or "the whole site")
+3. **Any constraints?** (don't touch X, preserve Y, match Z style)
+4. **Which tier?** (show the Army Size Selection table)
+
+If the user already provided this context in their request, don't re-ask. Just confirm: "I see you want [goal] across [scope]. Deploying at [tier] tier. Starting recon."
+
+### Step 0.5: Git Safety Net
 
 Before touching anything, create a rollback checkpoint:
 
