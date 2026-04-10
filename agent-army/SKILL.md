@@ -84,6 +84,8 @@ Token costs are rough estimates. Pick a tier or enter a custom number:
 
 Default to Standard if user says "just do it." Tier question applies to BOTH Quick and Full modes.
 
+After recon (Step 3), recommend a specific number based on what you found. Example: "Found 35 files across 6 domains. I recommend Aggressive tier: 8 Layer 1 agents with 2-3 sub-agents each (~22 total). This would cost roughly $15-20. Want to adjust?"
+
 ## Deployment Gate
 
 Output this checklist in your response before deploying. Do NOT skip it. Do NOT just check it mentally.
