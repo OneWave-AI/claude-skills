@@ -2,7 +2,17 @@
 
 Production-ready skills for Claude Code. Built and maintained by [OneWave AI](https://www.onewave-ai.com) -- AI consulting for small and mid-size businesses.
 
-**160+ skills** across business operations, sales, engineering, consulting, and AI agent architecture.
+**162 skills** across business operations, sales, engineering, consulting, and AI agent architecture.
+
+---
+
+## Featured: /agent-army
+
+Deploy 3 to 50+ independent Claude agents in parallel, each with its own 1M token context window. Each agent spawns sub-agents underneath. The system runs in waves -- execute, audit, propagate -- and checks its own work between each.
+
+Built for tasks where one agent isn't enough: large refactors, full-site audits, bulk content generation, codebase migrations. Battle-tested on 60+ concurrent agents in a single session.
+
+**[View agent-army](https://github.com/OneWave-AI/claude-skills/tree/main/agent-army)**
 
 ---
 
