@@ -278,7 +278,20 @@ After each wave: run build, re-scan for violations, check flags. If issues remai
 - **Wave 2 (Fix):** Triggered by build failures, remaining violations, or cross-team flags. Smaller army targeting what Wave 1 missed.
 - **Wave 3 (Propagate):** Update tests, docs, configs, and downstream files affected by changes.
 
-Each wave is a new, smaller army. The Commander pauses for user approval before launching. Each wave's report is the next wave's recon. If issues persist after 3 waves, report to user for manual resolution.
+Pause for user approval before launching each wave. Each wave's report is the next wave's recon. If issues persist after 3 waves, report to user for manual resolution.
+
+#### Shared Scratchpad (optional)
+
+For complex multi-wave tasks, write a `.army-state.md` file after Wave 1 containing: files modified, flags raised, issues found, decisions made. Wave 2 agents read this file directly instead of relying on the Commander's summary. This preserves full context across waves.
+
+Use the scratchpad when:
+- Wave 2 needs to understand WHY Wave 1 made specific choices
+- 20+ files were modified and the summary would lose detail
+- Agents flagged nuanced issues that need full context to resolve
+
+Skip the scratchpad when:
+- Single-wave task (no Wave 2 needed)
+- Simple fixes where the Commander's brief is sufficient
 
 ## Structured Report Format
 
