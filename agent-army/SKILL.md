@@ -71,20 +71,20 @@ Report when done: Files Modified (file: N replacements), Files Skipped (already 
 Confirm tier before starting. Present this table:
 
 ```
-| Tier | Agents | Total with Sub-agents | Cost Estimate |
-|------|--------|----------------------|---------------|
-| Conservative | 3 | ~9 | ~$2-5 |
-| Standard | 5-10 | ~15-30 | ~$5-15 |
-| Aggressive | 10-20 | ~30-60 | ~$15-40 |
-| Maximum | 20-50+ | ~60-100+ | ~$40+ |
+| Tier | Agents | Total with Sub-agents | Est. Tokens |
+|------|--------|----------------------|-------------|
+| Conservative | 3 | ~9 | ~200-500K |
+| Standard | 5-10 | ~15-30 | ~500K-1.5M |
+| Aggressive | 10-20 | ~30-60 | ~1.5-4M |
+| Maximum | 20-50+ | ~60-100+ | ~4M+ |
 | Custom | You pick | You pick | Varies |
 
-Token costs are rough estimates. Pick a tier or enter a custom number:
+Token estimates vary by task complexity. Pick a tier or enter a custom number:
 ```
 
 Default to Standard if user says "just do it." Tier question applies to BOTH Quick and Full modes.
 
-After recon (Step 3), recommend a specific number based on what you found. Example: "Found 35 files across 6 domains. I recommend Aggressive tier: 8 Layer 1 agents with 2-3 sub-agents each (~22 total). This would cost roughly $15-20. Want to adjust?"
+After recon (Step 3), recommend a specific number based on what you found. Example: "Found 35 files across 6 domains. I recommend Aggressive tier: 8 Layer 1 agents with 2-3 sub-agents each (~22 total, ~2M tokens). Want to adjust?"
 
 ## Deployment Gate
 
