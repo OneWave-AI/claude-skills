@@ -1,6 +1,6 @@
 ---
 name: agent-army
-description: 2-layer parallel agent hierarchy. Layer 1: 3-50+ agents, each with independent context. Layer 2: 2+ sub-agents per member, each with own context seeded by parent brief. No upper limit on either layer.
+description: "2-layer parallel agent hierarchy. Layer 1 deploys 3-50+ agents, each with independent context. Layer 2 adds 2+ sub-agents per member. No upper limit on either layer."
 user_invocable: true
 ---
 
