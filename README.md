@@ -1,415 +1,224 @@
-# Claude Skills - 100 Production-Ready AI Skills 🚀
+# Claude Skills Library
 
-The most comprehensive collection of Claude Code skills ever created! Build with automation, powered by OneWave AI.
+Production-ready skills for Claude Code. Built and maintained by [OneWave AI](https://www.onewave-ai.com) -- AI consulting for small and mid-size businesses.
 
-## 🎯 What's Included
+**160+ skills** across business operations, sales, engineering, consulting, and AI agent architecture.
 
-**100 Production-Ready Skills** across 15 categories:
+---
 
-- 🗣️ **Communication** (5) - Slack, SMS, email, LinkedIn optimization
-- 💼 **Sales Intelligence** (5) - Deal analysis, call prep, objection handling
-- 📈 **Marketing Automation** (5) - Content repurposing, SEO, email optimization
-- 🎨 **Creative & Design** (4) - Brand consistency, presentations, assets
-- 🧠 **Expert Simulation** (2) - Debates and expert panels
-- 📝 **Content Repurposing** (5) - Multi-format content transformation
-- ⚽ **Sports** (19) - **Most comprehensive sports AI toolkit ever!**
-- 💰 **Finance & Personal** (5) - Portfolio, budget, financial goals
-- 📊 **Sales Leadership** (8) - Forecasting, coaching, territory planning
-- 🤖 **Meta-Skills** (6) - Revolutionary architectural innovations
-- 🎧 **Customer Support** (1) - Knowledge base building
-- ✈️ **Travel** (1) - Itinerary optimization
-- 💪 **Fitness** (2) - Workout programs and training logs
+## Getting Started
 
-## 🏆 Highlights
-
-### Skill #100: skill-navigator ⭐
-Your intelligent guide to all 99 other skills! Recommends the perfect skill for any task, creates combinations, and helps you discover capabilities you didn't know you had.
-
-### Meta-Skills (Revolutionary!)
-- **conversation-archaeologist** - Builds persistent user context
-- **weak-signal-synthesizer** - Predicts emerging trends
-- **hypothesis-testing-engine** - Automated scientific method
-- **cross-conversation-project-manager** - Stateful memory
-- **skill-composer-studio** - Programmable AI workflows
-- **skill-navigator** - Your personal skill guide
-
-### Sports Skills (19 Total!) ⚽🏀🏈
-Complete toolkit for content, analysis, and training
-
-## 🚀 Quick Start
-
-### Installation Methods
-
-#### Option 1: Install Individual Skills (Recommended)
-
-1. **Extract a skill zip file**:
-   ```bash
-   unzip screenshot-to-code.zip
-   ```
-
-2. **Copy to your Claude skills directory**:
-
-   **For Personal Skills** (available in all projects):
-   ```bash
-   cp -r screenshot-to-code ~/.claude/skills/
-   ```
-
-   **For Project Skills** (specific to one project):
-   ```bash
-   # From your project root
-   cp -r screenshot-to-code .claude/skills/
-   ```
-
-3. **Restart Claude Code** or run:
-   ```bash
-   claude --debug
-   ```
-
-#### Option 2: Install All Skills at Once
-
-**Personal Skills** (available everywhere):
 ```bash
-# Extract all zips
-for file in *.zip; do unzip "$file"; done
+# Install a single skill
+claude skill install OneWave-AI/claude-skills/<skill-name>
 
-# Copy all to personal skills directory
-mkdir -p ~/.claude/skills
-cp -r screenshot-to-code reddit-analyzer seo-optimizer meeting-intelligence \
-      financial-parser code-review-pro regex-debugger social-repurposer \
-      contract-analyzer podcast-content-suite ~/.claude/skills/
+# Or clone the full library
+git clone https://github.com/OneWave-AI/claude-skills.git ~/.claude/skills
 ```
 
-**Project Skills** (specific project):
-```bash
-# From your project root
-mkdir -p .claude/skills
-cp -r /path/to/claude-skills/* .claude/skills/
-```
-
-## 📚 How Skills Work
-
-### Automatic Activation
-
-Skills are **model-invoked**, meaning Claude automatically decides when to use them based on:
-- The skill's description
-- Your request/question
-- Available context
-
-You don't need to explicitly call them—just ask naturally!
-
-### Examples
-
-**Screenshot to Code**:
-```
-You: "Convert this screenshot to React code"
-Claude: [Automatically uses Screenshot to Code skill]
-```
-
-**SEO Optimizer**:
-```
-You: "Optimize this blog post for 'AI productivity tools'"
-Claude: [Automatically uses SEO Content Optimizer skill]
-```
-
-**Meeting Intelligence**:
-```
-You: "Extract action items from this meeting transcript"
-Claude: [Automatically uses Meeting Intelligence System skill]
-```
-
-## 🎯 Skill Descriptions
-
-### 1. Screenshot to Code
-**Use Cases**:
-- Converting design mockups to code
-- Recreating UI from screenshots
-- Building landing pages from images
-- Prototyping from designs
-
-**Triggers**: screenshot, UI, convert to code, design to code
+Each skill is a self-contained `SKILL.md` file that Claude Code loads as a system prompt. No dependencies, no build step.
 
 ---
 
-### 2. Reddit Thread Analyzer
-**Use Cases**:
-- Market research
-- Sentiment analysis
-- Community opinion gathering
-- Competitive intelligence
+## Categories
 
-**Triggers**: Reddit, thread analysis, what does Reddit think, community opinion
+### AI Agent Architecture
+Skills for building, orchestrating, and managing autonomous AI agents.
+
+| Skill | Description |
+|-------|-------------|
+| `agent-army` | 2-layer parallel agent hierarchy for large tasks at maximum speed |
+| `agent-to-agent` | A2A communication protocol -- message passing, shared context, handoffs |
+| `agent-swarm-deployer` | Deploy swarms of sub-agents for massive parallel data processing |
+| `agent-team-builder` | Design and deploy custom agent teams for business workflows |
+| `sub-agent-orchestrator` | Parent/child agent orchestration with task delegation |
+| `scout` | Recommends the best skill for any task |
+| `scout-pro` | Enhanced scout with skill chains, pattern recognition, usage learning |
+| `skill-navigator` | Guide to all skills with combination recommendations |
+| `skill-composer-studio` | Chain multiple skills into custom workflows |
+
+### Anthropic / Claude Products
+Skills built around specific Anthropic product releases.
+
+| Skill | Description |
+|-------|-------------|
+| `overnight-repo-auditor` | Uses Managed Agents (14.5hr runtime) for autonomous overnight codebase audits |
+| `multi-agent-client-onboarding` | Agent SDK: 3 parallel agents for client assessment |
+| `cowork-deal-room` | Cowork-style multi-step deal room document analysis |
+| `gmail-to-crm-pipeline` | MCP Connectors: Gmail to CRM lead qualification pipeline |
+| `full-codebase-migrator` | 1M context window: ingest entire codebases for migration planning |
+
+### Sales and Revenue
+| Skill | Description |
+|-------|-------------|
+| `deal-closer-playbook` | Closing strategy with buying committee mapping and objection handling |
+| `renewal-predictor` | Predict renewal likelihood from health score signals |
+| `expansion-revenue-finder` | Identify upsell and cross-sell opportunities in existing accounts |
+| `pipeline-health-analyzer` | Identify stalled deals, predict close probability |
+| `deal-review-framework` | MEDDIC/BANT deal assessment with risk scoring |
+| `deal-momentum-analyzer` | Score deal velocity from engagement patterns |
+| `sales-forecast-builder` | Weighted pipeline forecast with scenario modeling |
+| `sales-call-prep-assistant` | Pre-call research briefs with discovery questions |
+| `sales-methodology-implementer` | MEDDIC, BANT, Sandler, Challenger, SPIN implementation |
+| `lead-scoring-model` | Build custom lead scoring from historical win/loss data |
+| `inbound-lead-qualifier` | Score inbound leads by ICP fit, intent, and urgency |
+| `cold-email-sequence-generator` | Multi-touch outbound campaigns optimized for response |
+| `personalization-at-scale` | Personalized first lines for hundreds of prospects |
+| `champion-identifier` | Find internal champions in target accounts |
+| `intent-signal-aggregator` | Monitor buyer intent signals across the web |
+| `objection-pattern-detector` | Mine lost deals for recurring objection patterns |
+| `lookalike-customer-finder` | Find companies matching your best customer profile |
+| `quota-setting-calculator` | Top-down vs bottom-up quota models |
+| `sales-comp-plan-designer` | Variable compensation design with accelerators |
+| `sales-coaching-plan-generator` | Individualized rep development plans |
+| `ramping-rep-tracker` | 30/60/90/120 day ramp milestones |
+| `rep-performance-scorecard` | Multi-dimensional rep evaluation |
+| `territory-planning-optimizer` | Account assignment by revenue potential |
+
+### Consulting and Professional Services
+| Skill | Description |
+|-------|-------------|
+| `client-proposal-generator` | Full consulting proposals from a brief |
+| `sow-generator` | Professional Statements of Work with legal boilerplate |
+| `client-health-dashboard` | RAG status across all client accounts |
+| `churn-autopsy` | Post-mortem analysis when a client churns |
+| `onboarding-checklist` | Customized client onboarding plans |
+| `ai-readiness-assessment` | Assess how ready a business is for AI adoption |
+| `saas-replacement-planner` | Evaluate which SaaS tools can be replaced with AI agents |
+| `roi-calculator` | AI implementation ROI with sensitivity analysis |
+| `meeting-intelligence` | Extract decisions, action items, and sentiment from transcripts |
+| `meeting-to-tasks` | Convert transcripts to action items with owner assignment |
+| `weekly-business-report` | Auto-generated weekly KPI reports |
+
+### Engineering and DevOps
+| Skill | Description |
+|-------|-------------|
+| `code-review-pro` | Security, performance, and best practices review |
+| `debug-like-expert` | Methodical investigation with hypothesis testing |
+| `api-load-tester` | Progressive load testing with bottleneck analysis |
+| `database-migrator` | Cross-provider database migration with validation |
+| `incident-responder` | Production incident response automation |
+| `runbook-generator` | Operational runbooks from codebase analysis |
+| `data-pipeline-builder` | ETL/ELT pipeline design and implementation |
+| `dependency-auditor` | Security vulnerabilities and outdated packages |
+| `test-coverage-improver` | Find and fill test coverage gaps |
+| `docker-debugger` | Container troubleshooting and optimization |
+| `typescript-migrator` | JavaScript to TypeScript migration |
+| `env-setup-wizard` | Environment variable management |
+| `error-boundary-creator` | React error boundaries and fallback UIs |
+| `git-pr-reviewer` | Pull request quality review |
+| `regex-debugger` | Visual regex breakdown and debugging |
+| `performance-profiler` | Application performance profiling |
+| `api-endpoint-scaffolder` | REST API endpoint generation |
+| `responsive-layout-builder` | CSS Grid, Flexbox, container queries |
+| `react-component-generator` | React components with TypeScript and a11y |
+| `design-system-generator` | Design tokens, components, documentation |
+| `css-animation-creator` | Professional animations and micro-interactions |
+| `database-schema-designer` | Optimized schemas with ERD diagrams |
+| `screenshot-to-code` | Convert UI screenshots to working code |
+| `landing-page-optimizer` | Conversion and performance optimization |
+
+### Security and Compliance
+| Skill | Description |
+|-------|-------------|
+| `compliance-checker` | GDPR, HIPAA, SOC2, CCPA, PCI-DSS audit |
+| `security-pentest-planner` | Penetration test planning (OWASP Top 10) |
+| `tech-due-diligence` | Technical due diligence for M&A/investment |
+| `contract-analyzer` | Review contracts for concerning clauses |
+| `contract-redliner` | Generate redline suggestions with replacement language |
+
+### Marketing and Content
+| Skill | Description |
+|-------|-------------|
+| `seo-optimizer` | Keyword analysis, readability, competitor comparison |
+| `seo-keyword-cluster-builder` | Topic cluster architecture |
+| `landing-page-copywriter` | High-converting copy using PAS, AIDA, StoryBrand |
+| `brand-voice-analyzer` | Extract and codify brand voice from existing content |
+| `content-repurposer` | Transform content into 8+ formats |
+| `social-repurposer` | Adapt content for different platforms |
+| `social-selling-content-generator` | LinkedIn thought leadership posts |
+| `linkedin-post-optimizer` | Professional narrative with hooks |
+| `utm-parameter-generator` | Standardized UTM tracking |
+| `competitor-content-analyzer` | Track competitor content strategy |
+| `competitor-price-tracker` | Monitor competitor pricing changes |
+| `competitor-intel-agent` | Comprehensive competitor monitoring |
+| `customer-review-aggregator` | Aggregate and analyze reviews from G2, Capterra, etc. |
+| `podcast-content-suite` | Transform podcasts into content marketing |
+| `webinar-content-repurposer` | Webinar to blog, social, email |
+| `email-template-generator` | Professional email templates |
+| `email-subject-line-optimizer` | A/B test subject lines |
+
+### Strategy and Finance
+| Skill | Description |
+|-------|-------------|
+| `pricing-strategy` | Pricing model design with competitive analysis |
+| `market-sizing` | TAM/SAM/SOM with top-down and bottom-up estimates |
+| `pitch-deck-reviewer` | Investor deck review with scoring |
+| `board-deck-generator` | Board meeting presentation content |
+| `investor-update-writer` | Monthly/quarterly investor updates |
+| `executive-dashboard-generator` | Data to executive-ready reports |
+| `financial-parser` | Extract data from invoices, receipts, statements |
+| `portfolio-analyzer` | Investment portfolio risk and diversification |
+| `budget-optimizer` | Spending analysis and savings strategies |
+| `financial-goal-planner` | Savings targets and investment strategies |
+| `tax-strategy-optimizer` | Pre-tax, Roth, charitable giving optimization |
+
+### Operations and People
+| Skill | Description |
+|-------|-------------|
+| `workflow-automator` | Design automated workflows from manual processes |
+| `okr-generator` | OKRs following Google/Intel methodology |
+| `customer-journey-mapper` | Full journey from first touch to advocacy |
+| `hiring-scorecard` | Structured scorecards for any role |
+| `knowledge-base-builder` | FAQ identification and tutorial creation |
+| `technical-writer` | User guides, architecture docs, onboarding materials |
+| `doc-coauthoring` | Structured documentation co-authoring workflow |
+| `job-application-optimizer` | Tailor resumes to job postings |
+| `raise-negotiation-prep` | Salary research and negotiation scripts |
 
 ---
 
-### 3. SEO Content Optimizer
-**Use Cases**:
-- Blog post optimization
-- Keyword analysis
-- Readability improvement
-- Meta description generation
-- Content gap analysis
+## Skill Format
 
-**Triggers**: SEO, optimize content, keyword, meta description, search ranking
+Every skill is a single `SKILL.md` file with YAML frontmatter:
 
----
-
-### 4. Meeting Intelligence System
-**Use Cases**:
-- Meeting summarization
-- Action item extraction
-- Decision tracking
-- Follow-up email generation
-- Blocker identification
-
-**Triggers**: meeting notes, transcript, action items, meeting summary
-
----
-
-### 5. Financial Document Parser
-**Use Cases**:
-- Expense tracking
-- Invoice processing
-- Receipt organization
-- Financial reporting
-- Tax preparation
-
-**Triggers**: invoice, receipt, bank statement, expense, parse financial
-
----
-
-### 6. Code Review Pro
-**Use Cases**:
-- Security vulnerability scanning
-- Performance optimization
-- Code quality assessment
-- Best practice validation
-- Refactoring suggestions
-
-**Triggers**: code review, review code, security audit, performance analysis
-
----
-
-### 7. Regex Visual Debugger
-**Use Cases**:
-- Regex debugging
-- Pattern explanation
-- Test case generation
-- Regex optimization
-- Cross-language conversion
-
-**Triggers**: regex, regular expression, pattern matching, why doesn't my regex work
-
----
-
-### 8. Social Media Content Repurposer
-**Use Cases**:
-- Cross-platform content adaptation
-- Social media marketing
-- Content distribution
-- Platform-specific optimization
-
-**Triggers**: repurpose content, Twitter thread, LinkedIn post, social media
-
----
-
-### 9. Contract Analyzer
-**Use Cases**:
-- Contract review
-- Risk assessment
-- Term extraction
-- Legal document analysis
-- Negotiation preparation
-
-**Triggers**: review contract, NDA, agreement, legal document, concerning clauses
-
----
-
-### 10. Podcast to Content Suite
-**Use Cases**:
-- Podcast marketing
-- Content repurposing
-- Blog post creation
-- Social media content
-- Newsletter generation
-
-**Triggers**: podcast transcript, repurpose podcast, show notes, podcast to blog
-
-## 🔧 Troubleshooting
-
-### Claude Isn't Using My Skill
-
-1. **Check file location**:
-   - Personal: `~/.claude/skills/skill-name/SKILL.md`
-   - Project: `.claude/skills/skill-name/SKILL.md`
-
-2. **Verify YAML syntax**:
-   ```yaml
-   ---
-   name: Skill Name
-   description: Clear description...
-   ---
-   ```
-   - Must have opening and closing `---`
-   - No tabs (use spaces)
-   - Valid YAML format
-
-3. **Check description specificity**:
-   - Include activation keywords
-   - Be explicit about use cases
-   - Mention relevant terms users would say
-
-4. **Debug mode**:
-   ```bash
-   claude --debug
-   ```
-   This shows skill loading errors.
-
-### Skills Load But Don't Activate
-
-**Make your request more explicit**:
-
-❌ Bad: "Look at this"
-✅ Good: "Optimize this blog post for SEO"
-
-❌ Bad: "Help with this"
-✅ Good: "Review this contract for concerning clauses"
-
-## 📖 Documentation Format
-
-Each skill uses this structure:
-
-```
-skill-name/
-└── SKILL.md (required)
-```
-
-**SKILL.md format**:
 ```yaml
 ---
-name: Your Skill Name
-description: Brief description with activation triggers
+name: skill-name
+description: What the skill does and when to use it.
+tools: Read, Write, Bash, Agent
+model: inherit
 ---
 
-# Your Skill Name
-
-## When to Use This Skill
-[Explicit activation conditions]
-
-## Instructions
-[Step-by-step guidance for Claude]
-
-## Output Format
-[Structured output template]
-
-## Examples
-[Concrete usage examples]
-
-## Best Practices
-[Guidelines for optimal results]
+# Skill prompt content here...
 ```
 
-## 🎨 Customization
-
-### Modify Skills
-
-1. Extract the skill zip
-2. Edit `SKILL.md`
-3. Test with `claude --debug`
-4. Re-install to skills directory
-
-### Create Your Own Skills
-
-Use these as templates! Key elements:
-
-1. **Clear description** with activation triggers
-2. **Detailed instructions** (step-by-step)
-3. **Output format** (structured templates)
-4. **Examples** (show, don't just tell)
-5. **Best practices** (edge cases, optimizations)
-
-## 🤝 Sharing Skills
-
-### With Your Team
-
-**Method 1**: Project Skills (Recommended)
-```bash
-# Commit to git
-git add .claude/skills/
-git commit -m "Add Claude skills"
-git push
-```
-Team members automatically get skills after pulling.
-
-**Method 2**: Share Zip Files
-Send `.zip` files to teammates who can install individually.
-
-### Creating a Plugin
-
-For wider distribution, package as a Claude Code plugin. See [plugin documentation](https://docs.claude.com/en/docs/claude-code/plugins.md).
-
-## 📈 Usage Tips
-
-### Combining Skills
-
-Skills can work together! Example:
-
-1. Use **Code Review Pro** to analyze code
-2. Use **Meeting Intelligence** to extract action items from the review discussion
-3. Use **Social Media Repurposer** to share learnings as Twitter thread
-
-### Best Practices
-
-1. **Be specific** in your requests
-2. **Include context** (file type, goals, constraints)
-3. **Iterate** - skills can refine their output
-4. **Provide feedback** - Claude learns from corrections
-
-### Example Workflows
-
-**Content Creator Workflow**:
-```
-Podcast → Podcast to Content Suite → Social Repurposer → SEO Optimizer
-```
-
-**Developer Workflow**:
-```
-Screenshot → Screenshot to Code → Code Review Pro
-```
-
-**Business Workflow**:
-```
-Meeting → Meeting Intelligence → Contract Analyzer → Financial Parser
-```
-
-## 📝 License
-
-These skills are provided as-is for use with Claude Code. Modify and share freely.
-
-## 🐛 Issues & Feedback
-
-If a skill isn't working as expected:
-
-1. Check the troubleshooting section above
-2. Run `claude --debug` to see loading errors
-3. Verify YAML syntax and file locations
-4. Make your request more explicit
-
-## 🌟 Contributing
-
-Feel free to:
-- Modify these skills for your needs
-- Create variations for specific use cases
-- Share improvements with your team
-- Build new skills using these as templates
-
-## 📚 Additional Resources
-
-- [Claude Code Skills Documentation](https://docs.claude.com/en/docs/claude-code/skills.md)
-- [Claude Code Plugins](https://docs.claude.com/en/docs/claude-code/plugins.md)
-- [Claude Code Docs](https://docs.claude.com/en/docs/claude-code/)
+Claude Code loads this as a system prompt when the skill is invoked. The `tools` field declares which Claude Code tools the skill needs access to.
 
 ---
 
-**Ready to supercharge Claude Code? Install a skill and start using it!** 🚀
+## About OneWave AI
 
-No explicit commands needed—just ask naturally and Claude will know when to use each skill.
+[OneWave AI](https://www.onewave-ai.com) is a boutique AI consulting firm based in Florida, specializing in Claude and the Anthropic ecosystem. We help small and mid-size businesses implement AI that ships real results -- from Claude for Enterprise deployment to custom agent architecture.
+
+- [Claude Consulting](https://www.onewave-ai.com/claude-consulting)
+- [Services](https://www.onewave-ai.com/services)
+- [Blog](https://www.onewave-ai.com/blog)
+- [Contact](https://www.onewave-ai.com/contact)
+
+---
+
+## Contributing
+
+1. Fork the repository
+2. Create a new folder with your skill name
+3. Add a `SKILL.md` following the format above
+4. Submit a pull request
+
+Skills should be production-ready, well-documented, and solve a real problem. No placeholder or stub skills.
+
+---
+
+## License
+
+MIT

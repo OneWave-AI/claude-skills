@@ -36,12 +36,37 @@ You (Commander)
 
 **Key distinction:** Agent "swarms" are sub-agents splitting one context window -- one brain, divided. Agent Army uses agent teams where each member has its own independent context window. That's the difference between dividing one brain and deploying many.
 
+## Army Size Selection
+
+Before composing the army, ask the user what concurrency level they want. Present this table:
+
+```
+How many parallel agents should I deploy?
+
+| Tier | Team Members | Total Agents | Speed | Estimated Token Cost |
+|------|-------------|--------------|-------|---------------------|
+| Conservative | 3 | 9 | Methodical | ~$2-5 |
+| Standard | 5-10 | 15-30 | Good balance | ~$5-15 |
+| Aggressive | 10-20 | 30-60 | Fast, heavy parallel | ~$15-40 |
+| Maximum | 20+ | 60+ | Full speed | ~$40+ |
+| Custom | You pick | You pick | You decide | Varies |
+
+Each agent is an independent Claude instance with its own full context window.
+More agents = faster completion, but more API token usage.
+Your machine just orchestrates -- all compute runs on Anthropic's servers.
+Token costs are rough estimates and vary by task complexity.
+
+Pick a tier (or enter a custom number):
+```
+
+If the user picks a tier, scale the army composition to match. If they skip or say "just do it", default to Standard (5-10 team members). Never silently reduce below the user's chosen tier.
+
 ## Constraints
 
 | Rule | Value |
 |------|-------|
-| **Minimum team members (Layer 1)** | 3 |
-| **Maximum team members (Layer 1)** | No limit -- scale to the task |
+| **Minimum team members (Layer 1)** | 3 (or user's chosen tier minimum) |
+| **Maximum team members (Layer 1)** | No limit -- scale to the task and user's tier |
 | **Minimum sub-agents per member (Layer 2)** | 2 |
 | **Maximum sub-agents per member (Layer 2)** | No limit -- scale to the workload |
 
