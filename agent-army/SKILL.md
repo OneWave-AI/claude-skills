@@ -1,387 +1,186 @@
 ---
 name: agent-army
-description: Deploy a 2-layer parallel agent hierarchy to tackle large tasks at maximum speed. Layer 1 is a team of 3-50+ agents, each with their own independent context window. Layer 2 is 2+ sub-agents per team member, each with their own context seeded by the parent's brief. No upper limit on either layer.
+description: 2-layer parallel agent hierarchy. Layer 1: 3-50+ agents, each with independent context. Layer 2: 2+ sub-agents per member, each with own context seeded by parent brief. No upper limit on either layer.
 user_invocable: true
 ---
 
 # Agent Army
 
-A 2-layer parallel execution framework. Each Layer 1 agent gets its own independent context window (currently 1M tokens). Each spawns Layer 2 sub-agents that also get their own context, seeded with the parent's brief. Every agent reasons independently. Not one brain divided -- many brains deployed.
-
 ## Architecture
 
 ```
-You (Commander)
+Commander
  |
- |-- Layer 1: Agent Team (minimum 3 members, no maximum)
- |    |  Each member = own full context window (1M tokens)
+ |-- Layer 1: Team (3 to 50+, each = own 1M context)
  |    |
- |    |-- Team Member A  (1M context)
- |    |    |-- Sub-agent A1  (own context)
- |    |    |-- Sub-agent A2  (own context)
- |    |    |-- ...           (no maximum)
- |    |
- |    |-- Team Member B  (1M context)
- |    |    |-- Sub-agent B1  (own context)
- |    |    |-- Sub-agent B2  (own context)
- |    |    |-- ...
- |    |
- |    |-- Team Member C  (1M context)
- |    |    |-- Sub-agent C1  (own context)
- |    |    |-- Sub-agent C2  (own context)
- |    |    |-- ...
- |    |
- |    |-- ... (no maximum team members)
+ |    |-- Agent A (1M) -- Sub-agent A1 (own context), A2 (own context), ...
+ |    |-- Agent B (1M) -- Sub-agent B1 (own context), B2 (own context), ...
+ |    |-- Agent C (1M) -- Sub-agent C1 (own context), C2 (own context), ...
+ |    |-- ... (no cap)
 ```
 
-**Key distinction:** Traditional agent "swarms" share one context window -- one brain, divided. Agent Army deploys independent agents, each with its own full context window. Sub-agents also get their own context, seeded with their parent's brief. Every instance reasons independently.
+## Layer 1 Prompt Template
 
-## NON-NEGOTIABLE RULES
-
-These rules are MANDATORY. Violating any of them is a failure state. Do not rationalize skipping them.
-
-1. **EVERY Layer 1 agent MUST spawn 2+ sub-agents.** No exceptions. No "this task is simple enough for one agent." If you are about to deploy a Layer 1 agent without sub-agents, STOP and restructure. The user chose this skill because they want the full hierarchy.
-
-2. **NEVER silently reduce the army size.** If the user chose Aggressive tier, deploy Aggressive. Do not quietly drop to 3 agents because "it seemed sufficient." Match the tier or explain why you can't.
-
-3. **Report progress as agents complete.** Do not go silent after deploying. Every time an agent finishes, immediately tell the user: "[Agent N/M complete] name: X files modified, Y flags." This is not optional.
-
-4. **Show the army plan before deploying (Full Mode).** Do not skip the plan. The user needs to see which agents own which files before you launch. In Quick Mode, you may skip the plan confirmation but you MUST still compose one internally.
-
-5. **Sub-agent briefs go INSIDE the Layer 1 prompt.** Each team member must receive explicit instructions to spawn their sub-agents. If you forget to include sub-agent deployment instructions in the Layer 1 brief, the sub-agents will not exist.
-
-6. **Build check after every wave.** Run the project's build command. If it fails, that's a new wave trigger. Do not skip the build check.
-
-7. **If the user says "keep going" or "don't stop", enter continuous mode.** Launch new agents as each completes. Do not wait for all to finish. Do not ask permission for each new launch.
-
-Failure to follow these rules means the skill was not executed correctly. The user will notice and will call it out.
-
-## Army Size Selection
-
-Before composing the army, ask the user what concurrency level they want. Present this table:
-
-```
-How many parallel agents should I deploy?
-
-| Tier | Team Members | Total Agents | Speed | Estimated Token Cost |
-|------|-------------|--------------|-------|---------------------|
-| Conservative | 3 | 9 | Methodical | ~$2-5 |
-| Standard | 5-10 | 15-30 | Good balance | ~$5-15 |
-| Aggressive | 10-20 | 30-60 | Fast, heavy parallel | ~$15-40 |
-| Maximum | 20+ | 60+ | Full speed | ~$40+ |
-| Custom | You pick | You pick | You decide | Varies |
-
-Each agent is an independent Claude instance with its own full context window.
-More agents = faster completion, but more API token usage.
-Your machine just orchestrates -- all compute runs on Anthropic's servers.
-Token costs are rough estimates and vary by task complexity.
-
-Pick a tier (or enter a custom number):
-```
-
-If the user picks a tier, scale the army composition to match. If they skip or say "just do it", default to Standard (5-10 team members). Never silently reduce below the user's chosen tier.
-
-## Constraints
-
-| Rule | Value |
-|------|-------|
-| **Minimum team members (Layer 1)** | 3 (or user's chosen tier minimum) |
-| **Maximum team members (Layer 1)** | No limit -- scale to the task and user's tier |
-| **Minimum sub-agents per member (Layer 2)** | 2 |
-| **Maximum sub-agents per member (Layer 2)** | No limit -- scale to the workload |
-
-## When to Use
-
-- Large refactors spanning many files
-- Multi-file color/style/naming migrations
-- Broad codebase audits (security, accessibility, performance)
-- Bulk content generation or transformation
-- Any task where independent units of work can run simultaneously
-
-## When NOT to Use
-
-- Small tasks (fewer than 6 independent units of work)
-- Tasks with heavy sequential dependencies where parallelism adds no value
-- Single-file changes
-
-## Progress Updates (MANDATORY)
-
-You MUST report each agent's completion the moment it finishes. Do NOT batch updates. Do NOT wait for all agents. The user should never wonder "is anything happening?"
-
-Format: `[Agent N/M complete] agent-name: X files modified, Y flags`
-
-If an agent fails: `[Agent N/M FAILED] agent-name: error description -- spawning replacement`
-
-## Continuous Deployment Mode
-
-If the user says "keep going", "burn tokens", or "don't stop" -- enter continuous mode:
-- As each agent completes, immediately launch a new agent for the next batch of work
-- Don't wait for all agents to finish before starting more
-- Keep deploying until the task is fully complete or the user says stop
-- Report completions as they come in
-
-## Sub-agent Enforcement (MANDATORY)
-
-BEFORE deploying ANY Layer 1 agent, run this checklist. Do NOT proceed until all boxes are checked:
-
-```
-DEPLOYMENT GATE -- all must pass:
-[x] Every Layer 1 agent brief contains "You MUST spawn N sub-agents"
-[x] Every sub-agent is named and has specific files assigned
-[x] Every file in the scope is owned by exactly one sub-agent
-[x] Zero files are unassigned
-[x] The Layer 1 brief includes the full sub-agent deployment instructions
-```
-
-If ANY check fails: STOP. Fix the plan. Then deploy.
-
-There is ONE exception: if the total task has fewer than 6 independent units of work, sub-agents add overhead without value. In that case, explicitly tell the user: "This task has N units of work. Sub-agents would add overhead. Deploying N single agents instead. OK?" Wait for confirmation.
-
-## Execution Protocol
-
-Follow these steps precisely when this skill is invoked.
-
-**Mode decision:** If scope is clear and specific (file paths, exact changes), skip to Step 3 (Quick Mode). Otherwise, start at Step 1 (Full Mode).
-
-### Step 1: Intake Questions (Full Mode only)
-
-Ask the user before starting recon:
-
-1. **What's the goal?** (one sentence)
-2. **What's the scope?** (specific files, directories, or "the whole site")
-3. **Any constraints?** (don't touch X, preserve Y, match Z style)
-4. **Which tier?** (show the Army Size Selection table)
-
-If the user already provided this context in their request, don't re-ask. Just confirm: "I see you want [goal] across [scope]. Deploying at [tier] tier. Starting recon."
-
-### Step 2: Git Safety Net
-
-Before touching anything, create a rollback checkpoint:
-
-1. **Check for uncommitted work** -- Run `git status`. If there are uncommitted changes, warn the user and ask if they want to stash or commit first.
-2. **Create a checkpoint branch** -- Run `git checkout -b agent-army/checkpoint-{timestamp}` from the current HEAD, then switch back to the working branch. This gives the user a clean rollback point if the army makes things worse.
-3. **Record the checkpoint** -- Note the branch name so it can be referenced in the final report.
-
-If the project is not a git repo, warn the user that there is no rollback safety net and ask for confirmation before proceeding.
-
-### Step 3: Reconnaissance
-
-Before spawning anything, gather the full scope of work:
-
-1. **Scan** -- Use Grep, Glob, and Read to identify every file and location affected by the task.
-2. **Quantify** -- Count the total units of work (files, components, endpoints, etc.).
-3. **Weigh files** -- Check line counts (`wc -l`). Flag files over 500 lines as "heavy" (assign solo).
-4. **Classify into domains** -- Group by directory, import graph, file type, or naming pattern.
-5. **Identify shared dependencies** -- Files imported across multiple domains are **foundation files** (see Step 4).
-
-Output a **Scope Report** to the user:
-
-```
-## Scope Report
-- Total files affected: N
-- Heavy files (500+ lines): [list with line counts]
-- Total changes estimated: N
-- Domains identified: [list]
-- Shared dependencies: [list -- files imported across domains]
-- Estimated token cost: ~N agents x avg context = rough estimate
-```
-
-### Step 4: Army Composition
-
-Design the team structure based on the scope:
-
-1. **Handle shared dependencies first** -- If there are foundation files (shared types, configs, utilities) that multiple domains depend on, assign them to a **Foundation Agent** that runs BEFORE the rest of the army. This agent completes its edits first, then the parallel wave launches. This prevents edit conflicts on shared files.
-2. **Determine Layer 1 size** -- At least 3 team members (not counting the Foundation Agent if needed). One member per logical domain. If a domain is large, split it across multiple members.
-3. **Determine Layer 2 size** -- At least 2 sub-agents per team member. Assign sub-agents based on **weighted file load**, not just file count:
-   - Small files (< 200 lines): 2-3 per sub-agent
-   - Medium files (200-500 lines): 1-2 per sub-agent
-   - Heavy files (500+ lines): 1 per sub-agent, solo
-4. **Name every agent** -- Give each team member and sub-agent a clear, descriptive name (e.g., `forms-agent`, `charts-agent`, `blog-migration-A`).
-5. **Define ownership** -- Each file is owned by exactly one sub-agent. No overlaps. No gaps. Foundation files are owned by the Foundation Agent.
-
-Output the **Army Plan** to the user and **pause for confirmation** (this is the dry run checkpoint):
-
-```
-## Army Plan
-
-### Foundation Agent (runs first, if needed)
-- Files: [shared dependencies]
-- Completes before main wave launches
-
-### Layer 1: Team Members (N total)
-| # | Name | Domain | Files | Weight | Sub-agents |
-|---|------|--------|-------|--------|------------|
-| 1 | [name] | [domain] | N files | N lines | N sub-agents |
-| 2 | ... | ... | ... | ... | ... |
-
-### Layer 2: Sub-agent Assignments
-**[Team Member Name]**
-- Sub-agent [name]: file1.tsx (120 lines), file2.tsx (85 lines)
-- Sub-agent [name]: file3.tsx (650 lines) -- solo, heavy file
-
-(repeat for each team member)
-
-### Cost Estimate
-- Total agents: N (Layer 1) + N (Layer 2) = N
-- Approximate context: N files across N agents
-- Checkpoint branch: agent-army/checkpoint-{timestamp}
-
-Proceed? (Y to deploy, N to adjust)
-```
-
-### Step 5: Briefing
-
-Each agent must receive a **complete, self-contained brief**. Agents do not share context. Every brief must include:
-
-1. **Objective** -- What to do, in one sentence.
-2. **Approved patterns** -- Exact values/conventions to use, with concrete examples.
-3. **Forbidden patterns** -- What to avoid or remove.
-4. **File list** -- Absolute paths with line counts.
-5. **Rules** -- Any constraints (preserve functionality, don't touch X, etc.).
-6. **Idempotency guard** -- Check if the approved pattern already exists before replacing; skip and note "already correct."
-7. **Cross-team flag protocol** -- Issues outside your files go to "Flags for Commander" -- do NOT fix them.
-8. **Sub-agent instructions** (Layer 1 only) -- How many sub-agents, their names, their file assignments.
-9. **Structured report format** (see below).
-
-### Step 6: Deploy and Verify
-
-1. **Foundation Agent first (if needed)** -- Launch the Foundation Agent and wait for it to complete before proceeding. This ensures shared dependencies are updated before dependent files are touched.
-2. **Launch all Layer 1 agents in parallel** -- Use the Agent tool with `run_in_background: true`. Send ALL team member Agent calls in a single message to maximize parallelism.
-3. **Each team member launches their Layer 2 sub-agents in parallel** -- The team member's brief instructs them to immediately spawn their sub-agents (also in parallel via a single message with multiple Agent calls).
-4. **Sub-agents execute their file edits** -- Each sub-agent reads its assigned files, makes the changes, and reports completion in the structured format.
-5. **Team members collect sub-agent results** -- Each team member verifies all sub-agents completed successfully and aggregates their reports.
-
-After all agents complete, run verification and wave assessment:
-
-#### Verification
-
-1. **Pattern re-scan** -- Run the same Grep/Glob searches from Step 3 to check for remaining violations.
-2. **Build check** -- Run the project's build command (`npm run build`, `tsc --noEmit`, etc.). If unclear, ask the user.
-3. **Review cross-team flags** -- Resolve any "Flags for Commander" items from agent reports.
-4. **Final report:**
-
-```
-## Army Report
-- Agents deployed: N (Layer 1) + N (Layer 2) = N total
-- Files modified: N / Files skipped (already correct): N
-- Build status: PASS / FAIL
-- Cross-team flags: [list or "None"]
-- Remaining violations: [list or "None"]
-- Rollback: git checkout agent-army/checkpoint-{timestamp}
-```
-
-#### Multi-Wave Protocol
-
-After each wave: run build, re-scan for violations, check flags. If issues remain, deploy a fix wave. Max 3 waves total.
-
-- **Wave 1 (Execute):** The core task. Always runs.
-- **Wave 2 (Fix):** Triggered by build failures, remaining violations, or cross-team flags. Smaller army targeting what Wave 1 missed.
-- **Wave 3 (Propagate):** Update tests, docs, configs, and downstream files affected by changes.
-
-Pause for user approval before launching each wave. Each wave's report is the next wave's recon. If issues persist after 3 waves, report to user for manual resolution.
-
-#### Shared Scratchpad (optional)
-
-For complex multi-wave tasks, write a `.army-state.md` file after Wave 1 containing: files modified, flags raised, issues found, decisions made. Wave 2 agents read this file directly instead of relying on the Commander's summary. This preserves full context across waves.
-
-Use the scratchpad when:
-- Wave 2 needs to understand WHY Wave 1 made specific choices
-- 20+ files were modified and the summary would lose detail
-- Agents flagged nuanced issues that need full context to resolve
-
-Skip the scratchpad when:
-- Single-wave task (no Wave 2 needed)
-- Simple fixes where the Commander's brief is sufficient
-
-## Structured Report Format
-
-Every agent (both Layer 1 and Layer 2) must return results in this format:
-
-```
-## Report: [Agent Name]
-
-### Files Modified
-- file1.tsx: N replacements
-- file2.tsx: N replacements
-
-### Files Skipped (already correct)
-- file3.tsx: all patterns already applied
-
-### Flags for Commander
-- [file path]: [description of cross-team issue]
-- (or "None")
-
-### Issues Encountered
-- [description, or "None"]
-
-### Status: COMPLETE / PARTIAL / FAILED
-```
-
-## Prompt Template for Layer 1 Team Members
+This is what spawned agents actually see. It is the most important section in this skill.
 
 ```
 You are [AGENT_NAME], specialist on [DOMAIN].
 
-## Objective
-[One sentence]
+Objective: [One sentence]
+Approved patterns: [Exact values -- hex codes, class names, etc.]
+Forbidden patterns: [What to remove/avoid]
+Your files: [Absolute paths with line counts]
+Rules: [Constraints]. Skip files already using approved patterns. Flag issues outside your files in "Flags for Commander" -- do NOT fix them.
 
-## Approved Patterns
-[Exact values -- hex codes, class names, etc.]
+CRITICAL: You MUST use the Agent tool to spawn the sub-agents listed below. Do NOT do the work yourself. Do NOT skip spawning. Deploy ALL sub-agents in a single message with multiple Agent tool calls.
 
-## Forbidden Patterns
-[What to remove/avoid]
+Sub-agents:
+- "[NAME]": [files with line counts]
+- "[NAME]": [files with line counts]
 
-## Your Files
-[Absolute paths with line counts]
-
-## Rules
-- [Constraints]. Skip files already using approved patterns. Flag issues outside your files in "Flags for Commander" -- do NOT fix them.
-
-## Sub-agent Deployment
-Spawn [N] sub-agents in parallel (single message, multiple Agent calls). Each gets:
-- Sub-agent "[NAME]": [files with line counts]
-Pass each sub-agent: objective, their files, approved/forbidden patterns, rules, and the report format below. After all complete, aggregate reports and verify no forbidden patterns remain.
+Pass each sub-agent: objective, their files, approved/forbidden patterns, rules, report format. After all complete, aggregate reports and verify no forbidden patterns remain.
 ```
 
-## Prompt Template for Layer 2 Sub-agents
+## Layer 2 Prompt Template
 
 ```
 You are [SUB_AGENT_NAME], working under [TEAM_MEMBER_NAME].
 
-## Objective
-[One sentence]
+Objective: [One sentence]
+Files you own: [Absolute paths with line counts -- only touch these]
+Approved/Forbidden patterns: [Exact values to use and remove]
+Rules: [Constraints]. Skip files already correct. Flag issues outside your files -- do NOT fix them.
 
-## Files You Own
-[Absolute paths with line counts -- only touch these]
-
-## Approved Patterns / Forbidden Patterns
-[Exact values to use and remove]
-
-## Rules
-[Constraints]. Skip files already correct. Flag issues outside your files -- do NOT fix them.
-
-## Report Format
-Return: Files Modified (file: N replacements), Files Skipped (already correct), Flags for Commander, Issues Encountered, Status (COMPLETE/PARTIAL/FAILED).
+Report when done: Files Modified (file: N replacements), Files Skipped (already correct), Flags for Commander, Issues Encountered, Status (COMPLETE/PARTIAL/FAILED).
 ```
 
-## Scaling Guidelines
+<mandatory-rules>
+## MANDATORY RULES
 
-| Task Size | Team Members | Sub-agents/Member | Total Agents |
-|-----------|-------------|-------------------|--------------|
-| 6-12 files | 3 | 2 | 9 |
-| 12-25 files | 4-5 | 2-3 | 12-20 |
-| 25-50 files | 5-8 | 3-4 | 20-40 |
-| 50-100 files | 8-12 | 3-5 | 32-72 |
-| 100+ files | 12+ | 4+ | 60+ |
+1. EVERY Layer 1 agent MUST spawn 2+ sub-agents. No exceptions. If deploying without sub-agents, STOP and restructure.
+2. NEVER silently reduce army size. Match the user's chosen tier.
+3. Report as agents complete: `[Agent N/M complete] name: X files modified, Y flags`
+4. Show the army plan before deploying (Full Mode). Quick Mode: compose plan internally, skip confirmation.
+5. Sub-agent deployment instructions go INSIDE the Layer 1 brief. If missing, sub-agents will not exist.
+6. Build check after every wave. If it fails, trigger a fix wave.
+7. "Keep going" / "don't stop" = continuous mode. Launch new agents as each completes. Do not wait. Do not ask.
+</mandatory-rules>
 
-These are guidelines, not hard rules. Scale to the actual work -- the only hard constraints are the minimums (3 team members, 2 sub-agents each). Weight assignment by file size, not just file count.
+## Army Size
+
+Confirm tier before starting. Present this table:
+
+```
+| Tier | Agents | Total with Sub-agents | Cost Estimate |
+|------|--------|----------------------|---------------|
+| Conservative | 3 | ~9 | ~$2-5 |
+| Standard | 5-10 | ~15-30 | ~$5-15 |
+| Aggressive | 10-20 | ~30-60 | ~$15-40 |
+| Maximum | 20-50+ | ~60-100+ | ~$40+ |
+| Custom | You pick | You pick | Varies |
+
+Token costs are rough estimates. Pick a tier or enter a custom number:
+```
+
+Default to Standard if user says "just do it." Tier question applies to BOTH Quick and Full modes.
+
+## Deployment Gate
+
+Output this checklist in your response before deploying. Do NOT skip it. Do NOT just check it mentally.
+
+```
+DEPLOYMENT GATE:
+[ ] Every L1 brief contains "You MUST spawn N sub-agents"
+[ ] Every sub-agent named with specific files assigned
+[ ] Every file owned by exactly one sub-agent
+[ ] L1 briefs include full sub-agent deployment instructions
+[ ] Tier matches user's selection
+```
+
+All must PASS. If any FAIL: fix the plan first.
+
+## Protocol
+
+**Mode:** If scope is clear and specific (file paths, exact changes), skip to Step 3. Otherwise start at Step 1.
+
+### Step 1: Intake (Full Mode)
+
+Confirm with user:
+1. Goal (one sentence)
+2. Scope (files, directories, or "everything")
+3. Constraints (don't touch X, match Y style)
+4. Tier (show table above)
+
+If user already provided context, confirm in one line: "Goal: [X]. Scope: [Y]. Tier: [Z]. Starting."
+
+### Step 2: Git Checkpoint
+
+1. Run `git status`. Warn if uncommitted changes.
+2. Create checkpoint: `git checkout -b agent-army/checkpoint-{timestamp}`, switch back.
+3. No git repo? Warn user and get confirmation.
+
+### Step 3: Recon
+
+1. Scan -- Grep, Glob, Read to find all affected files
+2. Count units of work
+3. `wc -l` each file. Flag 500+ line files as heavy (assign solo)
+4. Classify into domains (by directory, imports, file type, naming pattern)
+5. Identify shared dependencies (foundation files -- handle first)
+6. Identify build command (check package.json, Makefile, etc.)
+
+Output scope report:
+```
+Files: N | Heavy: [list] | Domains: [list] | Shared deps: [list] | Build cmd: [cmd]
+```
+
+### Step 4: Compose
+
+1. Foundation Agent for shared deps (runs first, before parallel wave)
+2. Layer 1: 1 agent per domain. Split large domains across multiple agents.
+3. Layer 2: 2+ sub-agents per L1 agent based on file weight
+4. Name every agent. Assign every file to exactly one sub-agent.
+
+Output army plan. Full Mode: pause for "Proceed?" Quick Mode: show one-line summary, deploy.
+
+### Step 5: Deploy
+
+1. Foundation Agent first (if needed). Wait for completion.
+2. Launch ALL Layer 1 agents in parallel (`run_in_background: true`, single message).
+3. L1 agents spawn L2 sub-agents in parallel (per their brief).
+4. Report each completion: `[Agent N/M complete] name: results`
+
+### Step 6: Verify
+
+1. Re-scan for remaining violations (same searches as Step 3)
+2. Run build command
+3. Resolve cross-team flags
+4. Output army report:
+```
+Agents: N total | Files modified: N | Skipped: N | Build: PASS/FAIL | Flags: [list] | Rollback: git checkout agent-army/checkpoint-{timestamp}
+```
+
+## Waves
+
+After Wave 1: build + re-scan. If clean, done. If issues remain, deploy Wave 2 (fix wave). If still issues, Wave 3 (propagate to tests/docs). Max 3 waves. Pause for user approval before each.
+
+### Shared Scratchpad (optional)
+
+For complex multi-wave tasks, write `.army-state.md` after Wave 1: files modified, flags, issues, decisions. Wave 2 agents read it directly for full context. Skip for single-wave tasks.
+
+## Report Format
+
+Every agent returns:
+```
+## Report: [Name]
+Files Modified: [file: N replacements]
+Files Skipped: [file: reason]
+Flags for Commander: [issue or "None"]
+Issues: [issue or "None"]
+Status: COMPLETE / PARTIAL / FAILED
+```
 
 ## Error Handling
 
-- **Sub-agent fails**: Team member retries the sub-agent's files directly or spawns a replacement.
-- **Team member fails**: Commander spawns a replacement with the same brief.
-- **File conflict**: Prevented by the ownership model (no overlaps) and Foundation Agent (shared deps handled first). If a conflict somehow occurs, the commander resolves it manually after all agents complete.
-- **Partial completion**: The verification step (Step 6) catches anything missed. The structured report format makes it clear which files were and weren't completed.
-- **Build failure after completion**: Compare against the checkpoint branch to determine if the failure is new. If new, diagnose from the agent reports and fix directly.
-- **Idempotency on re-run**: Agents check for already-applied patterns before making changes, so running the army twice won't double-apply.
-
+- Sub-agent fails: L1 agent retries or spawns replacement
+- L1 agent fails: Commander spawns replacement with same brief
+- Build failure: compare against checkpoint, diagnose, fix wave
