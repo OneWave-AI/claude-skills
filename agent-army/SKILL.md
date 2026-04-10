@@ -36,6 +36,26 @@ You (Commander)
 
 **Key distinction:** Agent "swarms" are sub-agents splitting one context window -- one brain, divided. Agent Army uses agent teams where each member has its own independent context window. That's the difference between dividing one brain and deploying many.
 
+## NON-NEGOTIABLE RULES
+
+These rules are MANDATORY. Violating any of them is a failure state. Do not rationalize skipping them.
+
+1. **EVERY Layer 1 agent MUST spawn 2+ sub-agents.** No exceptions. No "this task is simple enough for one agent." If you are about to deploy a Layer 1 agent without sub-agents, STOP and restructure. The user chose this skill because they want the full hierarchy.
+
+2. **NEVER silently reduce the army size.** If the user chose Aggressive tier, deploy Aggressive. Do not quietly drop to 3 agents because "it seemed sufficient." Match the tier or explain why you can't.
+
+3. **Report progress as agents complete.** Do not go silent after deploying. Every time an agent finishes, immediately tell the user: "[Agent N/M complete] name: X files modified, Y flags." This is not optional.
+
+4. **Show the army plan before deploying (Full Mode).** Do not skip the plan. The user needs to see which agents own which files before you launch. In Quick Mode, you may skip the plan confirmation but you MUST still compose one internally.
+
+5. **Sub-agent briefs go INSIDE the Layer 1 prompt.** Each team member must receive explicit instructions to spawn their sub-agents. If you forget to include sub-agent deployment instructions in the Layer 1 brief, the sub-agents will not exist.
+
+6. **Build check after every wave.** Run the project's build command. If it fails, that's a new wave trigger. Do not skip the build check.
+
+7. **If the user says "keep going" or "don't stop", enter continuous mode.** Launch new agents as each completes. Do not wait for all to finish. Do not ask permission for each new launch.
+
+Failure to follow these rules means the skill was not executed correctly. The user will notice and will call it out.
+
 ## Army Size Selection
 
 Before composing the army, ask the user what concurrency level they want. Present this table:
@@ -96,16 +116,13 @@ Used when the user says "just do it", "use army", or gives a clear, specific tas
 
 **Detection heuristic:** If the user's request contains specific file paths, exact changes, or clear scope -- use Quick Mode. If it's vague ("make the site better", "audit everything") -- use Full Mode and ask questions.
 
-## Progress Updates
+## Progress Updates (MANDATORY)
 
-As agents complete, report their status immediately. Don't wait for all agents to finish before saying anything.
+You MUST report each agent's completion the moment it finishes. Do NOT batch updates. Do NOT wait for all agents. The user should never wonder "is anything happening?"
 
-```
-[Agent 3/8 complete] forms-agent: 4 files modified, 0 flags
-[Agent 4/8 complete] charts-agent: 6 files modified, 1 flag (missing type export)
-```
+Format: `[Agent N/M complete] agent-name: X files modified, Y flags`
 
-This keeps the user informed and lets them catch issues early.
+If an agent fails: `[Agent N/M FAILED] agent-name: error description -- spawning replacement`
 
 ## Continuous Deployment Mode
 
@@ -115,19 +132,22 @@ If the user says "keep going", "burn tokens", or "don't stop" -- enter continuou
 - Keep deploying until the task is fully complete or the user says stop
 - Report completions as they come in
 
-## Sub-agent Enforcement
+## Sub-agent Enforcement (MANDATORY)
 
-Before deploying Layer 1 agents, verify the plan includes sub-agents. Run this checklist:
+BEFORE deploying ANY Layer 1 agent, run this checklist. Do NOT proceed until all boxes are checked:
 
 ```
-Sub-agent Checklist:
-[ ] Every Layer 1 agent has 2+ sub-agents assigned
-[ ] Every sub-agent has specific file ownership
-[ ] No files are unassigned
-[ ] Sub-agent briefs are included in Layer 1 instructions
+DEPLOYMENT GATE -- all must pass:
+[x] Every Layer 1 agent brief contains "You MUST spawn N sub-agents"
+[x] Every sub-agent is named and has specific files assigned
+[x] Every file in the scope is owned by exactly one sub-agent
+[x] Zero files are unassigned
+[x] The Layer 1 brief includes the full sub-agent deployment instructions
 ```
 
-If any check fails, fix the plan before deploying. NEVER skip sub-agents unless the task genuinely has fewer than 6 units of work (in which case, ask the user if single agents are OK).
+If ANY check fails: STOP. Fix the plan. Then deploy.
+
+There is ONE exception: if the total task has fewer than 6 independent units of work, sub-agents add overhead without value. In that case, explicitly tell the user: "This task has N units of work. Sub-agents would add overhead. Deploying N single agents instead. OK?" Wait for confirmation.
 
 ## Execution Protocol
 
