@@ -194,7 +194,69 @@ After all agents complete:
 - To undo all changes: `git checkout agent-army/checkpoint-{timestamp}`
 ```
 
-5. **Mop up** -- If any violations remain or the build fails, either fix them directly or spawn a targeted follow-up agent. If the build fails, diagnose whether it's an agent error or a pre-existing issue (compare against the checkpoint).
+5. **Wave assessment** -- Determine if follow-up waves are needed (see Multi-Wave Protocol below).
+
+### Step 6: Multi-Wave Protocol
+
+After Wave 1 (Execute) completes, the Commander assesses the report and determines if additional waves are needed. Each wave is adaptive -- its composition is shaped by the previous wave's output. Maximum 4 waves total. The Commander presents each wave assessment to the user and waits for approval before launching.
+
+#### Wave Types
+
+| Wave | Name | Triggered When | Purpose |
+|------|------|---------------|---------|
+| 1 | **Execute** | Always | The core task -- make the changes |
+| 2 | **Audit** | Build fails, remaining violations, 20+ files changed, or cross-team flags | Fresh agents review Wave 1's work for consistency, edge cases, and correctness |
+| 3 | **Propagate** | Changes touch APIs, types, or interfaces; tests or docs exist that reference old patterns | Update tests, docs, configs, changelogs, and downstream files |
+| 4 | **Notify** | User opts in | Draft PR description, Slack summary, changelog entry, documentation updates |
+
+#### Wave Assessment Protocol
+
+After each wave completes, run this assessment:
+
+1. **Re-scan** -- Check for remaining violations from the original task.
+2. **Build check** -- Run the project's build command. Record PASS/FAIL.
+3. **Review flags** -- Collect all "Flags for Commander" from agent reports.
+4. **Score the wave** -- Based on the data:
+   - **Remaining violations > 0** → Audit wave needed (target: fix what was missed)
+   - **Build fails** → Audit wave needed (target: fix build errors)
+   - **Cross-team flags > 0** → Audit wave needed (target: resolve flagged issues)
+   - **20+ files modified AND no audit yet** → Audit wave recommended (fresh eyes catch what original agents miss)
+   - **Changed files are imported by tests/docs** → Propagate wave needed
+   - **User has specified notification channels** → Notify wave available
+
+5. **Present the assessment**:
+
+```
+## Wave Assessment
+
+Wave 1 (Execute) complete.
+- Files modified: N
+- Build: PASS / FAIL
+- Remaining violations: N
+- Cross-team flags: N
+
+### Recommendation
+- Wave 2 (Audit): [NEEDED / RECOMMENDED / NOT NEEDED] -- [reason]
+- Wave 3 (Propagate): [NEEDED / NOT NEEDED] -- [reason]
+- Wave 4 (Notify): [AVAILABLE if requested]
+
+Launch Wave 2? (Y / skip to Wave 3 / done)
+```
+
+6. **Compose the next wave's army** -- Each follow-up wave gets its own army composition, typically smaller and differently specialized than Wave 1:
+   - **Audit wave**: 3+ agents reviewing changed files with fresh context. Assign files that Wave 1 agents flagged or that the re-scan caught. Include a build-fix agent if the build failed.
+   - **Propagate wave**: Agents assigned to test files, doc files, config files, and any downstream code that imports from modified files.
+   - **Notify wave**: One agent per channel (PR drafter, Slack summarizer, changelog writer).
+
+7. **Repeat** -- After each wave, run the assessment again. Stop when all checks pass or max waves (4) reached.
+
+#### Wave Rules
+
+- Waves are **adaptive, not predefined** -- skip any wave that isn't needed.
+- Each wave is a **new, smaller army** -- different agents, different files, different purpose.
+- The Commander **always pauses for user approval** before launching a new wave.
+- **Max 4 waves** to prevent infinite loops. If issues persist after 4 waves, report them to the user for manual resolution.
+- Wave 1's report is Wave 2's reconnaissance. Wave 2's report is Wave 3's recon. Each wave feeds the next.
 
 ## Structured Report Format
 
@@ -326,4 +388,14 @@ These are guidelines, not hard rules. Scale to the actual work -- the only hard 
 
 User: "Replace all neon Tailwind colors with our sand palette across the site"
 
-Commander creates a git checkpoint branch, runs reconnaissance, finds 45 files with neon colors across 5 domains (forms, charts, blog posts, sections, pages) plus 2 shared dependencies (theme config, utility classes). Composes an army: 1 Foundation Agent for the shared files (runs first), then 5 team members with 2-4 sub-agents each (17 total sub-agents). Presents the Army Plan and waits for user confirmation. On approval, Foundation Agent runs and completes, then all 5 team members launch in parallel, each immediately spawning their sub-agents. 22 agents working in a coordinated wave. Verification re-scans, runs `npm run build`, and produces a structured report. Full migration completed with a clean rollback path.
+**Wave 1 (Execute):** Commander creates a git checkpoint, runs recon, finds 45 files across 5 domains plus 2 shared dependencies. Composes an army: 1 Foundation Agent (runs first on shared files), then 5 team members with 2-4 sub-agents each (22 agents total). All deploy in parallel. Structured reports come back: 43 files modified, 2 skipped (already correct), 3 cross-team flags.
+
+**Wave Assessment:** Build passes, but 3 cross-team flags exist and 2 remaining violations found in files that were edge cases. Commander recommends Audit wave.
+
+**Wave 2 (Audit):** Smaller army -- 3 agents targeting the flagged files and violations. Fresh context, fresh eyes. Fixes the remaining issues. Build passes clean.
+
+**Wave Assessment:** Zero violations, zero flags, build passes. Propagate wave recommended because 4 test files import from modified components.
+
+**Wave 3 (Propagate):** 3 agents update test files and one doc file that referenced old color tokens. Build still passes.
+
+**Final Report:** 3 waves, 28 total agents across all waves, 48 files touched, zero violations remaining, clean build. Rollback branch available if needed.
