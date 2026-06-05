@@ -2,7 +2,7 @@
 
 Production-ready skills for Claude Code. Built and maintained by [OneWave AI](https://www.onewave-ai.com) -- AI consulting for small and mid-size businesses.
 
-**172 skills** across business operations, sales, engineering, consulting, and AI agent architecture.
+**172 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
 
 ---
 
@@ -204,16 +204,16 @@ Every skill is a single `SKILL.md` file with YAML frontmatter:
 
 ```yaml
 ---
-name: skill-name
-description: What the skill does and when to use it.
-tools: Read, Write, Bash, Agent
-model: inherit
+name: skill-name                 # required — kebab-case, matches the folder
+description: What the skill does and when to use it.   # required — drives auto-selection
+tools: Read, Write, Bash, Agent  # optional — restrict tool access; omit to inherit all
+model: inherit                   # optional — pin a model; omit to inherit the session model
 ---
 
 # Skill prompt content here...
 ```
 
-Claude Code loads this as a system prompt when the skill is invoked. The `tools` field declares which Claude Code tools the skill needs access to.
+Claude Code loads this as a system prompt when the skill is invoked. Only `name` and `description` are required; most skills here use just those two. The `description` is what Claude reads to decide when to trigger the skill, so make it specific.
 
 ---
 
