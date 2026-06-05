@@ -109,9 +109,9 @@ Activate when the user:
 | Office | $XX | Supplies |
 
 ## Insights
-- ✓ Tax-deductible business expenses: $X,XXX
-- ⚠ Recurring charges detected: 3 subscriptions ($XXX/month)
-- ℹ Foreign transaction fees: $XX
+- Tax-deductible business expenses: $X,XXX
+- Recurring charges detected: 3 subscriptions ($XXX/month)
+- Foreign transaction fees: $XX
 
 ## Flagged Items
 - [ ] Large expense ($X,XXX) - verify approval

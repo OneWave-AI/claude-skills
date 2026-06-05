@@ -88,7 +88,7 @@ Activate when the user:
 ```markdown
 # Code Review Report
 
-## 🚨 Critical Issues (Fix Immediately)
+## Critical Issues (Fix Immediately)
 ### 1. SQL Injection Vulnerability (line X)
 **Severity**: Critical
 **Issue**: User input directly concatenated into SQL query
@@ -107,40 +107,40 @@ db.query(query, [userEmail]);
 
 **Explanation**: Always use parameterized queries to prevent SQL injection.
 
-## ⚠️ High Priority Issues
+## High Priority Issues
 ### 2. Performance: N+1 Query Problem (line Y)
 [Details...]
 
-## 💡 Medium Priority Issues
+## Medium Priority Issues
 ### 3. Code Quality: Function Too Long (line Z)
 [Details...]
 
-## ✅ Low Priority / Nice to Have
+## Low Priority / Nice to Have
 ### 4. Consider Using Const Instead of Let
 [Details...]
 
-## 📊 Summary
+## Summary
 - **Total Issues**: 12
   - Critical: 2
   - High: 4
   - Medium: 4
   - Low: 2
 
-## 🎯 Quick Wins
+## Quick Wins
 Changes with high impact and low effort:
 1. [Fix 1]
 2. [Fix 2]
 
-## 🏆 Strengths
+## Strengths
 - Good error handling in X
 - Clear naming conventions
 - Well-structured modules
 
-## 🔄 Refactoring Opportunities
+## Refactoring Opportunities
 1. **Extract Method**: Lines X-Y could be extracted into `calculateDiscount()`
 2. **Remove Duplication**: [specific code blocks]
 
-## 📚 Resources
+## Resources
 - [OWASP SQL Injection Guide](https://...)
 - [Performance Best Practices](https://...)
 ```

@@ -48,9 +48,9 @@ You are an expert at lead qualification and routing who helps sales teams maximi
 
 ---
 
-## 🎯 Quick Assessment
+## Quick Assessment
 
-**Priority**: 🔴 HOT / 🟡 WARM / 🟢 COOL / ⚪ NURTURE
+**Priority**: HOT / WARM / COOL / NURTURE
 
 **Recommendation**: [Call now / Call today / Email first / Add to nurture]
 
@@ -60,29 +60,29 @@ You are an expert at lead qualification and routing who helps sales teams maximi
 
 ---
 
-## 📊 Lead Scoring Breakdown
+## Lead Scoring Breakdown
 
-**ICP Fit**: 35/40 ⭐ STRONG FIT
+**ICP Fit**: 35/40 STRONG FIT
 - Company Size: 8/10 (250 employees, target is 200-500)
 - Industry: 10/10 (Perfect match: B2B SaaS)
 - Tech Stack: 9/10 (Using 3/4 target technologies)
 - Budget: 8/10 (Funded company, likely has budget)
 
-**Intent**: 25/30 ⭐ HIGH INTENT
+**Intent**: 25/30 HIGH INTENT
 - Requested demo (not just content download)
 - Visited pricing page 3x
 - Specific use case mentioned in form
 
-**Urgency**: 20/30 🟡 MODERATE
+**Urgency**: 20/30 MODERATE
 - Timeline: "Next quarter"
 - Not immediate but real need
 - Current solution expires in 60 days
 
-**Total**: 80/100 🔴 **HOT LEAD**
+**Total**: 80/100 **HOT LEAD**
 
 ---
 
-## 👤 Lead Details
+## Lead Details
 
 **Contact**:
 - Name: [First Last]
@@ -108,7 +108,7 @@ You are an expert at lead qualification and routing who helps sales teams maximi
 
 ---
 
-## 🎯 Qualification Questions
+## Qualification Questions
 
 **Must-Ask (Critical)**:
 1. "What's driving you to look at [product type] right now?"
@@ -129,7 +129,7 @@ You are an expert at lead qualification and routing who helps sales teams maximi
 
 ---
 
-## 💬 Recommended Outreach
+## Recommended Outreach
 
 **Call Script** (within 1 hour):
 ```
@@ -174,7 +174,7 @@ When's good for a quick 15-min call?
 
 ---
 
-## 🎪 Routing Logic
+## Routing Logic
 
 **Assign To**: [Rep Name]
 
@@ -189,7 +189,7 @@ When's good for a quick 15-min call?
 
 ---
 
-## 📈 Lead Intelligence
+## Lead Intelligence
 
 **Similar Customers**:
 - [Customer 1]: Similar size, closed in 30 days
@@ -207,7 +207,7 @@ When's good for a quick 15-min call?
 
 ---
 
-## 🚦 Next Steps
+## Next Steps
 
 **Immediate (1 hour)**:
 - [ ] Call lead (use script above)

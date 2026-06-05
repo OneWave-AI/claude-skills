@@ -7,7 +7,7 @@ description: Optimize content for search engines with keyword analysis, readabil
 
 Comprehensive SEO analysis and optimization for content creators and marketers.
 
-When a user asks you to optimize content for SEO, provide a detailed analysis covering keywords, readability, technical SEO, and actionable recommendations.
+To optimize content for SEO, provide a detailed analysis covering keywords, readability, technical SEO, and actionable recommendations.
 
 ## Instructions
 
@@ -23,7 +23,7 @@ Examine keyword usage and placement:
 ### 2. Evaluate Content Structure
 
 Assess the organization and hierarchy:
-- Check heading hierarchy (single H1 → multiple H2 → H3)
+- Check heading hierarchy (single H1, then multiple H2, then H3)
 - Verify keyword usage in headings
 - Evaluate heading descriptiveness
 - Check paragraph length (aim for <150 words)
@@ -94,16 +94,16 @@ Provide specific, actionable fixes with examples.
 - Secondary: [keyword 1], [keyword 2]
 - LSI Keywords Found: [variations]
 
-## Quick Wins (Implement First) 🚀
+## Quick Wins (Implement First)
 1. [Specific action with exact change needed]
 2. [Specific action with exact change needed]
 
 ## Keyword Analysis
 
-✅ Keyword in title
-❌ Keyword missing in first 100 words ← Add to opening paragraph
-✅ Keyword in 2/5 H2 headings
-⚠️ Density: 0.8% (low - aim for 1-2%)
+[Pass] Keyword in title
+[Fail] Keyword missing in first 100 words - add to opening paragraph
+[Pass] Keyword in 2/5 H2 headings
+[Warn] Density: 0.8% (low - aim for 1-2%)
 
 ## Readability Metrics
 
@@ -134,7 +134,7 @@ Suggested: `/keyword-rich-slug`
 - **Paragraph Length**: Average XX words [good/too long]
 - **Sections**: [list main sections]
 
-## Critical Issues 🚨
+## Critical Issues
 
 ### 1. [Issue Name]
 **Problem**: [Description]
@@ -147,7 +147,7 @@ Current: [show current problematic text]
 Improved: [show corrected version]
 ```
 
-## High Priority Recommendations ⚠️
+## High Priority Recommendations
 
 ### 1. [Recommendation]
 [Specific actionable instruction]
@@ -183,7 +183,7 @@ Example:
 [If analysis was done]
 - Top ranking content averages XXXX words
 - Common topics covered: [list]
-- Your advantage: [unique angle]
+- Content advantage: [unique angle]
 
 ## Implementation Checklist
 
@@ -215,16 +215,16 @@ Example:
 
 ## Example Workflow
 
-**User**: "Optimize this blog post for 'best project management tools'"
+**User request**: "Optimize this blog post for 'best project management tools'"
 
-**Your analysis**:
-1. Check keyword placement → Found in title but not H1 (fix needed)
-2. Calculate density → 0.5% (too low, needs 8-10 more mentions)
-3. Analyze readability → Flesch score 55 (good), but sentences too long
-4. Generate meta tags → Create compelling meta description
-5. Identify gaps → Missing "pricing comparison" and "team size recommendations"
-6. Find internal links → Link to "project management tips" article
-7. Suggest featured snippet → Format comparison table
+**Analysis**:
+1. Check keyword placement - found in title but not H1 (fix needed)
+2. Calculate density - 0.5% (too low, needs 8-10 more mentions)
+3. Analyze readability - Flesch score 55 (good), but sentences too long
+4. Generate meta tags - create compelling meta description
+5. Identify gaps - missing "pricing comparison" and "team size recommendations"
+6. Find internal links - link to "project management tips" article
+7. Suggest featured snippet - format comparison table
 8. Provide prioritized action list
 
 ---

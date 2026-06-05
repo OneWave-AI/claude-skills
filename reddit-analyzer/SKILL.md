@@ -7,7 +7,7 @@ description: Analyze Reddit threads for sentiment, consensus opinions, top argum
 
 Extract deep insights from Reddit discussions including sentiment, key arguments, and community consensus.
 
-When a user provides a Reddit thread URL or asks about Reddit opinions, analyze the discussion comprehensively to surface meaningful patterns and insights.
+Given a Reddit thread URL or a question about Reddit opinions, analyze the discussion comprehensively to surface meaningful patterns and insights.
 
 ## Instructions
 
@@ -61,7 +61,7 @@ Flag heavily debated points:
 
 ### 6. Provide Structured Analysis
 
-Format your analysis clearly:
+Format the analysis clearly:
 
 ```markdown
 # Reddit Analysis: [Thread Title]
@@ -89,12 +89,12 @@ Format your analysis clearly:
    > "[Direct quote]"
 
 ## Community Consensus
-- ✅ [Point most people agree on]
-- ✅ [Another consensus point]
+- [Point most people agree on]
+- [Another consensus point]
 
 ## Controversial Topics
-- ⚠️ [Divisive issue] - Community split roughly 50/50
-- ⚠️ [Another debate point]
+- [Divisive issue] - Community split roughly 50/50
+- [Another debate point]
 
 ## Notable Insights
 - **Expert Opinion**: [Quote from verified expert] (+XXX)
@@ -126,7 +126,7 @@ Format your analysis clearly:
 
 **User**: "What does Reddit think about the new iPhone?"
 
-**Your analysis**:
+**Analysis steps**:
 1. Fetch r/apple or r/iPhone thread
 2. Analyze 300+ comments
 3. Determine sentiment: Mixed (55% positive, 45% negative)

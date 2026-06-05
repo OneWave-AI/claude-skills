@@ -72,38 +72,38 @@ Activate when the user:
 # Meeting Summary: [Title]
 **Date**: [Date] | **Participants**: [Names]
 
-## 📋 Executive Summary
+## Executive Summary
 [2-3 sentence overview of meeting purpose and outcome]
 
-## ✅ Decisions Made
+## Decisions Made
 1. **[Decision]**
    - Owner: [Name]
    - Rationale: [Why]
    - Status: Final / Needs approval
 
-## 🎯 Action Items
+## Action Items
 | Priority | Action | Owner | Deadline | Status |
 |----------|--------|-------|----------|--------|
 | High | [Task] | [Name] | [Date] | Not started |
 | Medium | [Task] | [Name] | [Date] | Not started |
 
-## 🚧 Blockers & Risks
+## Blockers & Risks
 1. **[Blocker]** - [Impact] - Needs: [Action]
 2. **[Risk]** - [Mitigation plan]
 
-## 💬 Key Discussion Points
+## Key Discussion Points
 - [Topic 1]: [Summary]
 - [Topic 2]: [Summary]
 
-## ❓ Open Questions
+## Open Questions
 1. [Question] - Owner: [Who will answer]
 
-## 📊 Sentiment Analysis
+## Sentiment Analysis
 - **Overall Tone**: [productive/tense/etc.]
 - **Team Alignment**: [high/medium/low]
 - **Concerns Raised**: [Summary]
 
-## 📧 Follow-Up Email Draft
+## Follow-Up Email Draft
 
 Subject: Action Items from [Meeting Title] - [Date]
 

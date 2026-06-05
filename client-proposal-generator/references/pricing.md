@@ -77,7 +77,7 @@ Consulting rate benchmarks (adjust based on market, geography, and specializatio
 
 To calculate tier prices:
 - Estimate hours per role per phase
-- Apply a blended rate
+- Apply blended rate
 - Tier 1: 60-70% of full scope price
 - Tier 2: 100% of target price (the one you want them to buy)
 - Tier 3: 140-160% of target price

@@ -1,6 +1,6 @@
 # Team Composition
 
-Present the team that will deliver the work.
+Present the team that will deliver the work. If the user has not provided team details, use placeholder names and roles. Never fabricate specific people or credentials.
 
 ## Role Framework
 
@@ -36,5 +36,3 @@ Allocation: [X]% during Phases [N-N].
 
 [Continue for each team member]
 ```
-
-If the user has not provided team details, use placeholder names and roles. Never fabricate specific people or credentials.

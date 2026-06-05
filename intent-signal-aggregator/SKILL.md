@@ -45,9 +45,9 @@ You are an expert at identifying buyer intent signals that indicate a company is
 
 ---
 
-## 🔥 HOT ACCOUNTS (High Intent)
+## HOT ACCOUNTS (High Intent)
 
-### #1: [Company Name] - 🔴 URGENT
+### #1: [Company Name] - URGENT
 
 **Intent Score**: 95/100
 
@@ -73,7 +73,7 @@ You are an expert at identifying buyer intent signals that indicate a company is
 
 ---
 
-## 📊 Signal Tracking
+## Signal Tracking
 
 **By Signal Type**:
 | Signal | # Accounts | Avg Days to Reach Out | Win Rate |
@@ -87,7 +87,7 @@ You are an expert at identifying buyer intent signals that indicate a company is
 
 ---
 
-## 🎯 Weekly Digest
+## Weekly Digest
 
 **This Week's Hottest Accounts**:
 1. [Company] - Raised $X, hiring Y roles

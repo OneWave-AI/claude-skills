@@ -9,7 +9,7 @@ Convert UI screenshots into production-ready code with accurate styling and stru
 
 ## How This Works
 
-When a user provides a screenshot of a UI design:
+Given a screenshot of a UI design:
 1. Analyze the visual design thoroughly
 2. Generate clean, modern code that recreates it
 3. Provide complete, runnable implementation
@@ -26,7 +26,7 @@ Examine the image carefully and identify:
 
 ### 2. Determine the Framework
 
-Ask the user which framework they prefer:
+Ask which framework is preferred:
 - React (with Tailwind CSS or styled-components)
 - Vue.js
 - Plain HTML/CSS
@@ -71,8 +71,9 @@ Provide:
 
 ## Output Format
 
+Structure React + Tailwind output like this:
+
 ```jsx
-// Example structure for React + Tailwind
 import React from 'react';
 
 export default function ComponentName() {
@@ -107,19 +108,19 @@ Always include:
 **Forms**: Proper labels, validation states, accessible inputs
 **Modals**: Fixed positioning, backdrop, focus management
 
-## When You Can't Match Exactly
+## Handling Unclear Screenshots
 
-If the screenshot is unclear or ambiguous:
+When the screenshot is unclear or ambiguous:
 - Make reasonable assumptions based on common UI patterns
-- Note your interpretation in comments
-- Suggest alternatives the user might prefer
+- Note the chosen interpretation in comments
+- Suggest alternatives that might be preferred
 - Ask for clarification on critical decisions
 
 ## Example Workflow
 
-**User provides**: Screenshot of a landing page with hero section, feature cards, and footer
+**Input**: Screenshot of a landing page with hero section, feature cards, and footer
 
-**Your response**:
+**Response**:
 1. Analyze: Hero with large headline, 3-column feature grid, simple footer
 2. Ask: "Would you like this in React with Tailwind or plain HTML/CSS?"
 3. Generate: Complete implementation with responsive design
@@ -127,4 +128,4 @@ If the screenshot is unclear or ambiguous:
 
 ---
 
-**Remember**: The goal is to produce code so clean and accurate that it could be deployed immediately with minimal modifications.
+Aim to produce code so clean and accurate that it could be deployed immediately with minimal modifications.

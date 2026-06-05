@@ -5,300 +5,41 @@ description: Search and extract contact information for people or companies incl
 
 # Contact Hunter
 
-Find and enrich contact information from multiple sources with detailed attribution.
+Find and enrich publicly available contact information from multiple sources with full source attribution.
 
-## Instructions
+This skill guides the search process and organizes results. It does not directly access paid APIs; it produces structured queries, suggests where to look, then validates and formats what is found.
 
-When a user needs to find contact information:
+## Contents
+- `references/search-queries.md` — per-target search briefs and reusable query patterns
+- `references/output-templates.md` — data collection template, contact card, bulk CSV, email-pattern report, export formats
+- `references/compliance.md` — allowed/not-allowed rules, best practices, verification steps
 
-1. **Identify Search Type**:
-   - **Person search**: Find specific individual
-   - **Company search**: Find people at a company
-   - **Role search**: Find people with specific job title
-   - **Email verification**: Validate and enrich existing email
-   - **Bulk enrichment**: Enrich list of contacts
+## Workflow
 
-2. **Gather Search Parameters**:
-   - Person name (first, last)
-   - Company name
-   - Job title / role
-   - Location (city, state, country)
-   - Industry
-   - LinkedIn URL (if available)
-   - Email domain
-   - Any other identifying information
+1. Identify the search type: person, company, role, email verification, or bulk enrichment.
 
-3. **Search Strategy**:
+2. Gather search parameters: name, company, job title, location, industry, LinkedIn URL, email domain, and any other identifiers.
 
-   **Sources to Check** (suggest to user):
-   - LinkedIn (manual search with user's account)
-   - Company website (About, Team, Contact pages)
-   - GitHub (for developers)
-   - Twitter/X profiles
-   - Professional directories
-   - Public databases
-   - ZoomInfo (if user has access)
-   - Apollo.io (if user has access)
-   - Hunter.io (if user has access)
-   - RocketReach (if user has access)
+3. Select sources to check: LinkedIn, company website (About/Team/Contact/Leadership), GitHub (developers), Twitter/X, professional directories, public databases, and any paid tools the user has access to (ZoomInfo, Apollo.io, Hunter.io, RocketReach).
 
-   **⚠️ Important**: This skill GUIDES the search process. It doesn't directly access paid APIs. Instead, it:
-   - Provides structured search queries
-   - Suggests where to look
-   - Helps organize found information
-   - Validates and formats results
+4. Build the search plan using the query patterns in `references/search-queries.md`. Produce a per-target brief with LinkedIn, Google, company-website, email-pattern, and GitHub queries.
 
-4. **Search Instructions Format**:
-   ```
-   🔍 CONTACT SEARCH: [Name/Company]
+5. Detect the company email pattern from confirmed addresses, then derive candidate emails. See the email-pattern report in `references/output-templates.md`.
 
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   📋 SEARCH PARAMETERS
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+6. Collect and verify results. Cross-reference multiple sources and run the verification steps in `references/compliance.md` before recording any field.
 
-   Target: John Smith
-   Company: Acme Corp
-   Title: VP of Engineering
-   Location: San Francisco, CA
+7. Format output using the templates in `references/output-templates.md`: data collection template, individual contact card, or bulk CSV. Export as CSV, JSON, vCard, or CRM-specific CSV (Salesforce, HubSpot) as requested.
 
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   🎯 RECOMMENDED SEARCH QUERIES
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+8. For enrichment of existing contacts, refresh: current job title, company changes, updated contact info, social profiles, company information, reporting structure, and recent activity.
 
-   LinkedIn:
-   1. Search: "John Smith VP Engineering Acme Corp"
-   2. Use company filter: "Acme Corp"
-   3. Use title filter: "VP of Engineering"
-   4. Location: "San Francisco Bay Area"
+## Quality bar
 
-   Google:
-   1. "John Smith" "VP of Engineering" "Acme Corp"
-   2. "John Smith" "Acme Corp" email
-   3. site:linkedin.com/in "John Smith" "Acme"
-   4. site:acme.com "John Smith"
+Ensure every contact record includes all available fields, cites its sources, carries a confidence/verification level and freshness date, follows data-privacy law, is formatted consistently, notes contact preferences, provides role context (tenure, team), flags uncertainties, and suggests verification steps. Operate only within the rules in `references/compliance.md`.
 
-   Company Website:
-   1. Check: https://acme.com/about
-   2. Check: https://acme.com/team
-   3. Check: https://acme.com/leadership
-   4. Check: https://acme.com/contact
-
-   Email Pattern Guessing:
-   Common patterns at acme.com:
-   • john.smith@acme.com
-   • john@acme.com
-   • jsmith@acme.com
-   • j.smith@acme.com
-   • smithj@acme.com
-
-   GitHub (for technical roles):
-   • Search: "John Smith Acme"
-   • Look for company in bio
-
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   📝 DATA COLLECTION TEMPLATE
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-   Once you find the information, fill this template:
-
-   Full Name: [First Last]
-   Job Title: [Exact title]
-   Company: [Company name]
-   Email: [email@domain.com]
-   Phone: [(xxx) xxx-xxxx]
-   LinkedIn: [linkedin.com/in/username]
-   Location: [City, State/Country]
-   Department: [Engineering, Sales, etc.]
-
-   Additional Info:
-   • Reports to: [Manager name]
-   • Team size: [Number]
-   • Start date: [When they joined]
-   • Previous companies: [List]
-   • Education: [Degree, School]
-
-   Data Sources:
-   • [LinkedIn profile URL]
-   • [Company website URL]
-   • [Other sources]
-
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   ✅ VERIFICATION STEPS
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-   1. Cross-reference multiple sources
-   2. Check LinkedIn profile matches company
-   3. Verify email format matches company pattern
-   4. Validate phone number format
-   5. Confirm job title is current
-   6. Check for recent company changes
-
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   ⚠️ COMPLIANCE & ETHICS
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-   • Only use publicly available information
-   • Respect privacy and GDPR regulations
-   • Don't scrape private databases
-   • Honor do-not-contact preferences
-   • Use for legitimate business purposes only
-   • Keep CAN-SPAM compliance for cold outreach
-   ```
-
-5. **Organize Results**:
-
-   **Individual Contact Card**:
-   ```
-   ┌─────────────────────────────────────────┐
-   │ JOHN SMITH                              │
-   │ VP of Engineering @ Acme Corp           │
-   ├─────────────────────────────────────────┤
-   │ 📧 john.smith@acme.com                  │
-   │ 📱 (415) 555-0123                       │
-   │ 💼 linkedin.com/in/johnsmith            │
-   │ 📍 San Francisco, CA                    │
-   ├─────────────────────────────────────────┤
-   │ Department: Engineering                 │
-   │ Reports to: Sarah Chen (CTO)            │
-   │ Team size: ~45 engineers                │
-   │ Tenure: 2+ years at Acme                │
-   ├─────────────────────────────────────────┤
-   │ 🔍 Sources:                             │
-   │ • LinkedIn (verified)                   │
-   │ • Company website                       │
-   │ • Verified: 2024-01-15                  │
-   └─────────────────────────────────────────┘
-   ```
-
-   **Bulk Results** (CSV/Excel format):
-   ```csv
-   Name,Title,Company,Email,Phone,LinkedIn,Location,Source,Verified
-   John Smith,VP Engineering,Acme Corp,john.smith@acme.com,(415) 555-0123,linkedin.com/in/johnsmith,San Francisco,LinkedIn,2024-01-15
-   Jane Doe,Director Marketing,Acme Corp,jane.doe@acme.com,(415) 555-0124,linkedin.com/in/janedoe,San Francisco,Company Website,2024-01-15
-   ```
-
-6. **Email Pattern Detection**:
-
-   When searching company contacts, detect email patterns:
-   ```
-   🔍 DETECTED EMAIL PATTERN: Acme Corp
-
-   Confirmed Emails Found:
-   • john.smith@acme.com
-   • sarah.chen@acme.com
-   • michael.jones@acme.com
-
-   Detected Pattern: firstname.lastname@acme.com
-
-   Confidence: 95%
-
-   Alternative Patterns (if primary fails):
-   • firstname@acme.com
-   • firstnamelastname@acme.com
-   • f.lastname@acme.com
-
-   To Verify Unknown Email:
-   1. Use email verification tool
-   2. Check for bounce/invalid
-   3. Look for SMTP response
-   4. Verify on LinkedIn
-   ```
-
-7. **Data Enrichment**:
-
-   For existing contacts, enrich with:
-   - Current job title
-   - Company changes
-   - Updated contact info
-   - Social profiles
-   - Company information
-   - Reporting structure
-   - Recent activity/posts
-
-8. **Export Formats**:
-
-   - **CSV**: For CRM import
-   - **JSON**: For API integration
-   - **vCard**: For contact managers
-   - **Salesforce CSV**: Pre-formatted for SFDC
-   - **HubSpot CSV**: Pre-formatted for HubSpot
-
-## Search Strategies
-
-**For Company Employees**:
-```
-site:linkedin.com/in "[Company Name]"
-OR
-site:[company-domain.com] "team" OR "about" OR "leadership"
-```
-
-**For Specific Roles**:
-```
-"[Job Title]" "[Company]" email
-OR
-"[Job Title]" site:linkedin.com "[Company]"
-```
-
-**For Email Validation**:
-- Check company website for email format
-- Use email verification services
-- Look for pattern in existing emails
-- Test with email finder tools
-
-**For Phone Numbers**:
-- Company website contact page
-- LinkedIn profile (sometimes public)
-- Professional directories
-- Industry associations
-
-## Example Triggers
-
+## Example triggers
 - "Find the VP of Sales at Acme Corp"
 - "Get contact info for John Smith at Microsoft"
 - "Find engineering managers at Stripe"
 - "Enrich this list of contacts with emails"
 - "What's the email pattern at Google?"
 - "Find the marketing team at HubSpot"
-
-## Compliance Guidelines
-
-**What's Allowed**:
-- Publicly available information
-- Business contact information
-- LinkedIn public profiles
-- Company websites
-- Professional directories
-- Published contact lists
-
-**What's NOT Allowed**:
-- Scraping private databases
-- Purchasing questionable contact lists
-- Bypassing email verification
-- Ignoring opt-out requests
-- Violating GDPR/CCPA
-- Harassing contacts
-
-**Best Practices**:
-- Always cite data sources
-- Respect privacy preferences
-- Use for legitimate business purposes
-- Keep data up to date
-- Provide opt-out mechanisms
-- Follow CAN-SPAM for outreach
-- Comply with data protection laws
-
-## Output Quality
-
-Ensure contact information:
-- Includes all available fields
-- Cites data sources
-- Has confidence/verification level
-- Follows data privacy laws
-- Is formatted consistently
-- Includes contact preferences
-- Notes data freshness
-- Provides context (tenure, role, team)
-- Flags any uncertainties
-- Suggests verification steps
-
-Provide structured, ethically-sourced contact information with full transparency.

@@ -1,23 +1,19 @@
 # Client Research
 
-Research the client company to personalize the proposal. This is what separates a template from a real proposal.
+Research the client company to personalize the proposal. This is what separates a template from a real proposal. If web research is unavailable or returns limited results, note this and proceed with what is available. A slightly less personalized proposal is better than no proposal.
 
-## Web Research
+## What to Gather (Web Research)
 
-Use WebSearch and Bash to gather:
+Use WebSearch and Bash to collect:
 
-1. Company overview -- what they do, industry, size, location, founding year
-2. Recent news -- funding, acquisitions, product launches, leadership changes (last 6 months)
-3. Technology signals -- job postings (tech stack and pain points), GitHub repos, tech blog posts
-4. Industry context -- current trends and challenges in their sector
-5. Competitors -- who they compete with (positions the proposal in context)
-6. Company values/culture -- about page, mission statement, LinkedIn
+1. Company overview -- What they do, industry, size, location, founding year
+2. Recent news -- Funding, acquisitions, product launches, leadership changes (last 6 months)
+3. Technology signals -- Job postings (indicate tech stack and pain points), GitHub repos, tech blog posts
+4. Industry context -- Current trends and challenges in their sector
+5. Competitors -- Who they compete with (positions the proposal in context)
+6. Company values/culture -- From their about page, mission statement, LinkedIn
 
-If web research is unavailable or thin, note it and proceed. A slightly less personalized proposal beats no proposal.
-
-## Research Brief Structure
-
-Organize findings into this brief:
+## Research Brief Template
 
 ```
 ## Client Research Brief: [Client Name]

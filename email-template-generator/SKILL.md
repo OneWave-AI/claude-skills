@@ -9,7 +9,7 @@ Generate professional, effective email templates for any business scenario.
 
 ## Instructions
 
-When a user requests an email template or needs help writing business emails:
+Follow this workflow to generate an email template or help write business emails:
 
 1. **Identify Email Type**:
    - Sales/Cold outreach
@@ -21,12 +21,12 @@ When a user requests an email template or needs help writing business emails:
    - Thank you note
    - Rejection/decline
 
-2. **Gather Context**:
-   - What is the purpose of this email?
-   - Who is the recipient (role, relationship)?
-   - What action do you want them to take?
-   - What tone is appropriate (formal, casual, friendly, apologetic)?
-   - Any specific details or information to include?
+2. **Gather Context**. Determine:
+   - The purpose of the email
+   - The recipient (role, relationship)
+   - The action the recipient should take
+   - The appropriate tone (formal, casual, friendly, apologetic)
+   - Any specific details or information to include
 
 3. **Generate Template** with:
    - **Subject Line**: Clear, compelling, action-oriented
@@ -48,66 +48,58 @@ When a user requests an email template or needs help writing business emails:
    - Follow-up cadence
    - Common mistakes to avoid
 
-6. **Format Output**:
+6. **Format Output** using this structure:
    ```
-   📧 EMAIL TEMPLATE: [Type]
+   EMAIL TEMPLATE: [Type]
 
-   🎯 PURPOSE: [Goal]
-   👤 AUDIENCE: [Recipient type]
+   PURPOSE: [Goal]
+   AUDIENCE: [Recipient type]
 
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   VERSION 1: SHORT (Mobile-Friendly)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ## Version 1: Short (Mobile-Friendly)
 
    Subject: [Subject line]
 
    [Email content]
 
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   VERSION 2: STANDARD (Recommended)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ## Version 2: Standard (Recommended)
 
    Subject: [Subject line]
 
    [Email content]
 
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   VERSION 3: DETAILED (Comprehensive)
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ## Version 3: Detailed (Comprehensive)
 
    Subject: [Subject line]
 
    [Email content]
 
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   💡 OPTIMIZATION TIPS
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   ## Optimization Tips
 
-   ✅ Subject Line:
-      • [Tip 1]
-      • [Tip 2]
+   Subject Line:
+      - [Tip 1]
+      - [Tip 2]
 
-   ✅ Personalization:
-      • [Token 1]
-      • [Token 2]
+   Personalization:
+      - [Token 1]
+      - [Token 2]
 
-   ✅ Timing:
-      • Best send time: [Time]
-      • Follow-up: [Cadence]
+   Timing:
+      - Best send time: [Time]
+      - Follow-up: [Cadence]
 
-   ✅ A/B Testing:
-      • Test subject lines: [Option A] vs [Option B]
+   A/B Testing:
+      - Test subject lines: [Option A] vs [Option B]
 
-   ⚠️ Common Mistakes:
-      • [Mistake 1]
-      • [Mistake 2]
+   Common Mistakes:
+      - [Mistake 1]
+      - [Mistake 2]
    ```
 
-7. **Special Scenarios**:
+7. **Handle Special Scenarios**:
    - **Cold outreach**: Focus on value proposition, social proof
    - **Apology emails**: Acknowledge issue, take responsibility, offer solution
    - **Follow-ups**: Reference previous conversation, add new value
-   - **Sales**: Problem → Solution → Proof → CTA structure
+   - **Sales**: Problem then Solution then Proof then CTA structure
 
 ## Example Triggers
 

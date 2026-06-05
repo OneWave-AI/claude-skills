@@ -1,7 +1,5 @@
 # Analysis Framework
 
-Use this framework to map and diagnose the current manual workflow before designing the automated replacement.
-
 ## Step 1: Current State Mapping
 
 Break the workflow into a structured table with these columns:
@@ -10,7 +8,6 @@ Break the workflow into a structured table with these columns:
 |--------|--------|-------|-------------|-------|--------|-------------|-----------|---------------|
 
 Classify each step as one of:
-
 - **Manual-Repetitive**: Human does the same thing every time (prime automation target)
 - **Manual-Judgment**: Human makes a decision based on context (needs rules or AI)
 - **Manual-Creative**: Human produces original content (may need AI assist or templates)

@@ -98,21 +98,21 @@ $                 - End anchor
 
 ## Test Results
 
-### ✅ Matches
-- `A123` → ✓ Full match
-- `Z999` → ✓ Full match
+### Matches
+- `A123` -> Full match
+- `Z999` -> Full match
 
-### ❌ No Match
-- `a123` → ✗ Lowercase 'a' doesn't match [A-Z]
-- `A12` → ✗ Only 2 digits (needs 3)
-- `A1234` → ✗ Too many digits
+### No Match
+- `a123` -> Lowercase 'a' doesn't match [A-Z]
+- `A12` -> Only 2 digits (needs 3)
+- `A1234` -> Too many digits
 
 ## Capture Groups
 1. Group 1: `[captured text]`
 2. Group 2: `[captured text]`
 
 ## Issues Found
-⚠️ **Issue 1**: Pattern is too restrictive
+**Issue 1**: Pattern is too restrictive
 - **Problem**: Doesn't handle lowercase letters
 - **Fix**: Use `[A-Za-z]` instead of `[A-Z]`
 
