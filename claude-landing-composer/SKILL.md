@@ -1,6 +1,6 @@
 ---
 name: claude-landing-composer
-description: Compose a premium, animated landing page section by section in Next.js + Tailwind + Framer Motion — built on a real design system, with editorial copy and motion that feels human-crafted, not template-generated. Use when building or rebuilding a landing page, marketing site, or hero/feature/pricing/CTA sections that need to look production-ready and bespoke from day one.
+description: Compose a premium, animated landing page section by section in Next.js + Tailwind + Motion (Framer Motion) — built on a real design system, with editorial copy and motion that feels human-crafted, not template-generated. Use when building or rebuilding a landing page, marketing site, or hero/feature/pricing/CTA sections that need to look production-ready and bespoke from day one.
 tools: Read, Write, Bash, Glob, Grep, WebSearch, WebFetch, Agent
 model: inherit
 ---
@@ -19,7 +19,7 @@ Build on a design system from `claude-design-system-architect` when one exists. 
 - **Tokens** — load the design system. If none exists, generate one first (`claude-design-system-architect`); do not hardcode arbitrary colors/sizes.
 
 ### Stack & house rules
-Next.js + React + TypeScript + Tailwind + Framer Motion (the default stack). **No purple. No emoji** — use Lucide/Heroicons. Warm/earth tones and dark surfaces welcome. Motion is expected — typewriter, animated counters, spring/stagger reveals — used with restraint.
+Next.js (App Router) + React + TypeScript + Tailwind v4 + Motion (the library formerly published as Framer Motion) — the default stack. **No purple. No emoji** — use Lucide/Heroicons. Warm/earth tones and dark surfaces welcome. Motion is expected — typewriter, animated counters, spring/stagger reveals — used with restraint.
 
 ## Step 2 — Compose section by section
 
