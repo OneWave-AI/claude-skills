@@ -51,7 +51,7 @@ URL:     <optional website or product URL>
 Focus:   <optional specific areas of concern>
 ```
 
-When the user provides only a company name, run baseline WebSearch before deploying the specialist agents.
+Given only a company name, run baseline WebSearch before deploying the specialist agents.
 
 ## Workflow
 
