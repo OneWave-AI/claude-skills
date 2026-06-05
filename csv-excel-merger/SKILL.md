@@ -5,248 +5,80 @@ description: Merge multiple CSV/Excel files with intelligent column matching, da
 
 # CSV/Excel Merger
 
-Intelligently merge multiple CSV or Excel files with automatic column matching and data deduplication.
+Merge multiple CSV or Excel files with automatic column matching, deduplication, and conflict resolution.
 
-## Instructions
+## Contents
 
-When a user needs to merge CSV or Excel files:
+- [Workflow](#workflow) — the step-by-step merge process
+- [Verification](#verification) — confirm the merge before handing it back
+- [Special cases](#special-cases) — encoding, compound keys, large files
+- [Guidelines](#guidelines) — quality and transparency standards
+- [Example triggers](#example-triggers)
+- `references/merge_strategies.md` — column matching, conflict resolution, and dedup options
+- `references/output_template.md` — the merge-report format
 
-1. **Analyze Input Files**:
-   - How many files need to be merged?
-   - What format (CSV, Excel, TSV)?
-   - Are the files provided or need to be read from disk?
-   - Do columns have the same names across files?
-   - What is the primary key (unique identifier)?
+## Workflow
 
-2. **Inspect File Structures**:
-   - Read headers from each file
-   - Identify column names and data types
-   - Detect encoding (UTF-8, Latin-1, etc.)
-   - Check for missing columns
-   - Look for duplicate column names
+1. **Inspect the inputs.** Determine file count, format (CSV / Excel / TSV), and whether the files are attached or read from disk. Read each header; identify column names, data types, and encoding (UTF-8, Latin-1). Note the candidate primary key.
 
-3. **Create Merge Strategy**:
+2. **Plan the merge.** Match columns across files to one unified schema, choose a conflict-resolution rule, and pick a deduplication strategy. See `references/merge_strategies.md` for the matching heuristics and the full set of options.
 
-   **Column Matching**:
-   - Exact name match: "email" = "email"
-   - Case-insensitive: "Email" = "email"
-   - Fuzzy match: "E-mail" ≈ "email"
-   - Common patterns:
-     - "first_name", "firstname", "First Name" → "first_name"
-     - "phone", "phone_number", "tel" → "phone"
-     - "email", "e-mail", "email_address" → "email"
-
-   **Conflict Resolution** (when same record appears in multiple files):
-   - **Keep first**: Use value from first file
-   - **Keep last**: Use value from last file (most recent)
-   - **Keep longest**: Use most complete value
-   - **Manual review**: Flag conflicts for user review
-   - **Merge**: Combine non-conflicting fields
-
-   **Deduplication**:
-   - Identify duplicate rows based on primary key
-   - Options: keep first, keep last, keep all, merge values
-   - Track source file for each row
-
-4. **Perform Merge**:
+3. **Execute the merge** with pandas:
 
    ```python
-   # Example merge logic
    import pandas as pd
 
-   # Read files
-   df1 = pd.read_csv('file1.csv')
-   df2 = pd.read_csv('file2.csv')
+   df1 = pd.read_csv("file1.csv")
+   df2 = pd.read_csv("file2.csv")
 
-   # Normalize column names
-   df1.columns = df1.columns.str.lower().str.strip()
-   df2.columns = df2.columns.str.lower().str.strip()
+   # Normalize, then map column names onto the unified schema
+   for df in (df1, df2):
+       df.columns = df.columns.str.lower().str.strip()
+   df2 = df2.rename(columns={"firstname": "first_name", "e_mail": "email"})
 
-   # Map similar columns
-   column_mapping = {
-       'firstname': 'first_name',
-       'e_mail': 'email',
-       # ...
-   }
-   df2 = df2.rename(columns=column_mapping)
-
-   # Merge
    merged = pd.concat([df1, df2], ignore_index=True)
-
-   # Deduplicate
-   merged = merged.drop_duplicates(subset=['email'], keep='last')
-
-   # Save
-   merged.to_csv('merged_output.csv', index=False)
+   merged = merged.drop_duplicates(subset=["email"], keep="last")
+   merged.to_csv("merged_output.csv", index=False)
    ```
 
-5. **Format Output**:
-   ```
-   📊 CSV/EXCEL MERGER REPORT
+4. **Verify the result** before reporting — see [Verification](#verification).
 
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   📁 INPUT FILES
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+5. **Report** using the layout in `references/output_template.md`, then offer export options: CSV (UTF-8), Excel (.xlsx), JSON, SQL INSERT statements, or Parquet for large datasets.
 
-   File 1: contacts_jan.csv
-     Rows: 1,245
-     Columns: 8 (name, email, phone, company, ...)
+## Verification
 
-   File 2: contacts_feb.csv
-     Rows: 987
-     Columns: 9 (firstname, lastname, email, mobile, ...)
+Never hand back a merge without checking it. After merging, assert the row math holds and the key is actually unique:
 
-   File 3: leads_export.xlsx
-     Rows: 2,103
-     Columns: 12 (full_name, email_address, phone, ...)
+```python
+total_in = len(df1) + len(df2)
+assert len(merged) > 0, "merge produced an empty frame"
+assert len(merged) <= total_in, "more rows than inputs — check the concat/join"
+assert merged["email"].is_unique, "duplicate keys remain after dedup"
 
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   🔄 COLUMN MAPPING
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+print(f"in: {total_in} rows | out: {len(merged)} rows | removed: {total_in - len(merged)}")
+print(f"null keys: {merged['email'].isna().sum()} | columns: {list(merged.columns)}")
+```
 
-   Unified Schema:
-   • first_name ← [firstname, first name, fname]
-   • last_name ← [lastname, last name, lname]
-   • email ← [email, e-mail, email_address]
-   • phone ← [phone, mobile, phone_number, tel]
-   • company ← [company, organization, org]
-   • title ← [title, job_title, position]
-   • source ← [file origin tracking]
+Report rows in vs. out, duplicates removed, and per-column completeness so the user can sanity-check the numbers against their own expectations.
 
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   🔍 MERGE ANALYSIS
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+## Special cases
 
-   Total rows before merge: 4,335
-   Duplicate records found: 892
-   Conflicts detected: 47
+- **Compound keys** — when no single column is unique, key on a tuple: `subset=["email", "company"]`.
+- **Mixed data types** — standardize dates, phone numbers, and country codes; strip whitespace and normalize casing *before* deduping, or near-duplicates slip through.
+- **Missing columns** — fill absent columns with empty values and flag them in the report; never silently drop data.
+- **Large files (>100MB)** — read in chunks (`pd.read_csv(path, chunksize=...)`), report progress, and estimate memory before loading everything at once.
 
-   Deduplication Strategy: Keep most recent (by source file date)
-   Primary Key: email
+## Guidelines
 
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   ⚠️ CONFLICTS
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+- **Column matching** — prefer exact, then case-insensitive, then fuzzy. Always emit the original → unified mapping so every match is auditable, and allow manual override.
+- **Data quality** — trim whitespace, standardize formats, flag invalid values, preserve types.
+- **Transparency** — track the source file for every surviving row, log each merge decision, and report all conflicts with their resolutions.
+- **Performance** — chunk large files, process in batches, and show progress on long-running merges.
 
-   Record: john.doe@example.com
-     File 1 phone: (555) 123-4567
-     File 2 phone: (555) 987-6543
-     Resolution: Kept most recent (File 2)
-
-   [List top 10 conflicts]
-
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   ✅ MERGE RESULTS
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-   Output File: merged_contacts.csv
-   Total Rows: 3,443
-   Columns: 7
-   Duplicates Removed: 892
-
-   Breakdown by Source:
-   • contacts_jan.csv: 1,245 rows (398 unique)
-   • contacts_feb.csv: 987 rows (521 unique)
-   • leads_export.xlsx: 2,103 rows (2,524 unique)
-
-   Data Quality:
-   • Email completeness: 98.2%
-   • Phone completeness: 87.5%
-   • Company completeness: 91.3%
-
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-   💡 RECOMMENDATIONS
-   ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-
-   • Review 47 conflict records manually
-   • Standardize phone number format
-   • Fill missing company names (8.7% incomplete)
-   • Export conflicts to: conflicts_review.csv
-   ```
-
-6. **Handle Special Cases**:
-
-   **Multiple Primary Keys**:
-   - Use compound keys: (email + company)
-   - Offer options when ambiguous
-
-   **Different Data Types**:
-   - Convert dates to standard format
-   - Normalize phone numbers
-   - Standardize country codes
-   - Clean whitespace and casing
-
-   **Missing Columns**:
-   - Fill with empty values
-   - Flag missing data
-   - Offer to create new columns
-
-   **Large Files**:
-   - Use chunking for files > 100MB
-   - Show progress indicator
-   - Estimate memory usage
-
-7. **Generate Code**:
-   Provide Python/pandas script that:
-   - Reads all files
-   - Performs intelligent column matching
-   - Deduplicates based on strategy
-   - Resolves conflicts
-   - Saves merged output
-   - Generates detailed report
-
-8. **Export Options**:
-   - CSV (UTF-8)
-   - Excel (.xlsx)
-   - JSON
-   - SQL INSERT statements
-   - Parquet (for large datasets)
-
-## Example Triggers
+## Example triggers
 
 - "Merge these three CSV files"
 - "Combine multiple Excel sheets into one file"
 - "Deduplicate and merge customer data"
 - "Join spreadsheets with different column names"
 - "Consolidate contact lists from different sources"
-
-## Best Practices
-
-**Column Matching**:
-- Use fuzzy matching for similar names
-- Maintain original column name mapping report
-- Allow manual override of auto-matching
-
-**Data Quality**:
-- Trim whitespace
-- Standardize formats (phone, email, dates)
-- Detect and flag invalid data
-- Preserve data types
-
-**Performance**:
-- Use chunking for large files
-- Process in batches
-- Show progress for long operations
-- Optimize memory usage
-
-**Transparency**:
-- Log all merge decisions
-- Track source file for each row
-- Report conflicts and resolutions
-- Generate detailed merge report
-
-## Output Quality
-
-Ensure merges:
-- Intelligently match columns
-- Handle different schemas
-- Deduplicate properly
-- Preserve data integrity
-- Flag conflicts for review
-- Generate comprehensive report
-- Maintain data quality
-- Track data lineage (source)
-- Handle edge cases gracefully
-- Provide validation statistics
-
-Generate clean, deduplicated merged files with full transparency and data quality checks.
