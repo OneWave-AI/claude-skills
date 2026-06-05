@@ -2,7 +2,7 @@
 
 Production-ready skills for Claude Code. Built and maintained by [OneWave AI](https://www.onewave-ai.com) -- AI consulting for small and mid-size businesses.
 
-**162 skills** across business operations, sales, engineering, consulting, and AI agent architecture.
+**172 skills** across business operations, sales, engineering, consulting, and AI agent architecture.
 
 ---
 
@@ -57,6 +57,9 @@ Skills built around specific Anthropic product releases.
 | `cowork-deal-room` | Cowork-style multi-step deal room document analysis |
 | `gmail-to-crm-pipeline` | MCP Connectors: Gmail to CRM lead qualification pipeline |
 | `full-codebase-migrator` | 1M context window: ingest entire codebases for migration planning |
+| `claude-design-system-architect` | Generate a premium design system (tokens, type, motion) exported to Tailwind/CSS |
+| `claude-landing-composer` | Build premium animated landing pages in Next.js + Framer Motion, anti-template |
+| `claude-design-critic` | Audit a UI and de-AI it — design + copy fixes toward editorial/premium |
 
 ### Sales and Revenue
 | Skill | Description |
@@ -84,6 +87,10 @@ Skills built around specific Anthropic product releases.
 | `ramping-rep-tracker` | 30/60/90/120 day ramp milestones |
 | `rep-performance-scorecard` | Multi-dimensional rep evaluation |
 | `territory-planning-optimizer` | Account assignment by revenue potential |
+| `icp-deep-scanner` | Read-only deep scan of connected tools → data-grounded ICP + persona library |
+| `customer-panel-of-experts` | Your buyer personas debate any decision (launch, price, product) and recommend |
+| `prospect-panel-simulator` | Simulate prospects to pressure-test emails, decks, and pages before sending |
+| `pricing-change-strategist` | Plan a price increase: segmentation, scenarios, grandfathering, full comms kit |
 
 ### Consulting and Professional Services
 | Skill | Description |
@@ -157,6 +164,9 @@ Skills built around specific Anthropic product releases.
 | `webinar-content-repurposer` | Webinar to blog, social, email |
 | `email-template-generator` | Professional email templates |
 | `email-subject-line-optimizer` | A/B test subject lines |
+| `product-launch-war-room` | Adversarial GTM war room: go/no-go, risk register, phased rollout, kill criteria |
+| `hyperframes-ad-director` | Brief → finished HyperFrames video ad: hook, script, storyboard, scenes, cuts |
+| `hyperframes-sales-demo-builder` | Personalized product-demo videos in HyperFrames for a specific account |
 
 ### Strategy and Finance
 | Skill | Description |
