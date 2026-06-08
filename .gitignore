@@ -1,44 +1,6 @@
-# Python
-__pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-env/
-venv/
-
-# macOS
+.workflow-*.js
+.army-state.md
+.env
+.env.*
+!.env.example
 .DS_Store
-.DS_Store?
-._*
-.AppleDouble
-.LSOverride
-.Spotlight-V100
-.Trashes
-.DocumentRevisions-V100
-.fseventsd
-.TemporaryItems
-.VolumeIcon.ico
-.com.apple.timemachine.donotpresent
-.AppleDB
-.AppleDesktop
-
-# IDE
-.vscode/
-.idea/
-*.swp
-*.swo
-*~
-
-# Build artifacts
-*.egg-info/
-dist/
-build/
-
-# Logs
-*.log
-
-# Temporary files
-tmp/
-temp/
-*.tmp
