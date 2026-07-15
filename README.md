@@ -2,7 +2,7 @@
 
 Production-ready skills for Claude Code. Built and maintained by [OneWave AI](https://www.onewave-ai.com) -- AI consulting for small and mid-size businesses.
 
-**180 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
+**188 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
 
 ---
 
@@ -73,6 +73,14 @@ Folder-first knowledge-worker workflows built for Claude Cowork -- now with clou
 | `cowork-rfp-response` | Shred an RFP into a compliance matrix, mine your past proposals, draft the response honestly |
 | `cowork-invoice-chaser` | AR aging report plus escalating dunning drafts matched to invoice age; weekly scheduled task |
 | `cowork-contract-renewal-radar` | Extract every auto-renew clause and notice window, calendar the real decision deadlines |
+| `cowork-data-room-builder` | Prep YOUR data room for a raise or acquisition -- checklist, gap report, organized structure |
+| `cowork-vendor-comparison` | Normalize vendor quotes into one matrix -- true TCO, buried terms, negotiation leverage |
+| `cowork-qbr-builder` | Client folder -> QBR with value receipts, honest misses, health read, expansion asks |
+| `cowork-sop-writer` | Turn a process walkthrough into a clean SOP -- steps, decision points, tribal knowledge captured |
+| `cowork-calendar-defrag` | Measure meeting load and fragmentation, propose cuts and focus blocks, draft the decline messages |
+| `cowork-tax-prep-organizer` | Sweep folders for tax docs, build the CPA-ready package and the missing-form chase list |
+| `cowork-medical-bill-auditor` | Match bills to EOBs, catch overbilling and unsubmitted claims, draft dispute letters |
+| `cowork-home-inventory` | Photos + receipts -> insurance-grade home inventory with values, serials, and the gap list |
 
 ### Sales and Revenue
 | Skill | Description |
