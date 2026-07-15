@@ -2,7 +2,7 @@
 
 Production-ready skills for Claude Code. Built and maintained by [OneWave AI](https://www.onewave-ai.com) -- AI consulting for small and mid-size businesses.
 
-**172 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
+**179 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
 
 ---
 
@@ -54,12 +54,25 @@ Skills built around specific Anthropic product releases.
 |-------|-------------|
 | `overnight-repo-auditor` | Uses Managed Agents (14.5hr runtime) for autonomous overnight codebase audits |
 | `multi-agent-client-onboarding` | Agent SDK: 3 parallel agents for client assessment |
-| `cowork-deal-room` | Cowork-style multi-step deal room document analysis |
 | `gmail-to-crm-pipeline` | MCP Connectors: Gmail to CRM lead qualification pipeline |
 | `full-codebase-migrator` | 1M context window: ingest entire codebases for migration planning |
 | `claude-design-system-architect` | Generate a premium design system (tokens, type, motion) exported to Tailwind/CSS |
 | `claude-landing-composer` | Build premium animated landing pages in Next.js + Framer Motion, anti-template |
 | `claude-design-critic` | Audit a UI and de-AI it — design + copy fixes toward editorial/premium |
+
+### Claude Cowork
+Folder-first knowledge-worker workflows built for Claude Cowork -- now with cloud sessions, scheduled tasks that run with no device online, and Microsoft 365 write tools (July 2026).
+
+| Skill | Description |
+|-------|-------------|
+| `cowork-deal-room` | Multi-step deal room due diligence -- contracts, financials, risk scoring |
+| `cowork-folder-organizer` | Turn a messy folder or shared drive into an organized, indexed workspace with an undo trail |
+| `cowork-inbox-triage` | Daily inbox sweep -- classify, draft replies in your voice, queue follow-ups; scheduled-task ready |
+| `cowork-hiring-screener` | Score a folder of resumes against the JD -- ranked shortlist with evidence, interview kits, drafts |
+| `cowork-expense-audit` | Reconcile receipts to statements, categorize, flag policy violations, output the expense report |
+| `cowork-rfp-response` | Shred an RFP into a compliance matrix, mine your past proposals, draft the response honestly |
+| `cowork-invoice-chaser` | AR aging report plus escalating dunning drafts matched to invoice age; weekly scheduled task |
+| `cowork-contract-renewal-radar` | Extract every auto-renew clause and notice window, calendar the real decision deadlines |
 
 ### Sales and Revenue
 | Skill | Description |
