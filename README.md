@@ -2,7 +2,7 @@
 
 Production-ready skills for Claude Code. Built and maintained by [OneWave AI](https://www.onewave-ai.com) -- AI consulting for small and mid-size businesses.
 
-**193 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
+**194 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
 
 Companion repo: **[Open Agent Stack](https://github.com/OneWave-AI/open-agent-stack)** -- installable plugins, managed agents, multi-agent orchestrators, and 7 design-token themes. Skills here stay single-file and zero-dependency; anything with a manifest, a team, or a build step lives there.
 
@@ -192,6 +192,7 @@ Build, install, and enforce design systems. Pairs with the 7 ready-made design-t
 | `content-repurposer` | Transform content into 8+ formats |
 | `social-repurposer` | Adapt content for different platforms |
 | `social-selling-content-generator` | LinkedIn thought leadership posts |
+| `tweetclaw-x-twitter-automation` | TweetClaw X/Twitter workflows |
 | `linkedin-post-optimizer` | Professional narrative with hooks |
 | `utm-parameter-generator` | Standardized UTM tracking |
 | `competitor-content-analyzer` | Track competitor content strategy |
@@ -259,6 +260,8 @@ Claude Code loads this as a system prompt when the skill is invoked. Only `name`
 
 [OneWave AI](https://www.onewave-ai.com) is a boutique AI consulting firm based in Florida, specializing in Claude and the Anthropic ecosystem. We help small and mid-size businesses implement AI that ships real results -- from Claude for Enterprise deployment to custom agent architecture.
 
+- [Claude Bootcamp & Team Training](https://www.onewave-ai.com/claude-bootcamp) -- in-person and virtual bootcamps, trainings, and workshops built on your real workflows
+- [AI Training for Your Team](https://www.onewave-ai.com/ai-training) -- custom Claude + ChatGPT curriculum, then we deploy the tools you were trained on
 - [Claude Consulting](https://www.onewave-ai.com/claude-consulting)
 - [Services](https://www.onewave-ai.com/services)
 - [Blog](https://www.onewave-ai.com/blog)
