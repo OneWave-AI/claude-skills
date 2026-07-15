@@ -2,7 +2,9 @@
 
 Production-ready skills for Claude Code. Built and maintained by [OneWave AI](https://www.onewave-ai.com) -- AI consulting for small and mid-size businesses.
 
-**188 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
+**193 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
+
+Companion repo: **[Open Agent Stack](https://github.com/OneWave-AI/open-agent-stack)** -- installable plugins, managed agents, multi-agent orchestrators, and 7 design-token themes. Skills here stay single-file and zero-dependency; anything with a manifest, a team, or a build step lives there.
 
 ---
 
@@ -148,13 +150,28 @@ Folder-first knowledge-worker workflows built for Claude Cowork -- now with clou
 | `regex-debugger` | Visual regex breakdown and debugging |
 | `performance-profiler` | Application performance profiling |
 | `api-endpoint-scaffolder` | REST API endpoint generation |
-| `responsive-layout-builder` | CSS Grid, Flexbox, container queries |
 | `react-component-generator` | React components with TypeScript and a11y |
+| `database-schema-designer` | Optimized schemas with ERD diagrams |
+| `landing-page-optimizer` | Conversion and performance optimization |
+
+### Design Systems and UI
+Build, install, and enforce design systems. Pairs with the 7 ready-made design-token themes in [Open Agent Stack `design-styles/`](https://github.com/OneWave-AI/open-agent-stack/tree/main/design-styles) -- aurora-mesh, cirrus, liquid-glass, mono-brutalist, neo-terminal, sand-terra, tidal.
+
+| Skill | Description |
+|-------|-------------|
+| `design-style-installer` | Install a complete token theme (from Open Agent Stack or local tokens.json) and repaint the project |
+| `design-tokens-sync` | Find and fix token drift -- stale copies, hardcoded values, orphans -- plus a CI guard |
+| `motion-language-designer` | Duration/easing scales, choreography rules, signature moves -> Framer Motion + CSS |
+| `dark-mode-converter` | Real dark mode via semantic tokens and elevation logic, not naive inversion |
+| `typography-scale-builder` | Fluid type scale with per-step line-height/tracking, roles, vertical rhythm |
 | `design-system-generator` | Design tokens, components, documentation |
 | `css-animation-creator` | Professional animations and micro-interactions |
-| `database-schema-designer` | Optimized schemas with ERD diagrams |
+| `responsive-layout-builder` | CSS Grid, Flexbox, container queries |
 | `screenshot-to-code` | Convert UI screenshots to working code |
-| `landing-page-optimizer` | Conversion and performance optimization |
+| `color-palette-extractor` | Extract palettes from images or sites -- HEX/RGB/Tailwind/CSS variables |
+| `font-pairing-suggester` | Font pairings with hierarchy and loading strategy |
+| `brand-consistency-checker` | Scan documents and slides for off-brand colors, fonts, logos |
+| `accessibility-auditor` | WCAG compliance audit and fixes |
 
 ### Security and Compliance
 | Skill | Description |
