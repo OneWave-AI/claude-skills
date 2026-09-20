@@ -2,7 +2,7 @@
 
 Production-ready skills for Claude Code. Built and maintained by [OneWave AI](https://www.onewave-ai.com) -- AI consulting for small and mid-size businesses.
 
-**205 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
+**216 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
 
 Companion repo: **[Open Agent Stack](https://github.com/OneWave-AI/open-agent-stack)** -- 27 artifacts that need more than a single file. Highlights: **[vibe-stack](https://github.com/OneWave-AI/open-agent-stack/tree/main/plugins/vibe-stack)** (14 skills: idea to shipped app, with a real motion system and an AI-slop detector), **[sales-desk](https://github.com/OneWave-AI/open-agent-stack/tree/main/plugins/sales-desk)** (the rep's whole daily loop), and **[7 design-token themes](https://github.com/OneWave-AI/open-agent-stack/tree/main/design-styles)**. Skills here stay single-file and zero-dependency; anything with a manifest, a team, or a build step lives there.
 
@@ -53,6 +53,21 @@ Skills for building, orchestrating, and managing autonomous AI agents.
 | `scout-pro` | Enhanced scout with skill chains, pattern recognition, usage learning |
 | `skill-navigator` | Guide to all skills with combination recommendations |
 | `skill-composer-studio` | Chain multiple skills into custom workflows |
+| `mcp-server-builder` | Build, wire, and debug an MCP server that connects Claude to your systems |
+
+### Agent Workflow and Context Engineering
+How to actually run a coding agent: what to put in context, what to write to disk, and the guardrails that keep the output honest.
+
+| Skill | Description |
+|-------|-------------|
+| `plan-in-files` | Plans that live on disk and survive a context reset, crash, or handoff |
+| `session-handoff` | Compress a session into a handoff doc the next session can resume from |
+| `context-budget` | Spend the context window deliberately -- read narrow, silence noise, compact on time |
+| `ai-coding-guardrails` | The ten rules that catch an agent's known failure modes before the diff lands |
+| `grill-the-brief` | Interrogate a vague request before writing code, with defaults so nothing stalls |
+| `claude-md-writer` | Write the CLAUDE.md / AGENTS.md that teaches an agent your repo's commands and traps |
+| `fresh-library-docs` | Check the installed version and real signatures before calling an API from memory |
+| `agent-eval-harness` | A 20-case eval set that catches prompt, model, and tool regressions before customers do |
 
 ### Anthropic / Claude Products
 Skills built around specific Anthropic product releases.
@@ -158,6 +173,8 @@ Folder-first knowledge-worker workflows built for Claude Cowork -- now with clou
 | `react-component-generator` | React components with TypeScript and a11y |
 | `database-schema-designer` | Optimized schemas with ERD diagrams |
 | `landing-page-optimizer` | Conversion and performance optimization |
+| `browser-test-loop` | Drive a real browser to prove a UI change works -- console errors included |
+| `static-analysis-sweep` | Semgrep, secret, and CVE scanning over a diff, triaged into fix-now vs noise |
 
 ### Design Systems and UI
 Build, install, and enforce design systems. Pairs with the 7 ready-made design-token themes in [Open Agent Stack `design-styles/`](https://github.com/OneWave-AI/open-agent-stack/tree/main/design-styles) -- aurora-mesh, cirrus, liquid-glass, mono-brutalist, neo-terminal, sand-terra, tidal.
