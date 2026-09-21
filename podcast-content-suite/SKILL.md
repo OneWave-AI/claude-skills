@@ -1,5 +1,5 @@
 ---
-name: podcast-to-content-suite
+name: podcast-content-suite
 description: Transform podcast transcripts into comprehensive content marketing suites including blog posts, social media content, newsletters, SEO-optimized articles, and timestamps. Use when user provides podcast transcripts or wants to repurpose podcast content.
 ---
 

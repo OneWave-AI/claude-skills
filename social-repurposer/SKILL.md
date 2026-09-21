@@ -1,5 +1,5 @@
 ---
-name: social-media-content-repurposer
+name: social-repurposer
 description: Convert content between platforms (blog to Twitter thread, article to LinkedIn post, etc.). Optimize for each platform's format, tone, and best practices. Use when user wants to adapt content for different social media platforms.
 ---
 

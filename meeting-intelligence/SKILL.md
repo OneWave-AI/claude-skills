@@ -1,5 +1,5 @@
 ---
-name: meeting-intelligence-system
+name: meeting-intelligence
 description: Analyze meeting transcripts to extract decisions, action items, blockers, sentiment, and generate follow-up emails. Use when user provides meeting notes, transcripts, or recordings and needs structured summaries or action tracking.
 ---
 
