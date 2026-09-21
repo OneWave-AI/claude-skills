@@ -1,5 +1,5 @@
 ---
-name: financial-document-parser
+name: financial-parser
 description: Extract and analyze data from invoices, receipts, bank statements, and financial documents. Categorize expenses, track recurring charges, and generate expense reports. Use when user provides financial PDFs or images.
 ---
 

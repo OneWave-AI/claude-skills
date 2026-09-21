@@ -1,5 +1,5 @@
 ---
-name: reddit-thread-analyzer
+name: reddit-analyzer
 description: Analyze Reddit threads for sentiment, consensus opinions, top arguments, and discussion patterns. Use this when users want to understand Reddit community opinions, analyze discussions, or gather insights from subreddit conversations.
 ---
 
