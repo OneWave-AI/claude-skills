@@ -2,7 +2,7 @@
 
 Production-ready skills for Claude Code. Built and maintained by [OneWave AI](https://www.onewave-ai.com) -- AI consulting for small and mid-size businesses.
 
-**216 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
+**219 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
 
 Companion repo: **[Open Agent Stack](https://github.com/OneWave-AI/open-agent-stack)** -- 27 artifacts that need more than a single file. Highlights: **[vibe-stack](https://github.com/OneWave-AI/open-agent-stack/tree/main/plugins/vibe-stack)** (14 skills: idea to shipped app, with a real motion system and an AI-slop detector), **[sales-desk](https://github.com/OneWave-AI/open-agent-stack/tree/main/plugins/sales-desk)** (the rep's whole daily loop), and **[7 design-token themes](https://github.com/OneWave-AI/open-agent-stack/tree/main/design-styles)**. Skills here stay single-file and zero-dependency; anything with a manifest, a team, or a build step lives there.
 
@@ -54,6 +54,9 @@ Skills for building, orchestrating, and managing autonomous AI agents.
 | `skill-navigator` | Guide to all skills with combination recommendations |
 | `skill-composer-studio` | Chain multiple skills into custom workflows |
 | `mcp-server-builder` | Build, wire, and debug an MCP server that connects Claude to your systems |
+| `jev-integrate` | Wire a System One model (Jev/Von) into a feature -- typed decisions, gates, thresholds |
+| `jev-eval` | Sweep criteria wordings and thresholds for a typed-decision config, with a runnable harness |
+| `jev-audit` | Find LLM calls that are really classifications, and price the swap |
 
 ### Agent Workflow and Context Engineering
 How to actually run a coding agent: what to put in context, what to write to disk, and the guardrails that keep the output honest.
