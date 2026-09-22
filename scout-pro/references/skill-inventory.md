@@ -4,7 +4,7 @@ Before recommending, scan the live skills directory to build a current inventory
 
 ## Scan Procedure
 
-1. Read the `/Users/gabe/claude-skills/` directory structure.
+1. Read the installed skills directories: `~/.claude/skills/` (personal), `.claude/skills/` in the current project, and any plugin skill folders.
 2. For each skill, read its SKILL.md frontmatter to understand capabilities.
 3. Build an in-memory map of skill name -> capabilities -> tools -> typical use cases.
 4. Cross-reference with the user's current needs.

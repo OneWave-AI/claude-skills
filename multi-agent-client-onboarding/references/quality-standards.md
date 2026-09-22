@@ -81,14 +81,14 @@ Context: B2B SaaS company, 120 employees, series B. They sell a project manageme
 tool for construction companies. Main stack is React/Node/PostgreSQL on AWS. They are
 growing fast but operations are breaking -- support is overwhelmed, onboarding takes
 too long, and the engineering team is drowning in manual deployments.
-Docs: /Users/gabe/clients/acme/
+Docs: ./clients/acme/
 Focus: Specifically interested in AI opportunities for customer support and onboarding
 ```
 
 Commander response:
 1. Research Acme Corp online for additional context.
 2. Build the context brief.
-3. Deploy all three agents pointing at `/Users/gabe/clients/acme/`.
+3. Deploy all three agents pointing at `./clients/acme/`.
 4. Agent 1 scans the docs directory for workflow evidence.
 5. Agent 2 scans for package.json, Dockerfiles, CI/CD configs, and similar.
 6. Agent 3 researches AI in construction SaaS and drafts strategy.

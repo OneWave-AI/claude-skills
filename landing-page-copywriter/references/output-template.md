@@ -1,77 +1,60 @@
 # Output Template
 
-Format the final landing page copy using this structure.
+Deliver the copy in this structure. Drop sections the page does not use.
 
 ```
 LANDING PAGE COPY
-Product/Service: [Name]
-Framework: [PAS/AIDA/StoryBrand]
+Product: [Name]
+Page goal: [the one action]
+Traffic source: [where readers come from]
+Framework: [PAS / AIDA / StoryBrand] - [one line on why]
 
-========================================
-HERO SECTION
-========================================
+MESSAGE HIERARCHY
+Promise:   [...]
+Mechanism: [...]
+Proof:     [...]
+Action:    [...]
 
-Headline: [Powerful 10-word value proposition]
+== HERO ==
+Headline:  [primary]
+  Alt A:   [different angle]
+  Alt B:   [different angle]
+Subhead:   [...]
+CTA:       "[verb + outcome]"   (alt: "[...]")
+Under CTA: [friction reducer]
+Proof line: [real metric or placeholder]
 
-Subheadline: [2-sentence expansion]
+== PROBLEM ==
+[...]
 
-CTA Button: "[Action-oriented text]"
+== SOLUTION ==
+[Benefit headline] - [one sentence] ([feature that delivers it])
+[Benefit headline] - [one sentence] ([feature])
+[Benefit headline] - [one sentence] ([feature])
 
-Trust Bar: [Social proof element]
+== HOW IT WORKS ==
+1. [Verb ...]
+2. [Verb ...]
+3. [Verb ...]
 
-========================================
-PROBLEM SECTION
-========================================
+== PROOF ==
+[Testimonial or placeholder with attribution]
+[Case study: before -> after, timeframe]
 
-[Problem description with emotional resonance]
+== PRICING == (optional)
+[...]
 
-========================================
-SOLUTION SECTION
-========================================
+== FAQ ==
+Q: [real objection]
+A: [answer]
 
-[How the product solves it]
+== FINAL CTA ==
+[Promise restated]
+[Risk reversal, if true]
+Button: "[same action as hero]"
 
-Feature 1: [Benefit-focused description]
-Feature 2: [Benefit-focused description]
-Feature 3: [Benefit-focused description]
-
-========================================
-HOW IT WORKS
-========================================
-
-Step 1: [Simple action]
-Step 2: [Simple action]
-Step 3: [Simple action]
-
-========================================
-SOCIAL PROOF
-========================================
-
-[Testimonial quotes with attribution]
-
-========================================
-FAQ
-========================================
-
-Q: [Common objection]
-A: [Clear, confident answer]
-
-========================================
-FINAL CTA
-========================================
-
-[Urgency/scarcity element]
-[Risk reversal]
-Button: "[Action text]"
-
-========================================
-OPTIMIZATION NOTES
-========================================
-
-A/B Test Ideas:
-- [Headline variation]
-- [CTA variation]
-
-Conversion Tips:
-- [Specific recommendation]
+NOTES
+Test first: [which headline or CTA variant, and the hypothesis]
+Placeholders to fill: [list every bracketed placeholder]
+Open questions: [gaps from the brief that weaken the page]
 ```
