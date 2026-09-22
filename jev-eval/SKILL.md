@@ -9,8 +9,10 @@ description: Build and run a labelled eval set for a System One model (Jev, Von,
 question was written, and the failure mode is silent — it returns a confident, type-valid,
 wrong answer. Without labels you cannot tell a bad question from a bad model.
 
-Measured: rewriting the criteria moved an open model from **4/15 to 14/15** on identical
-data. No model change. That swing is invisible without labels.
+Measured: rewriting the criteria moved an open model from **4/15 to 14/15** on 15 records.
+No model change. Then the same comparison at 150 records put that model at **61%** overall
+against Jev's **97%** — the 15-record read was an artifact of a small, easy set. Both facts
+are the point: wording swings results, and small sets lie about which way.
 
 ## Run it
 
@@ -25,19 +27,25 @@ makes it a **score**, omitting it makes it a **noul**. The script reads the Jev 
 Keychain (`typesafe-api-key`), prints accuracy per config, labels the spread
 ROBUST or FRAGILE, sweeps thresholds for nouls, and scores the confidence gate.
 
-Real output, same 15 records, only the backend changed:
+Real output, 50 records of agent shell-command risk, only the backend changed:
 
 ```
 config                         accuracy   ms/rec
-A original                       15/15       403      <- Jev
-D short labels                   15/15       430
-spread: 15/15 to 15/15   (ROBUST - wording is not load-bearing)
+A terse one-liners               45/50       410      <- Jev
+B rich criteria                  49/50       415
+C rich + exclusions              46/50       418
+D deliberately lazy              44/50       411
+spread: 44/50 to 49/50   (ROBUST - wording is not load-bearing)
 
-A original                        4/15        49      <- Von, same configs
-B richer criteria                14/15        62
-D short labels                    3/15        48
-spread: 3/15 to 14/15    (FRAGILE - criteria are load-bearing)
+A terse one-liners                9/50        66      <- Von, same configs
+B rich criteria                  23/50       121
+C rich + exclusions              15/50       129
+D deliberately lazy              22/50        53
+spread: 9/50 to 23/50    (FRAGILE - and the ceiling is still not usable)
 ```
+
+Read the ceiling before the spread. A FRAGILE model whose best config is 23/50 is not a
+wording problem you can write your way out of — it is the wrong model for that question.
 
 ## 1. Build the set
 
@@ -67,16 +75,24 @@ The core move. Write 3–4 genuinely different criteria configs and run all of t
 Report accuracy per config per model:
 
 ```
-config                    JEV       VON
-A original              15/15      4/15
-B richer criteria       15/15     14/15
-C plus negatives        15/15     13/15
-D short labels          15/15      3/15
+config                    JEV       VON      LAYA     (lead triage, n=50)
+A terse one-liners      47/50     34/50     21/50
+B rich criteria         49/50     28/50     15/50
+C rich + exclusions     48/50     24/50     19/50
+D deliberately lazy     48/50     22/50     24/50
 ```
 
-**Read the spread, not the max.** A model flat across all four is robust — you can write
-questions casually forever. A model swinging 3→14 means the criteria are load-bearing and
-every future edit is a regression risk. That spread is the open-vs-hosted decision.
+**Read the floor first, then the spread.** The floor is "can this model do the job at all
+if I phrase it badly"; the spread is "how much will maintaining it cost me." Measured on the
+command task, every hosted model floors at 82-92% (Haiku 46-48, GPT-4.1-mini 45-50, Jev
+44-49, GPT-5-mini 41-49) while Von floors at 9/50 and Laya at 18/50. Note that **Jev is not
+more wording-robust than a small LLM** — it swings the same ten points. What you buy is the
+floor, not immunity.
+
+Note what the leads column does NOT show: a clean "richer is better" gradient. Von's best
+config here is the terse one. Whatever moves an open model's numbers is sensitivity to
+surface form, not comprehension, so do not assume your next criteria rewrite improves it —
+re-run the set.
 
 ## 3. Sweep thresholds for every noul
 
