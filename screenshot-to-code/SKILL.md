@@ -1,131 +1,63 @@
 ---
 name: screenshot-to-code
-description: Convert UI screenshots into working HTML/CSS/React/Vue code. Detects design patterns, components, and generates responsive layouts. Use this when users provide screenshots of websites, apps, or UI designs and want code implementation.
+description: Turns a screenshot, mockup, Figma export, or photo of a UI into working front-end code - React + Tailwind CSS v4 by default, or Next.js, Vue, or plain HTML/CSS - matching layout, spacing, colors, and typography, then renders the result and compares it against the image to close visual gaps. Use whenever the user shares an image of a website, app screen, dashboard, component, or wireframe and wants it built, cloned, recreated, or "made real", or says "code this up", "build this design", or "match this screenshot".
 ---
 
 # Screenshot to Code
 
-Convert UI screenshots into production-ready code with accurate styling and structure.
+Recreate the UI in the image as clean, responsive, accessible code, then check the render against the image.
 
-## How This Works
+## Workflow
 
-Given a screenshot of a UI design:
-1. Analyze the visual design thoroughly
-2. Generate clean, modern code that recreates it
-3. Provide complete, runnable implementation
+1. **Pick the target stack.** If the user is inside a project, match it: read `package.json` for React/Next/Vue and the Tailwind version, and reuse existing components, tokens, and icon libraries. Do not ask when the repo already answers it. With no project:
+   - Single screen or quick prototype: one self-contained `index.html` (Tailwind via the browser build, see [references/stack-setup.md](references/stack-setup.md)).
+   - App or multi-screen: React + TypeScript + Tailwind v4 on Vite.
+   - User mentions Next.js, SSR, or routing: Next.js App Router.
 
-## Instructions
+2. **Write a short spec before coding.** Looking at the image, note:
+   - Layout regions top to bottom (nav, hero, sidebar, grid, footer) and the grid or flex structure of each
+   - Design tokens: 3-6 colors as hex, font family guess and the type scale, spacing rhythm (usually multiples of 4px), corner radius, shadow style
+   - Repeated components (cards, list rows, buttons) that should be one component with props
+   - What the image cannot show: hover and focus states, mobile layout, real data, content below the fold
 
-### 1. Analyze the Screenshot
+   Estimate sizes from the image resolution. If the screenshot is 2x (a Retina capture 2880px wide is a 1440px layout), halve the pixel measurements.
 
-Examine the image carefully and identify:
-- **Layout structure**: Grid, flexbox, or custom positioning
-- **Components**: Buttons, inputs, cards, navigation, modals, etc.
-- **Visual details**: Colors, fonts, spacing, borders, shadows, borders-radius
-- **Responsive considerations**: Mobile vs. desktop layout cues
+3. **Build.** Use semantic elements (`header`, `nav`, `main`, `section`, `button`, `a`), extract repeated pieces into components, and put tokens in one place (Tailwind v4 `@theme` or CSS custom properties) rather than scattering hex codes. Use real text from the image, not lorem ipsum. For images and logos you cannot extract, use sized placeholders with descriptive `alt` text. Use an icon library the project already has (default: `lucide-react`), not hand-drawn SVGs or emoji.
 
-### 2. Determine the Framework
+4. **Make it responsive.** Build for the screenshot's viewport first, then define how it collapses: multi-column grids stack, navs become a menu button, and type scales down with `clamp()` or responsive utilities. If the screenshot is mobile, go the other direction.
 
-Ask which framework is preferred:
-- React (with Tailwind CSS or styled-components)
-- Vue.js
-- Plain HTML/CSS
-- Next.js
+5. **Render and compare.** If you can run a browser (Playwright, a headless browser, or a browser tool), screenshot the result at the source image's viewport width and compare side by side. See [references/visual-check.md](references/visual-check.md). Fix the largest differences first: layout and alignment, then spacing, then type size and weight, then color. Two or three passes is usually enough; stop when remaining differences are at the level of font rendering.
 
-**Default**: If not specified, use **React with Tailwind CSS** for modern designs, or **plain HTML/CSS** for simple pages.
+6. **Deliver.** Provide the files, how to run them, and a short list of assumptions (fonts guessed, states invented, content inferred). Name anything that needs real assets.
 
-### 3. Generate Complete Code
+## Stack notes
 
-Create the implementation:
+- **React 19**: function components with TypeScript prop types. `propTypes` checks were removed from React 19; do not add them. `forwardRef` is not needed for passing `ref` to function components.
+- **Tailwind CSS v4**: configuration lives in CSS. Use `@import "tailwindcss";` and `@theme { --color-brand: #...; }`, not a `tailwind.config.js` and not the v3 `@tailwind base/components/utilities` directives. Custom tokens become utilities automatically (`bg-brand`).
+- **Next.js (App Router)**: pages in `app/`, components are Server Components by default. Add `"use client"` only to components that use state, effects, or event handlers.
+- **Create React App** is deprecated. Use Vite for plain React.
 
-**For React/Vue:**
-- Build component hierarchy (break into logical components)
-- Use semantic HTML elements
-- Implement modern CSS (flexbox, grid, custom properties)
-- Include prop types and sensible defaults
+Setup commands for each stack are in [references/stack-setup.md](references/stack-setup.md).
 
-**For HTML/CSS:**
-- Use semantic HTML5 structure
-- Write clean, organized CSS (consider using BEM naming)
-- Make it responsive by default
+## Worked example
 
-**Critical requirements:**
-- Match colors EXACTLY (extract hex codes from screenshot)
-- Match spacing and proportions as closely as possible
-- Use appropriate semantic elements (header, nav, main, section, etc.)
-- Include accessibility attributes (alt text, ARIA labels where needed)
+Input: a 1440px-wide screenshot of a pricing section - centered heading, three plan cards with the middle one highlighted, feature checklists, and a button per card.
 
-### 4. Make It Responsive
+Spec:
+- Regions: heading block, then a 3-column card grid, max width about 1100px, 24px gap
+- Tokens: background `#0B1220`, card `#111A2E`, accent `#3B82F6`, text `#E5E7EB`, muted `#94A3B8`; Inter-like sans; radius 12px
+- Components: `PlanCard` with `name`, `price`, `features[]`, `highlighted`, `cta`
+- Unknowns: hover states, monthly/annual toggle behavior, mobile layout
 
-- Use responsive units (rem, em, %, vw/vh) rather than fixed pixels
-- Add breakpoints for mobile, tablet, desktop if the design suggests it
-- Use `min()`, `max()`, `clamp()` for fluid typography where appropriate
+Build: `PricingSection.tsx` mapping a `plans` array into `PlanCard`; `highlighted` adds an accent border and a "Most popular" label; `grid-cols-1 md:grid-cols-3`. Check icons from `lucide-react`.
 
-### 5. Deliver Complete Implementation
+Compare: the first render has cards 40px too tall because of button padding, and the heading weight is 600 against a 700 in the image. Fix both, re-render, and deliver with an assumptions list: toggle not built, font assumed Inter.
 
-Provide:
-1. **Complete code** (all files needed, fully functional)
-2. **File structure** (explain what each file does)
-3. **Usage instructions** (how to run/use the code)
-4. **Notes on design decisions** (any assumptions or interpretations)
+## Failure modes
 
-## Output Format
-
-Structure React + Tailwind output like this:
-
-```jsx
-import React from 'react';
-
-export default function ComponentName() {
-  return (
-    <div className="...">
-      {/* Component structure */}
-    </div>
-  );
-}
-```
-
-Always include:
-- All necessary imports
-- Any required dependencies
-- Clear comments for complex sections
-- Suggestions for improvements or next steps
-
-## Best Practices
-
-- **Accuracy**: Match the design as closely as possible
-- **Modern CSS**: Prefer Grid/Flexbox over floats or tables
-- **Accessibility**: Include ARIA labels, alt text, semantic HTML
-- **Performance**: Optimize images, use efficient selectors
-- **Maintainability**: Write clean, well-organized code with comments
-- **Responsiveness**: Design mobile-first when possible
-
-## Common Patterns
-
-**Navigation Bars**: Flexbox with space-between, sticky positioning
-**Card Grids**: CSS Grid with auto-fit/auto-fill for responsiveness
-**Hero Sections**: Full-height with centered content, background images
-**Forms**: Proper labels, validation states, accessible inputs
-**Modals**: Fixed positioning, backdrop, focus management
-
-## Handling Unclear Screenshots
-
-When the screenshot is unclear or ambiguous:
-- Make reasonable assumptions based on common UI patterns
-- Note the chosen interpretation in comments
-- Suggest alternatives that might be preferred
-- Ask for clarification on critical decisions
-
-## Example Workflow
-
-**Input**: Screenshot of a landing page with hero section, feature cards, and footer
-
-**Response**:
-1. Analyze: Hero with large headline, 3-column feature grid, simple footer
-2. Ask: "Would you like this in React with Tailwind or plain HTML/CSS?"
-3. Generate: Complete implementation with responsive design
-4. Deliver: All code files with clear structure and usage instructions
-
----
-
-Aim to produce code so clean and accurate that it could be deployed immediately with minimal modifications.
+- **Guessing the stack** when the repo already defines it, or mixing Tailwind v3 config into a v4 project.
+- **Absolute positioning to force a pixel match.** It breaks on the first resize. Use flex and grid, and accept small differences.
+- **One giant component.** Anything that repeats three times is a component with props.
+- **Invisible states.** Buttons and links need hover and `focus-visible` styles even though the screenshot cannot show them. Inputs need labels.
+- **Color drift.** Sample colors from flat areas of the image, not anti-aliased edges or gradients, and check text contrast meets WCAG AA (4.5:1 for body text).
+- **Claiming a match without looking.** If you could not render the result, say the comparison was not done.

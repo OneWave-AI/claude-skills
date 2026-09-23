@@ -19,7 +19,7 @@ Advanced meta-agent that analyzes full conversation context, maps working patter
 ## Workflow
 
 1. **Deep context scan.** Read the full conversation from start to current message. Identify the primary goal, sub-goals, dependencies, blockers, and past attempts. Check session history in `~/.claude/`. Use the context template in references/response-format.md.
-2. **Inventory skills.** Scan the live `/Users/gabe/claude-skills/` directory and read each SKILL.md frontmatter. Never recommend a skill without verifying it exists. See references/skill-inventory.md.
+2. **Inventory skills.** Scan the installed skills directories (`~/.claude/skills/` for personal skills, `.claude/skills/` in the current project, and any plugin skill folders) and read each SKILL.md frontmatter. Never recommend a skill without verifying it exists. See references/skill-inventory.md.
 3. **Design chains.** Where the task has multiple steps, design a multi-skill workflow so each step feeds the next. Use the notation, library, and builder protocol in references/chains.md.
 4. **Recognize patterns.** Read `~/.claude/rules/session-context.md` and `~/.claude/projects/` memory. Detect recurring tasks, workflow gaps, and underutilized skills. See references/patterns-and-logging.md.
 5. **Log usage.** Read the existing log at `~/.claude/scout-pro-usage-log.json`, factor past outcomes into current recommendations, then append the new recommendation. Update entries when the user reports an outcome. See references/patterns-and-logging.md.

@@ -1,6 +1,6 @@
 # Claude Skills Library
 
-Production-ready skills for Claude Code. Built and maintained by [OneWave AI](https://www.onewave-ai.com) -- AI consulting for small and mid-size businesses.
+Production-ready skills for Claude Code. Built and maintained by [OneWave AI](https://www.onewave-ai.com).
 
 **219 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
 
@@ -156,7 +156,7 @@ Folder-first knowledge-worker workflows built for Claude Cowork -- now with clou
 ### Engineering and DevOps
 | Skill | Description |
 |-------|-------------|
-| `code-review-pro` | Security, performance, and best practices review |
+| `code-review-pro` | Severity-ranked security (OWASP Top 10:2025), correctness, and performance review |
 | `debug-like-expert` | Methodical investigation with hypothesis testing |
 | `api-load-tester` | Progressive load testing with bottleneck analysis |
 | `database-migrator` | Cross-provider database migration with validation |
@@ -174,7 +174,7 @@ Folder-first knowledge-worker workflows built for Claude Cowork -- now with clou
 | `performance-profiler` | Application performance profiling |
 | `api-endpoint-scaffolder` | REST API endpoint generation |
 | `react-component-generator` | React components with TypeScript and a11y |
-| `database-schema-designer` | Optimized schemas with ERD diagrams |
+| `database-schema-designer` | Query-driven schemas, indexes, ERDs, and safe migrations (PostgreSQL 18 default) |
 | `landing-page-optimizer` | Conversion and performance optimization |
 | `browser-test-loop` | Drive a real browser to prove a UI change works -- console errors included |
 | `static-analysis-sweep` | Semgrep, secret, and CVE scanning over a diff, triaged into fix-now vs noise |
@@ -192,7 +192,7 @@ Build, install, and enforce design systems. Pairs with the 7 ready-made design-t
 | `design-system-generator` | Design tokens, components, documentation |
 | `css-animation-creator` | Professional animations and micro-interactions |
 | `responsive-layout-builder` | CSS Grid, Flexbox, container queries |
-| `screenshot-to-code` | Convert UI screenshots to working code |
+| `screenshot-to-code` | Screenshots to React 19 + Tailwind v4 code, with a render-and-compare loop |
 | `color-palette-extractor` | Extract palettes from images or sites -- HEX/RGB/Tailwind/CSS variables |
 | `font-pairing-suggester` | Font pairings with hierarchy and loading strategy |
 | `brand-consistency-checker` | Scan documents and slides for off-brand colors, fonts, logos |
@@ -299,7 +299,7 @@ Claude Code loads this as a system prompt when the skill is invoked. Only `name`
 
 ## About OneWave AI
 
-[OneWave AI](https://www.onewave-ai.com) is a boutique AI consulting firm based in Florida, specializing in Claude and the Anthropic ecosystem. We help small and mid-size businesses implement AI that ships real results -- from Claude for Enterprise deployment to custom agent architecture.
+[OneWave AI](https://www.onewave-ai.com) is a boutique AI consulting firm based in Florida, specializing in Claude and the Anthropic ecosystem. We help businesses from SMB to enterprise implement AI that ships real results -- from Claude for Enterprise deployment to custom agent architecture.
 
 - [Claude Bootcamp & Team Training](https://www.onewave-ai.com/claude-bootcamp) -- in-person and virtual bootcamps, trainings, and workshops built on your real workflows
 - [AI Training for Your Team](https://www.onewave-ai.com/ai-training) -- custom Claude + ChatGPT curriculum, then we deploy the tools you were trained on

@@ -1,173 +1,81 @@
 ---
 name: code-review-pro
-description: Comprehensive code review covering security vulnerabilities, performance bottlenecks, best practices, and refactoring opportunities. Use when user requests code review, security audit, or performance analysis.
+description: Performs a deep code review of files, modules, a diff, or a branch - finding security vulnerabilities (mapped to OWASP Top 10:2025), correctness bugs, performance problems, and maintainability issues - and returns severity-ranked findings with evidence and concrete fixes. Use when the user asks to review, audit, or sanity-check code, asks "is this safe", "what's wrong with this", "find bugs", or wants a security or performance pass before shipping. For posting line comments on a GitHub pull request, use git-pr-reviewer.
 ---
 
 # Code Review Pro
 
-Deep code analysis covering security, performance, maintainability, and best practices.
+Find the problems that matter, prove each one, and show the fix. A short list of real issues beats a long list of maybes.
 
-## When to Use This Skill
+## Workflow
 
-Activate when the user:
-- Asks for a code review
-- Wants security vulnerability scanning
-- Needs performance analysis
-- Asks to "review this code" or "audit this code"
-- Mentions finding bugs or improvements
-- Wants refactoring suggestions
-- Requests best practice validation
+1. **Set the scope.** Decide what is under review: a pasted snippet, specific files, the working-tree diff (`git diff`, `git diff --staged`), or a branch against its base (`git diff main...HEAD`). For a diff, review the changed lines but read enough surrounding code to know how they are called.
 
-## Instructions
+2. **Learn the context before judging.** Identify language, framework and version (check `package.json`, `pyproject.toml`, `go.mod`, and so on), how the code is reached (HTTP handler, job, CLI, library), what input is untrusted, and any repo conventions (linters, `CLAUDE.md`, existing patterns). A pattern that is a bug in one framework can be safe in another; for example, React escapes JSX text, so XSS lives in `dangerouslySetInnerHTML`, `href` values, and raw HTML sinks.
 
-1. **Security Analysis (Critical Priority)**
-   - SQL injection vulnerabilities
-   - XSS (cross-site scripting) risks
-   - Authentication/authorization issues
-   - Secrets or credentials in code
-   - Unsafe deserialization
-   - Path traversal vulnerabilities
-   - CSRF protection
-   - Input validation gaps
-   - Insecure cryptography
-   - Dependency vulnerabilities
+3. **Review in priority order**, using [references/checklist.md](references/checklist.md):
+   1. Security
+   2. Correctness and edge cases
+   3. Performance
+   4. Maintainability and conventions
 
-2. **Performance Analysis**
-   - N+1 query problems
-   - Inefficient algorithms (check Big O complexity)
-   - Memory leaks
-   - Unnecessary re-renders (React/Vue)
-   - Missing indexes (database queries)
-   - Blocking operations
-   - Resource cleanup (file handles, connections)
-   - Caching opportunities
-   - Excessive network calls
-   - Large bundle sizes
+4. **Verify every finding before reporting it.** For each candidate, trace the data flow: where does the input come from, can an attacker or real user control it, and does anything upstream already validate or escape it? Check whether a test covers it. If you can run code, reproduce the bug with a small test or script. Drop findings you cannot support; mark the rest with a confidence level.
 
-3. **Code Quality & Maintainability**
-   - Code duplication (DRY violations)
-   - Function/method length (should be <50 lines)
-   - Cyclomatic complexity
-   - Unclear naming
-   - Missing error handling
-   - Inconsistent style
-   - Missing documentation
-   - Hard-coded values that should be constants
-   - God classes/functions
-   - Tight coupling
+5. **Rank and write the report** in the format below. Lead with the highest severity. Group repeated instances of one problem into a single finding with all locations.
 
-4. **Best Practices**
-   - Language-specific idioms
-   - Framework conventions
-   - SOLID principles
-   - Design patterns usage
-   - Testing approach
-   - Logging and monitoring
-   - Accessibility (for UI code)
-   - Type safety
-   - Null/undefined handling
+## Severity
 
-5. **Bugs and Edge Cases**
-   - Logic errors
-   - Off-by-one errors
-   - Race conditions
-   - Null pointer exceptions
-   - Unhandled edge cases
-   - Timezone issues
-   - Encoding problems
-   - Floating point precision
+- **Critical** - exploitable now or causes data loss/corruption: injection with user input, auth bypass, secrets in code, broken access control on real data.
+- **High** - likely bug or vulnerability under realistic conditions: race on shared state, missing authorization check, unbounded query on a user-facing path, swallowed errors that hide failures.
+- **Medium** - correct today but fragile: missing input validation behind a trusted caller, N+1 queries on small data, confusing ownership of state.
+- **Low** - style, naming, small simplifications. Report at most a handful; skip anything a linter or formatter already enforces.
 
-6. **Provide Actionable Fixes**
-   - Show specific code changes
-   - Explain why change is needed
-   - Include before/after examples
-   - Prioritize by severity
+## Output format
 
-## Output Format
+````markdown
+# Code Review: [scope]
 
-```markdown
-# Code Review Report
+**Verdict**: [Ship / Ship after fixes / Do not ship] - [one sentence why]
+**Findings**: [n] critical, [n] high, [n] medium, [n] low
 
-## Critical Issues (Fix Immediately)
-### 1. SQL Injection Vulnerability (line X)
-**Severity**: Critical
-**Issue**: User input directly concatenated into SQL query
-**Impact**: Database compromise, data theft
+## Critical
 
-**Current Code:**
-```javascript
-const query = `SELECT * FROM users WHERE email = '${userEmail}'`;
+### 1. SQL injection in user search (`src/api/users.ts:42`)
+**Category**: A05:2025 Injection | **Confidence**: High
+**Evidence**: `q` comes from `req.query` and is interpolated into the SQL string; no validation upstream.
+**Impact**: Any caller can read or modify arbitrary tables.
+
+Current:
+```ts
+const rows = await db.query(`SELECT * FROM users WHERE name LIKE '%${q}%'`);
 ```
 
-**Fixed Code:**
-```javascript
-const query = 'SELECT * FROM users WHERE email = ?';
-db.query(query, [userEmail]);
+Fix:
+```ts
+const rows = await db.query("SELECT * FROM users WHERE name LIKE $1", [`%${q}%`]);
 ```
 
-**Explanation**: Always use parameterized queries to prevent SQL injection.
+## High
+...
 
-## High Priority Issues
-### 2. Performance: N+1 Query Problem (line Y)
-[Details...]
+## Medium
+...
 
-## Medium Priority Issues
-### 3. Code Quality: Function Too Long (line Z)
-[Details...]
+## Low
+- `utils/date.ts:10` - [one line]
 
-## Low Priority / Nice to Have
-### 4. Consider Using Const Instead of Let
-[Details...]
+## What is solid
+[Two or three specific things done well, so the author knows what to keep.]
 
-## Summary
-- **Total Issues**: 12
-  - Critical: 2
-  - High: 4
-  - Medium: 4
-  - Low: 2
+## Not reviewed
+[Files, paths, or concerns outside scope or that could not be verified.]
+````
 
-## Quick Wins
-Changes with high impact and low effort:
-1. [Fix 1]
-2. [Fix 2]
+## Traps that cause bad reviews
 
-## Strengths
-- Good error handling in X
-- Clear naming conventions
-- Well-structured modules
-
-## Refactoring Opportunities
-1. **Extract Method**: Lines X-Y could be extracted into `calculateDiscount()`
-2. **Remove Duplication**: [specific code blocks]
-
-## Resources
-- [OWASP SQL Injection Guide](https://...)
-- [Performance Best Practices](https://...)
-```
-
-## Examples
-
-**User**: "Review this authentication code"
-**Response**: Analyze auth logic → Identify security issues (weak password hashing, no rate limiting) → Check token handling → Note missing CSRF protection → Provide specific fixes with code examples → Prioritize by severity
-
-**User**: "Can you find performance issues in this React component?"
-**Response**: Analyze component → Identify unnecessary re-renders → Find missing useMemo/useCallback → Note large state objects → Check for expensive operations in render → Provide optimized version with explanations
-
-**User**: "Review this API endpoint"
-**Response**: Check input validation → Analyze error handling → Test for SQL injection → Review authentication → Check rate limiting → Examine response structure → Suggest improvements with code samples
-
-## Best Practices
-
-- Always prioritize security issues first
-- Provide specific line numbers for issues
-- Include before/after code examples
-- Explain *why* something is a problem
-- Consider the language/framework context
-- Don't just criticize—acknowledge good code too
-- Suggest gradual improvements for large refactors
-- Link to documentation for recommendations
-- Consider project constraints (legacy code, deadlines)
-- Balance perfectionism with pragmatism
-- Focus on impactful changes
-- Group similar issues together
-- Make recommendations actionable
+- **Reporting without reading the caller.** "Missing validation" is often validated one layer up. Look before flagging.
+- **Generic advice.** "Consider adding error handling" is not a finding. Name the failure: which call throws, what the user sees, what state is left behind.
+- **Style as severity.** Line length, bracket placement, or personal preference never rank above Low.
+- **Outdated rules.** Check against the version in use: `useMemo`/`useCallback` advice changes when the React Compiler is enabled, and many Node APIs now ship built-ins (`fetch`, `crypto.randomUUID`, `node:test`).
+- **Fixes that do not compile.** Every "Fix" block must be valid for the language and version in the repo. If unsure, say so.
+- **Flooding.** More than about 15 findings buries the critical ones. Summarize the long tail in one line.

@@ -1,141 +1,254 @@
-# Documentation Structure Templates
+# Documentation Templates
 
-Use the template that matches the documentation type. Replace all bracketed placeholders with real content.
+Pick the template that matches the document type, fill it with verified facts, and delete sections that do not apply.
 
-## User Guide Format
+## Contents
+- README
+- Tutorial
+- How-to guide
+- User guide
+- Architecture / explanation
+- Troubleshooting guide
+- Runbook / SOP
+- Release notes
+- Knowledge base article
 
-```markdown
-# [Product/Feature Name]
+## README
 
-## Overview
-[What it is, what it does, why use it - 2-3 sentences]
+````markdown
+# [Project name]
+
+[One sentence: what it is and who it is for.]
+
+## Quickstart
+```bash
+[install command]
+[minimal run command]
+```
+[What you should see.]
+
+## Features
+- [Capability, in user terms]
+
+## Installation
+[Requirements with versions, then steps.]
+
+## Usage
+[The most common task, with a real example.]
+
+## Configuration
+| Variable | Required | Default | Description |
+|---|---|---|---|
+
+## Documentation
+- [Links to guides, reference, architecture]
+
+## Contributing
+[How to set up for development, run tests, open a PR.]
+
+## License
+[License name and link.]
+````
+
+## Tutorial
+
+````markdown
+# [Build / learn X]
+
+**You will build**: [concrete result]
+**Time**: [estimate]  **Level**: [Beginner / Intermediate]
+
+## Before you start
+- [Required knowledge]
+- [Tools, with versions]
+
+## 1. [First step]
+[Why this step matters, one sentence.]
+```[language]
+[code]
+```
+You should see:
+```
+[expected output]
+```
+
+## 2. [Next step]
+...
+
+## Check your work
+[How to confirm the whole thing works.]
+
+## Next steps
+[Where to go from here.]
+````
+
+Tutorials follow one path that always works. Leave out options and alternatives; link to the how-to guides for those.
+
+## How-to guide
+
+````markdown
+# How to [accomplish goal]
+
+[One sentence on when you need this.]
 
 ## Prerequisites
-- [Required knowledge]
-- [Required tools/access]
-- [System requirements]
+- [Access, tools, prior setup]
 
-## Getting Started
-[Quick start guide with minimal steps to first success]
+## Steps
+1. [Action]
+   ```bash
+   [command]
+   ```
+2. [Action]
+3. [Action]
 
-### Step 1: [Action]
-[Detailed instructions with screenshots/code]
+## Verify
+[Command or check that proves it worked.]
 
-### Step 2: [Action]
-[Detailed instructions]
+## Troubleshooting
+**[Symptom]** - [cause and fix]
+````
 
-## Key Concepts
-### [Concept 1]
-[Explanation with examples]
+## User guide
 
-## Common Tasks
-### How to [Task]
+````markdown
+# [Product / feature] guide
+
+## Overview
+[What it does and why use it, two or three sentences.]
+
+## Getting started
+[Minimal steps to first success.]
+
+## Key concepts
+### [Concept]
+[Explanation with an example.]
+
+## Common tasks
+### [Task]
 1. [Step]
 2. [Step]
-3. [Expected result]
+Result: [what happens]
 
-## Advanced Features
-[Optional advanced functionality]
-
-## Troubleshooting
-### Problem: [Common issue]
-**Symptoms**: [What users see]
-**Solution**: [How to fix]
+## Advanced
+[Optional features.]
 
 ## FAQ
-**Q: [Question]**
-A: [Answer]
+**[Question]**
+[Answer]
+````
 
-## Additional Resources
-- [Link to related docs]
-- [Support channels]
+## Architecture / explanation
+
+````markdown
+# [System] architecture
+
+## Purpose
+[What the system does, for whom, and its main constraints.]
+
+## Overview diagram
+```mermaid
+flowchart LR
+  Client --> API --> DB[(Database)]
+  API --> Queue --> Worker
 ```
-
-## Tutorial Format
-
-```markdown
-# How to [Accomplish Goal]
-
-**Time required**: [X minutes]
-**Difficulty**: [Beginner/Intermediate/Advanced]
-
-## What You'll Learn
-- [Learning objective 1]
-- [Learning objective 2]
-
-## Prerequisites
-- [Required knowledge]
-- [Tools needed]
-
-## Step-by-Step Instructions
-
-### 1. [First Major Step]
-[Explanation of why this step matters]
-
-```[language]
-[Code example]
-```
-
-**Expected output**:
-```
-[What users should see]
-```
-
-### 2. [Next Major Step]
-[Continue pattern]
-
-## Verification
-[How to confirm it worked]
-
-## Next Steps
-[What to learn next]
-
-## Troubleshooting
-[Common issues]
-```
-
-## Architecture Documentation Format
-
-```markdown
-# [System Name] Architecture
-
-## Overview
-[High-level description, purpose, key characteristics]
-
-## Architecture Diagram
-[ASCII diagram or description for diagram]
 
 ## Components
-### [Component 1]
-**Purpose**: [What it does]
-**Technology**: [Stack/framework]
-**Responsibilities**:
-- [Responsibility 1]
-- [Responsibility 2]
+### [Component]
+- **Responsibility**: [what it owns]
+- **Technology**: [stack]
+- **Interfaces**: [inputs, outputs, protocols]
 
-**Interfaces**:
-- Input: [Data/requests it receives]
-- Output: [Data/responses it produces]
+## Data flow
+1. [Step through a typical request or job]
 
-## Data Flow
-1. [Step-by-step flow through system]
+## Key decisions
+### [Decision]
+- **Context**: [the problem]
+- **Choice**: [what was chosen]
+- **Alternatives**: [what was rejected and why]
+- **Consequences**: [trade-offs accepted]
 
-## Technology Stack
-- **Frontend**: [Technologies]
-- **Backend**: [Technologies]
-- **Database**: [Technologies]
-- **Infrastructure**: [Technologies]
+## Operational concerns
+- **Scaling**: [limits and bottlenecks]
+- **Security**: [authn, authz, data protection]
+- **Observability**: [logs, metrics, alerts]
+````
 
-## Design Decisions
-### Why [Technology/Pattern]?
-[Rationale, alternatives considered, trade-offs]
+## Troubleshooting guide
 
-## Scalability Considerations
-[How system scales, bottlenecks, mitigation strategies]
+Organize by symptom, the way the reader arrives:
 
-## Security
-[Authentication, authorization, data protection]
+````markdown
+# Troubleshooting [system]
 
-## Monitoring and Observability
-[Logging, metrics, alerting]
-```
+## [Symptom exactly as the user sees it, such as the error message]
+**Cause**: [why it happens]
+**Fix**:
+1. [Step]
+2. [Step]
+**Prevent it**: [optional]
+
+## When to escalate
+[What to collect (logs, versions, IDs) and where to send it.]
+````
+
+## Runbook / SOP
+
+````markdown
+# [Procedure name]
+
+**When to use**: [trigger]
+**Owner**: [team or role]
+**Time**: [estimate]  **Risk**: [low / medium / high]
+
+## Before you start
+- [Access, approvals, backups]
+
+## Procedure
+1. [Action] - expected result: [...]
+2. [Action] - expected result: [...]
+
+## Rollback
+1. [How to undo each risky step]
+
+## After
+- [Verification, notifications, ticket updates]
+````
+
+## Release notes
+
+````markdown
+# [Version] - [YYYY-MM-DD]
+
+## Breaking changes
+- [What changed, who is affected, how to migrate]
+
+## New
+- [Feature, in user terms]
+
+## Improved
+- [...]
+
+## Fixed
+- [...]
+
+## Deprecated
+- [What, replacement, removal version]
+````
+
+Put breaking changes first. Write each line for the user, not as a commit message.
+
+## Knowledge base article
+
+````markdown
+# [Question or task in the user's words]
+
+[Direct answer in one or two sentences.]
+
+## Steps
+1. [...]
+
+## Related
+- [Links]
+````
