@@ -1,0 +1,1 @@
+{"calc": "pct_of_total", "date_column": "order_date", "value_column": "amount", "group_column": "region", "range": {"start": "2025-01-01", "end": "2025-03-31"}, "expected": {"East": 0.5769230769230769, "West": 0.4230769230769231, "Total": 1.0}}

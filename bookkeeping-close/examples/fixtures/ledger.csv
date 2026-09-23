@@ -1,0 +1,19 @@
+Date,Transaction Type,Num,Memo/Description,Split,Amount
+07/28/2026,Check,1038,Check 1038 Harbor Supply Co,Inventory,-1200.00
+08/01/2026,Deposit,,Stripe payout,Undeposited Funds,4250.00
+08/05/2026,Expense,,Gusto payroll,Payroll Clearing,-8432.17
+08/06/2026,Expense,,Adobe Creative Cloud,Software Subscriptions,-59.99
+08/08/2026,Transfer,,Transfer to savings,Savings 4821,-5000.00
+08/09/2026,Payment,,Customer payment check - Northwind,Accounts Receivable,1500.00
+08/09/2026,Payment,,Customer payment check - Lakeside,Accounts Receivable,2275.50
+08/09/2026,Check,1041,Check 1041 Fastline Printing,Printing,-845.00
+08/14/2026,Expense,,WEX fleet fuel,Fuel,-87.46
+08/18/2026,Deposit,,Stripe payout,Undeposited Funds,6120.80
+08/18/2026,Deposit,,Stripe payout,Undeposited Funds,6120.80
+08/20/2026,Expense,,Rent Greenfield Properties,Rent,-3500.00
+08/22/2026,Deposit,,Online transfer from savings,Sales Income,2000.00
+08/25/2026,Credit Card Payment,,Amex epayment,Amex 1005,-2340.12
+08/29/2026,Expense,,Google Workspace,Uncategorized Expense,-72.00
+08/29/2026,Check,1044,Check 1044 Ortiz Electrical,Contract Labor,-1650.00
+08/31/2026,Deposit,,Customer payment - Birchwood,Accounts Receivable,3400.00
+09/02/2026,Expense,,Office supplies,Office Supplies,-300.00

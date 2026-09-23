@@ -1,0 +1,42 @@
+Record ID,First Name,Last Name,Email,Phone Number,Company Name,Associated Company ID,Job Title,Lifecycle Stage,State/Region,Country/Region,Create Date,Last Activity Date,Contact Owner
+C001,Jane,Doe,jane.doe@acme.com,(415) 555-0101,Acme Inc,CO01,VP Operations,lead,California,United States,2022-03-14,2026-08-30,Owner A
+C002,JANE,DOE,Jane.Doe@ACME.com,,Acme,CO02,,salesqualifiedlead,CA,USA,2024-01-09,2025-11-02,Owner B
+C003,Jane,Doe,jane.doe@gmail.com,415.555.0101,Acme Inc.,,VP Ops,customer,,,2025-06-01,2026-09-01,Owner A
+C004,Jonathan,Smith,jonathan.smith@globex.com,+1 312 555 0110,Globex LLC,CO03,Director of IT,opportunity,Illinois,US,2021-07-20,2026-07-15,Owner B
+C005,Jonathon,Smith,jonathan.smith@globex.com,,Globex,CO04,IT Director,lead,IL,,2023-02-02,2024-12-12,Owner A
+C006,Robert,Chen,robert.chen@initech.io,650-555-0120,Initech,CO05,CFO,lead,CA,US,2022-09-09,2026-05-05,Owner A
+C007,Bob,Chen,bchen@initech.io,(650) 555 0120 x204,Initech,,Chief Financial Officer,,,,2024-04-04,2026-06-20,Owner B
+C008,Maria,Garcia,maria@umbrella.co.uk,+44 20 7946 0958,Umbrella Ltd,CO06,Head of Procurement,lead,,United Kingdom,2023-05-05,2026-02-02,Owner A
+C009,maria,garcia,m.garcia@umbrella.co.uk,,Umbrella,,,,,UK,2024-10-10,2026-03-03,Owner B
+C010,Tom,Baker,info@stark.com,,Stark Industries,CO08,Office Manager,lead,New York,US,2023-01-01,2026-01-01,Owner A
+C011,Alice,Wong,info@stark.com,,Stark Industries,CO08,Engineer,lead,NY,US,2023-06-01,2026-04-01,Owner B
+C012,,,info@stark.com,,Stark Industries,,,subscriber,,,2024-02-02,2024-02-02,
+C013,David,Kim,david.kim@hooli.com,408-555-0130,Hooli,CO09,PM,lead,CA,US,2022-02-02,2026-06-06,Owner A
+C014,David,Kim,dkim@piedpiper.com,408-555-0199,Pied Piper,CO10,Engineer,lead,CA,US,2023-03-03,2026-07-07,Owner B
+C015,Sarah,Lee,sarah@wayne.com,,Wayne Enterprises,CO11,COO,customer,New Jersey,US,2021-01-01,2026-08-08,Owner A
+C016,Sam,Lee,sam@wayne.com,,Wayne Enterprises,CO11,Analyst,lead,NJ,US,2024-01-01,2026-08-01,Owner B
+C017,Priya,Patel,priya.patel@gmail.com,,Vandelay Industries,,Consultant,lead,Texas,US,2023-04-04,2026-04-04,Owner A
+C018,Priya,Patel,priyapatel+crm@gmail.com,,Vandelay Industries,,,lead,TX,US,2025-04-04,2026-05-05,Owner B
+C019,Mark,Jones,jonesfamily@yahoo.com,(305) 555-0140,,,Owner,lead,Florida,US,2022-08-08,2026-02-02,Owner A
+C020,Linda,Jones,jonesfamily@yahoo.com,(305) 555-0141,,,Owner,lead,FL,US,2023-08-08,2026-03-03,Owner A
+C021,Kevin,O'Brien,kevin@soylent.com,(561) 555-0142,Soylent Corp,,Buyer,lead,Florida,US,2022-05-05,2026-05-05,Owner A
+C022,Kevin,OBrien,kobrien@soylent.com,+1 561-555-0142,Soylent,,Senior Buyer,opportunity,FL,US,2024-05-05,2026-06-06,Owner B
+C023,Amy,Fox,amy.fox@massivedynamic.com,212-555-0100,Massive Dynamic,CO12,Director,lead,NY,US,2022-01-01,2026-01-01,Owner A
+C024,Ben,Ortiz,ben.ortiz@massivedynamic.com,212-555-0100,Massive Dynamic,CO12,Manager,lead,NY,US,2022-01-02,2026-01-02,Owner A
+C025,Carl,Nguyen,carl.nguyen@massivedynamic.com,(212) 555-0100,Massive Dynamic,CO12,Analyst,lead,NY,US,2022-01-03,2026-01-03,Owner B
+C026,,, ERIC.LANG@Tyrell.com ,,Tyrell Corp,CO13,,lead,,,2024-07-07,2025-01-01,
+C027,Eric,Lang,eric.lang@tyrell.com,+1 (702) 555-0150,Tyrell Corp,CO13,CTO,opportunity,Nevada,US,2022-07-07,2026-07-07,Owner A
+C028,Emily,Carter,emily@oscorp.com,,Oscorp,CO99,Counsel,lead,,,2021-09-09,2023-09-09,Owner A
+C029,Emily,Carter-Hayes,emily@oscorp.com,(917) 555-0160,Oscorp,,General Counsel,customer,NY,US,2023-09-09,2026-09-09,Owner B
+C030,Luis,Alvarez,luis@cyberdyne.com,,Cyberdyne Systems,,,lead,,,2021-03-03,2022-03-03,Owner A
+C031,Luis,Alvarez,luis@cyberdyne.com,(213) 555-0170,Cyberdyne Systems,,VP Engineering,sql,California,US,2023-03-03,2026-08-18,Owner B
+C032,L.,Alvarez,LUIS@CYBERDYNE.COM,,Cyberdyne,,,,,,2025-03-03,2025-03-03,
+C033,Test,Test,test@test.com,,,,,,,,2025-01-01,2025-01-01,
+C034,asdf,,asdf@,,,,,,,,2025-02-02,2025-02-02,
+C035,Grace,Hopper,grace@navy-contractors.com,,Navy Contractors,,Advisor,lead,Virginia,US,2018-05-05,2019-06-06,Owner A
+C036,Nina,Rossi,nina@gmial.com,,Rossi Design,,Principal,lead,,Italy,2024-06-06,2025-06-06,Owner A
+C037,Nina,Rossi,nina@gmail.com,,Rossi Design,,Owner,lead,,IT,2025-06-06,2026-06-06,Owner B
+C038,Oliver,Stone,oliver@wonka.com,+49 30 901820,Wonka GmbH,,Buyer,lead,,Germany,2024-08-08,2026-08-08,Owner A
+C039,Hannah,Berg,hannah.berg@acme.com,(415) 555-0199,Acme Inc,CO01,Controller,lead,CA,US,2023-11-11,2026-04-04,Owner B
+C040,Ivan,Petrov,ivan@initrode.com,555-0180,Initrode,,Engineer,lead,California,United States of America,2024-09-09,2026-09-09,Owner A
+C041,Zoe,Park,zoe.park@northwind.ca,416-555-0190,Northwind,,Director,lead,Ontario,Canada,2024-10-10,2026-09-10,Owner B

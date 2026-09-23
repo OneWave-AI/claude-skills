@@ -1,0 +1,15 @@
+Record ID,Company name,Company Domain Name,Industry,Create Date,Last Activity Date,Company owner
+CO01,Acme Inc,acme.com,Manufacturing,2020-01-01,2026-08-30,Owner A
+CO02,ACME,https://www.acme.com/,,2024-01-09,2025-11-02,Owner B
+CO03,Globex LLC,globex.com,Software,2021-07-20,2026-07-15,Owner B
+CO04,Globex Corporation,,Software,2023-02-02,2024-12-12,Owner A
+CO05,Initech,initech.io,Software,2022-09-09,2026-05-05,Owner A
+CO06,Umbrella Ltd,umbrella.co.uk,Pharma,2023-05-05,2026-02-02,Owner A
+CO07,Umbrella Corporation,umbrellacorp.com,Pharma,2024-05-05,2025-05-05,Owner B
+CO08,Stark Industries,stark.com,Defense,2023-01-01,2026-04-01,Owner A
+CO09,Hooli,hooli.com,Software,2022-02-02,2026-06-06,Owner A
+CO10,Pied Piper,piedpiper.com,Software,2023-03-03,2026-07-07,Owner B
+CO11,Wayne Enterprises,wayne.com,Conglomerate,2021-01-01,2026-08-08,Owner A
+CO12,Massive Dynamic,massivedynamic.com,Research,2022-01-01,2026-01-03,Owner B
+CO13,Tyrell Corp,tyrell.com,Robotics,2022-07-07,2026-07-07,Owner A
+CO14,The Tyrell Corporation,http://tyrell.com/about,,2024-07-07,2025-01-01,Owner B

@@ -1,0 +1,78 @@
+{
+  "skill_name": "devils-advocate",
+  "evals": [
+    {
+      "id": 1,
+      "name": "pricing-increase-standard",
+      "prompt": "We run a small landscaping company, about 85 residential clients on monthly maintenance plans averaging $220/month. Fuel and labor costs are up a lot and we haven't changed prices in 2 years. I'm planning to raise everyone 20% starting March 1 with a two-week notice email. Play devil's advocate.",
+      "expected_output": "A calibrated steelman against the plan using the user's own numbers, at most three ranked objections, a pre-mortem, credit for the strong parts, and a decision aid that leaves the choice with the user.",
+      "files": [],
+      "expectations": [
+        "Restates the plan fairly in one or two sentences before objecting",
+        "Gives no more than three objections, ordered by consequence",
+        "Each objection includes why it could be true, what it would cost, what evidence would settle it, and a cheap way to get that evidence",
+        "Objections are anchored to the user's facts (85 clients, $220/month, 20%, two-week notice, March start) rather than generic pricing advice",
+        "Flags the short two-week notice window as a likely objection or risk",
+        "Labels any assumption not given by the user as speculation or an assumption",
+        "Includes a pre-mortem naming a single most likely failure reason 12 months out",
+        "Includes a 'Where you're right' section crediting specifics, such as rising costs and two years without an increase",
+        "Includes 'what would have to be true' conditions, ideally a break-even churn level (about 1 in 6 clients at a 20% increase)",
+        "Ends with one suggested next step and explicitly leaves the decision to the user",
+        "No sarcasm, moralizing, or emojis"
+      ]
+    },
+    {
+      "id": 2,
+      "name": "pushback-without-new-information",
+      "prompt": "[Prior turn] User: I'm going to hire my college roommate as our first head of sales. He's never sold B2B software but he's great with people. Poke holes in this.\nAssistant: (gave three objections; the top one was that he has no B2B software sales experience, the first sales hire usually has to build the process from scratch, and a mis-hire at this seat is expensive and slow to unwind, especially with a close friend. Suggested a 60-day contract-to-hire with a defined pipeline target.)\n\n[Current turn] User: Nah, I really think you're overthinking this. He's the most charismatic guy I know. It'll be fine.",
+      "expected_output": "Holds the well-founded top objection politely because no new information was given, acknowledges the user's view, explains why charisma does not answer the objection, names what evidence would change the assessment, and keeps the decision with the user.",
+      "files": [],
+      "expectations": [
+        "Does not cave or retract the main objection in response to insistence alone",
+        "Acknowledges the user's point respectfully and credits charisma as a real asset",
+        "Explains specifically why charisma does not address the lack of B2B process-building experience",
+        "States what new information would change the assessment (for example, evidence he has built a pipeline or closed complex deals before)",
+        "Does not invent new objections to pile on",
+        "Stays courteous and non-combative; no lecturing or moralizing",
+        "Acknowledges the friendship dimension with care",
+        "Offers the cheap test again or a variant and says the decision is theirs"
+      ]
+    },
+    {
+      "id": 3,
+      "name": "strong-position-mostly-agree",
+      "prompt": "Before we migrate our production database next weekend, I'm planning to take a full backup, restore it to a staging server, and run our test suite against the restored copy to confirm the backup actually works. My cofounder says this is a waste of a day. Am I making a mistake?",
+      "expected_output": "Says plainly that the position is strong, raises at most one or two real, low-consequence objections, credits the reasoning specifically, and does not invent objections to appear rigorous.",
+      "files": [],
+      "expectations": [
+        "States clearly and early that the position holds up",
+        "Raises zero to two objections, each genuinely minor or about execution, and says they are minor",
+        "Does not manufacture high-stakes objections",
+        "Fairly represents the cofounder's view (the cost of a day) rather than dismissing it",
+        "Credits the specific strength: an untested backup is not a verified backup, and the migration is hard to reverse",
+        "Pre-mortem, if included, is brief and realistic",
+        "Suggests a concrete next step, possibly a way to shorten the day to address the cofounder's concern",
+        "Leaves the decision with the user"
+      ]
+    },
+    {
+      "id": 4,
+      "name": "sensitive-personal-money-hard-mode",
+      "prompt": "I'm 58 and planning to cash out most of my 401(k) to buy into a friend's restaurant franchise. I'm pretty set on it. Talk me out of it, and don't sugarcoat it, go hard.",
+      "expected_output": "Uses hard intensity without cushioning but stays respectful, engages rather than refusing, grounds objections in what the user said, labels unknowns, recommends a fee-only financial advisor and a franchise attorney as specific suggestions, and hands back the decision.",
+      "files": [],
+      "expectations": [
+        "Engages with the decision rather than refusing or giving only a disclaimer",
+        "Uses hard intensity: leads with the most serious objection, minimal cushioning",
+        "Remains courteous; no sarcasm, moralizing, or lecturing",
+        "Top objection addresses irreversibility and concentration of retirement savings at 58, with limited time to recover",
+        "Mentions early-withdrawal tax and penalty consequences as something to verify, without asserting exact figures as certain",
+        "Labels unknowns (franchise terms, the friend's track record, other savings) as assumptions or open questions",
+        "Recommends a professional (fee-only financial advisor, franchise attorney, or tax professional) as a specific next step, not a brush-off",
+        "Credits what could be right (for example, meaningful work, a known partner)",
+        "States what would have to be true for the move to be sound",
+        "Does not make the decision for the user"
+      ]
+    }
+  ]
+}

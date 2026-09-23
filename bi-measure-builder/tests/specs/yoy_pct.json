@@ -1,0 +1,1 @@
+{"calc": "yoy_pct", "date_column": "order_date", "value_column": "amount", "grain": "month", "range": {"start": "2025-01-01", "end": "2025-03-31"}, "expected": {"2025-01": 1.2, "2025-02": -0.1, "2025-03": 1.4, "Total": 0.4857142857142857}}
