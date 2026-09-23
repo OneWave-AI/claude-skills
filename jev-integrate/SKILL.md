@@ -22,12 +22,16 @@ Answer these three. If any is "no", stop and keep the LLM call.
    not a capability gain. It knows nothing Claude doesn't. On a nightly cron over
    fifty records it buys you a dependency and nothing else.
 
-Measured on real CRM data (15 records, 4 questions each). `jev-audit` owns the full
-pricing reference:
+Measured on 150 hand-labelled records across three jobs (our Sep 20 2026 run):
+Jev ties GPT-5.2 at **145/150** and costs **46x less** ($0.036 vs
+$1.64 per 1k records), but end to end it is only **1.7x faster** than GPT-4.1-mini — the
+published 40x-200x is against a 3-329 s multi-step frontier workflow, not one call.
 
-It is a latency and cost optimisation, not a capability gain — roughly 6x faster and
-20x+ cheaper than a small LLM on the same decision, and it knows nothing Claude doesn't.
-`jev-audit` holds the measured table and current pricing; don't restate figures here.
+**The open reproductions are not drop-in.** Same run: Von 1.0.1 (395M) **92/150 (61%)**,
+Laya (421M) **62/150 (41%)**. They collapse onto one class rather than degrading — Von
+predicted `exfiltration` 25 times on a 50-command set containing five. A confidence gate
+does not rescue that: catching Von's errors meant escalating 92% of volume, Laya 100%,
+against Jev's 8%. Use them only where you have measured them on your own labelled set.
 
 ## The three question types
 
@@ -60,19 +64,26 @@ tell a bad question from a bad model, and the failure is silent — see `jev-eva
 
 ### 2. Write the criteria as if explaining to a new hire
 
-Measured, same data, same model, only the wording changed:
+Worst-to-best spread across four wordings of the same questions, 50 records per task
+(our Sep 20 2026 run):
 
-| criteria style | Jev | Von (open) |
-|---|---|---|
-| one terse line per option | 15/15 | **4/15** |
-| 3–4 sentences with examples | 15/15 | 14/15 |
-| richer + explicit default + exclusions | 15/15 | 13/15 |
-| four or five words per option | 15/15 | **3/15** |
+| task | Jev | Von (395M) | Laya (421M) |
+|---|---|---|---|
+| agent command risk | 44-49 (10 pts) | 9-23 (**28 pts**) | 18-28 (20 pts) |
+| lead triage | 47-49 (4 pts) | 22-34 (**24 pts**) | 15-24 (18 pts) |
+| ticket routing | 41-47 (12 pts) | 23-41 (**36 pts**) | 22-36 (28 pts) |
 
-**Criteria wording dominates model choice on open weights, and is free on Jev.** That is
-the real open-vs-hosted decision: not the ceiling, the floor. A well-specified open model
-lands one point behind Jev. A sloppily specified one falls off a cliff, and you will not
-notice without the eval set.
+Same sweep on the command task with the LLMs included: Haiku 4.5 46-48 (4 pts), GPT-4.1-mini
+45-50 (10 pts), **Jev 44-49 (10 pts)**, GPT-5-mini 41-49 (16 pts).
+
+**Jev is NOT more wording-robust than a small LLM** — it swings the same ten points, and
+Haiku was the steadiest model in the test. Read the FLOOR, not the spread: every hosted
+model bottoms out at 82-92% and stays shippable, while Von bottoms out at 18% and Laya at
+36%. Do NOT read this as "write better criteria and the open model catches up" — an earlier
+15-record test concluded exactly that and it was wrong. Richer criteria did not reliably help: on lead
+triage Von scored 34/50 on the terse wording and 28/50 on the carefully written one. What
+moves those numbers is sensitivity to surface form, not comprehension, so every future
+criteria edit is an unannounced regression risk.
 
 Write each option with: what it is, what it is *not*, and the edge case that tempts a
 wrong answer. Name the default explicitly when one option should dominate.
