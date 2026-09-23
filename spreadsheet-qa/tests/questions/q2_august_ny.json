@@ -1,0 +1,63 @@
+{
+  "question": "What was gross paid revenue in USD for August 2026 in New York time?",
+  "answer_label": "Gross paid revenue, Aug 2026 America/New_York (USD)",
+  "definition": "Paid orders whose created_at, converted from UTC to America/New_York, falls in August 2026; USD at fx_rates.csv; before refunds.",
+  "alternatives": [
+    "August by UTC day: 1,850.00 (O1007 moves in, O1012 moves out)."
+  ],
+  "tables": {
+    "orders": "../fixtures/orders.csv",
+    "customers": "../fixtures/customers.csv",
+    "refunds": "../fixtures/refunds.csv",
+    "fx": "../fixtures/fx_rates.csv"
+  },
+  "steps": [
+    {
+      "name": "orders_clean",
+      "kind": "clean",
+      "from": "orders",
+      "note": "drop the embedded Grand Total row; parse text amounts; timestamps are UTC",
+      "sql": "SELECT order_id, customer_id, CAST(created_at AS TIMESTAMPTZ) AS created_at,\n  upper(trim(currency)) AS currency, to_num(amount) AS amount, lower(trim(status)) AS status\nFROM orders\nWHERE order_id IS NOT NULL AND customer_id NOT ILIKE '%total%'",
+      "assert_zero": [
+        {
+          "label": "amounts that failed to parse",
+          "sql": "SELECT count(*) FROM orders_clean WHERE amount IS NULL"
+        }
+      ]
+    },
+    {
+      "name": "paid_aug_ny",
+      "kind": "filter",
+      "from": "orders_clean",
+      "note": "status paid; month of the New York local time",
+      "sql": "SELECT *, CAST(created_at AT TIME ZONE 'America/New_York' AS VARCHAR) AS created_ny FROM orders_clean\nWHERE status = 'paid'\n  AND strftime(created_at AT TIME ZONE 'America/New_York', '%Y-%m') = '2026-08'"
+    },
+    {
+      "name": "orders_usd",
+      "kind": "join",
+      "base": "paid_aug_ny",
+      "note": "convert to USD at the provided rates",
+      "sql": "SELECT o.*, o.amount * CAST(f.usd_per_unit AS DOUBLE) AS amount_usd\nFROM paid_aug_ny o LEFT JOIN fx f ON f.currency = o.currency",
+      "assert_zero": [
+        {
+          "label": "orders with no FX rate",
+          "sql": "SELECT count(*) FROM orders_usd WHERE amount_usd IS NULL"
+        }
+      ]
+    },
+    {
+      "name": "answer",
+      "kind": "aggregate",
+      "from": "orders_usd",
+      "sql": "SELECT round(sum(amount_usd), 2) AS gross_usd, count(*) AS orders FROM orders_usd"
+    }
+  ],
+  "sample_from": "orders_usd",
+  "reconcile": [
+    {
+      "label": "sum of parsed order amounts (native currencies) equals the export's own Grand Total row",
+      "sql": "SELECT sum(amount) FROM orders_clean",
+      "expected": "SELECT to_num(amount) FROM orders WHERE customer_id ILIKE '%grand total%'"
+    }
+  ]
+}

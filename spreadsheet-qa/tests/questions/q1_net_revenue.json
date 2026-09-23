@@ -1,0 +1,87 @@
+{
+  "question": "What was net revenue in USD for Q3 2026?",
+  "answer_label": "Net revenue Q3 2026 (USD)",
+  "definition": "Paid orders created 2026-07-01 through 2026-09-30 (UTC), converted to USD at fx_rates.csv, minus every refund issued against those orders regardless of refund date. Cancelled orders and the export's Grand Total row are excluded.",
+  "alternatives": [
+    "Refunds counted by refund date (only refunds issued in Q3): 8,710.00, because R03 (450.00) was issued Oct 2.",
+    "Gross (no refunds): 9,020.00.",
+    "Quarter in America/New_York instead of UTC: O1016 (Oct 1 01:00 UTC = Sep 30 in New York) moves in."
+  ],
+  "tables": {
+    "orders": "../fixtures/orders.csv",
+    "customers": "../fixtures/customers.csv",
+    "refunds": "../fixtures/refunds.csv",
+    "fx": "../fixtures/fx_rates.csv"
+  },
+  "steps": [
+    {
+      "name": "orders_clean",
+      "kind": "clean",
+      "from": "orders",
+      "note": "drop the embedded Grand Total row; parse text amounts; timestamps are UTC",
+      "sql": "SELECT order_id, customer_id, CAST(created_at AS TIMESTAMPTZ) AS created_at,\n  upper(trim(currency)) AS currency, to_num(amount) AS amount, lower(trim(status)) AS status\nFROM orders\nWHERE order_id IS NOT NULL AND customer_id NOT ILIKE '%total%'",
+      "assert_zero": [
+        {
+          "label": "amounts that failed to parse",
+          "sql": "SELECT count(*) FROM orders_clean WHERE amount IS NULL"
+        }
+      ]
+    },
+    {
+      "name": "paid_q3",
+      "kind": "filter",
+      "from": "orders_clean",
+      "note": "status paid; created 2026-07-01 to 2026-09-30 UTC",
+      "sql": "SELECT * FROM orders_clean\nWHERE status = 'paid'\n  AND created_at >= TIMESTAMPTZ '2026-07-01 00:00:00+00'\n  AND created_at <  TIMESTAMPTZ '2026-10-01 00:00:00+00'"
+    },
+    {
+      "name": "orders_usd",
+      "kind": "join",
+      "base": "paid_q3",
+      "note": "convert to USD at the provided rates",
+      "sql": "SELECT o.*, o.amount * CAST(f.usd_per_unit AS DOUBLE) AS amount_usd\nFROM paid_q3 o LEFT JOIN fx f ON f.currency = o.currency",
+      "assert_zero": [
+        {
+          "label": "orders with no FX rate",
+          "sql": "SELECT count(*) FROM orders_usd WHERE amount_usd IS NULL"
+        }
+      ]
+    },
+    {
+      "name": "refunds_by_order",
+      "kind": "derive",
+      "from": "refunds",
+      "note": "one row per order: all refunds against it, any refund date, in USD",
+      "sql": "SELECT r.order_id, sum(to_num(r.amount) * CAST(f.usd_per_unit AS DOUBLE)) AS refund_usd\nFROM refunds r JOIN fx f ON f.currency = upper(trim(r.currency))\nGROUP BY r.order_id"
+    },
+    {
+      "name": "orders_net",
+      "kind": "join",
+      "base": "orders_usd",
+      "note": "attach refunds (pre-aggregated per order, so no fan-out)",
+      "sql": "SELECT o.*, coalesce(r.refund_usd, 0) AS refund_usd, o.amount_usd - coalesce(r.refund_usd, 0) AS net_usd\nFROM orders_usd o LEFT JOIN refunds_by_order r ON r.order_id = o.order_id"
+    },
+    {
+      "name": "answer",
+      "kind": "aggregate",
+      "from": "orders_net",
+      "sql": "SELECT round(sum(net_usd), 2) AS net_revenue_usd FROM orders_net"
+    }
+  ],
+  "sample_from": "orders_net",
+  "reconcile": [
+    {
+      "label": "sum of parsed order amounts (native currencies) equals the export's own Grand Total row",
+      "sql": "SELECT sum(amount) FROM orders_clean",
+      "expected": "SELECT to_num(amount) FROM orders WHERE customer_id ILIKE '%grand total%'"
+    },
+    {
+      "label": "net = gross - refunds (independent sums)",
+      "sql": "SELECT sum(net_usd) FROM orders_net",
+      "expected": "SELECT (SELECT sum(amount_usd) FROM orders_usd) - (SELECT sum(refund_usd) FROM refunds_by_order WHERE order_id IN (SELECT order_id FROM orders_usd))"
+    }
+  ],
+  "caveats": [
+    "FX is one fixed rate per currency from fx_rates.csv, not the rate on each order date."
+  ]
+}

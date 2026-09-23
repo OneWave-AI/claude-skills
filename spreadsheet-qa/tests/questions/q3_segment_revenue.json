@@ -1,0 +1,87 @@
+{
+  "question": "Gross paid revenue in USD by customer segment, Q3 2026",
+  "definition": "Paid Q3 2026 (UTC) orders in USD, before refunds, grouped by the customer's CURRENT segment (latest updated_at row per customer_id).",
+  "alternatives": [
+    "Segment at the time of the order would need segment history; the export only has two snapshots for C003."
+  ],
+  "tables": {
+    "orders": "../fixtures/orders.csv",
+    "customers": "../fixtures/customers.csv",
+    "refunds": "../fixtures/refunds.csv",
+    "fx": "../fixtures/fx_rates.csv"
+  },
+  "steps": [
+    {
+      "name": "orders_clean",
+      "kind": "clean",
+      "from": "orders",
+      "note": "drop the embedded Grand Total row; parse text amounts; timestamps are UTC",
+      "sql": "SELECT order_id, customer_id, CAST(created_at AS TIMESTAMPTZ) AS created_at,\n  upper(trim(currency)) AS currency, to_num(amount) AS amount, lower(trim(status)) AS status\nFROM orders\nWHERE order_id IS NOT NULL AND customer_id NOT ILIKE '%total%'",
+      "assert_zero": [
+        {
+          "label": "amounts that failed to parse",
+          "sql": "SELECT count(*) FROM orders_clean WHERE amount IS NULL"
+        }
+      ]
+    },
+    {
+      "name": "paid_q3",
+      "kind": "filter",
+      "from": "orders_clean",
+      "note": "status paid; created 2026-07-01 to 2026-09-30 UTC",
+      "sql": "SELECT * FROM orders_clean\nWHERE status = 'paid'\n  AND created_at >= TIMESTAMPTZ '2026-07-01 00:00:00+00'\n  AND created_at <  TIMESTAMPTZ '2026-10-01 00:00:00+00'"
+    },
+    {
+      "name": "orders_usd",
+      "kind": "join",
+      "base": "paid_q3",
+      "note": "convert to USD at the provided rates",
+      "sql": "SELECT o.*, o.amount * CAST(f.usd_per_unit AS DOUBLE) AS amount_usd\nFROM paid_q3 o LEFT JOIN fx f ON f.currency = o.currency",
+      "assert_zero": [
+        {
+          "label": "orders with no FX rate",
+          "sql": "SELECT count(*) FROM orders_usd WHERE amount_usd IS NULL"
+        }
+      ]
+    },
+    {
+      "name": "customers_dedup",
+      "kind": "dedupe",
+      "from": "customers",
+      "note": "C003 appears twice; keep the most recently updated row per customer_id",
+      "sql": "SELECT customer_id, name, segment, country, updated_at FROM (\n  SELECT *, row_number() OVER (PARTITION BY customer_id ORDER BY updated_at DESC) AS rn FROM customers\n) t WHERE rn = 1",
+      "assert_zero": [
+        {
+          "label": "customer_id still duplicated",
+          "sql": "SELECT count(*) - count(DISTINCT customer_id) FROM customers_dedup"
+        }
+      ]
+    },
+    {
+      "name": "orders_seg",
+      "kind": "join",
+      "base": "orders_usd",
+      "note": "attach current segment",
+      "sql": "SELECT o.*, c.segment FROM orders_usd o LEFT JOIN customers_dedup c ON c.customer_id = o.customer_id"
+    },
+    {
+      "name": "answer",
+      "kind": "aggregate",
+      "from": "orders_seg",
+      "sql": "SELECT segment, round(sum(amount_usd), 2) AS gross_usd, count(*) AS orders FROM orders_seg GROUP BY segment ORDER BY gross_usd DESC"
+    }
+  ],
+  "sample_from": "orders_seg",
+  "reconcile": [
+    {
+      "label": "sum of parsed order amounts (native currencies) equals the export's own Grand Total row",
+      "sql": "SELECT sum(amount) FROM orders_clean",
+      "expected": "SELECT to_num(amount) FROM orders WHERE customer_id ILIKE '%grand total%'"
+    },
+    {
+      "label": "segments sum to total Q3 gross",
+      "sql": "SELECT sum(gross_usd) FROM answer",
+      "expected": "SELECT sum(amount_usd) FROM orders_usd"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "governing_thought": "Deliberately bad spec: QA must catch every problem on these slides.",
+  "template": "sample_template.pptx",
+  "slides": [
+    {
+      "layout": "Title and Content",
+      "title": "Overview of the various operational and financial considerations regarding the lane pricing review for the upcoming fiscal year planning cycle",
+      "bullets": [
+        "Operating margin has declined from 7.8% to 4.9% over the last two fiscal years even though total shipment volume grew by 11% across all regions and customer segments",
+        "A small number of lanes appear to be responsible for the majority of the losses, but the exact figures depend on how shared overhead costs are allocated across the network",
+        "Competitor pricing on comparable lanes appears to be higher than ours by a meaningful margin according to broker benchmarks and several publicly available tariff filings",
+        "Customers have indicated in interviews that they value guaranteed capacity and predictable surcharges more than the absolute price level on the most congested lanes",
+        "Any pricing change would need to be coordinated with the contract renewal calendar, the sales compensation plan, and the customer communications team",
+        "There are additional considerations regarding fuel surcharges, accessorial charges, and minimum-volume commitments that should be reviewed as part of this work",
+        "The finance team has also raised questions about the impact on working capital and on the timing of revenue recognition for multi-year contracts"
+      ]
+    },
+    {
+      "layout": "Two Column",
+      "title": "Market context",
+      "columns": [
+        {"bullets": ["Competitors charge more"]}
+      ],
+      "keep_empty_placeholders": true,
+      "notes": "Only one column filled; the other placeholder is left empty."
+    },
+    {
+      "layout": "Title and Chart",
+      "title": "Lane profitability",
+      "chart": {
+        "type": "column",
+        "categories": ["Top 12", "Next 28", "Rest"],
+        "series": [{"name": "Loss share", "values": [0.8, 0.15, 0.05]}],
+        "number_format": "0%"
+      },
+      "free_text": [
+        {"text": "KEY TAKEAWAY: the top lanes are the problem and we should probably do something about them soon", "left_in": 9.0, "top_in": 5.4, "width_in": 5.5, "height_in": 2.6, "size_pt": 20}
+      ]
+    },
+    {
+      "type": "section",
+      "layout": "Section Divider",
+      "title": "Appendix"
+    }
+  ]
+}

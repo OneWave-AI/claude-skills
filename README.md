@@ -2,7 +2,7 @@
 
 Production-ready skills for Claude Code. Built and maintained by [OneWave AI](https://www.onewave-ai.com).
 
-**225 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
+**229 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
 
 Companion repo: **[Open Agent Stack](https://github.com/OneWave-AI/open-agent-stack)** -- 27 artifacts that need more than a single file. Highlights: **[vibe-stack](https://github.com/OneWave-AI/open-agent-stack/tree/main/plugins/vibe-stack)** (14 skills: idea to shipped app, with a real motion system and an AI-slop detector), **[sales-desk](https://github.com/OneWave-AI/open-agent-stack/tree/main/plugins/sales-desk)** (the rep's whole daily loop), and **[7 design-token themes](https://github.com/OneWave-AI/open-agent-stack/tree/main/design-styles)**. Skills here stay single-file and zero-dependency; anything with a manifest, a team, or a build step lives there.
 
@@ -273,6 +273,10 @@ Skills that ship scripts and reference data, not just instructions -- the jobs a
 | `trade-quote-builder` | Estimates and bids for trades and field services -- waste, burden, overhead, margin vs markup, client xlsx/PDF |
 | `crm-data-cleanup` | Vendor-neutral CRM dedupe and normalization -- confidence tiers, a dry-run merge plan, shared-inbox traps caught |
 | `devils-advocate` | The strongest honest case against a decision you are leaning toward -- steelman, pre-mortem, no reflexive contrarianism |
+| `statement-extract-and-prove` | Bank, card and brokerage statement PDFs to CSV/XLSX, proven: opening + transactions = closing, first broken row pinpointed |
+| `spreadsheet-qa` | Answer questions about your own exports correctly -- profile, data dictionary, compute in code, show the rows and filters used |
+| `template-deck-builder` | Decks built into your company's slide master and placeholders, storyline first, rendered and QA'd for overflow and off-brand |
+| `sec-filing-puller` | 10-K/10-Q numbers from SEC EDGAR XBRL with a citation per number -- fiscal alignment, restatements, derived Q4, TTM |
 
 ### Small Business Essentials
 The problems that actually kill small businesses -- cash, margins, visibility, people, the lease.
