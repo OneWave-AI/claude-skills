@@ -1,0 +1,77 @@
+{
+  "governing_thought": "Acme Freight can recover three points of operating margin within 18 months by repricing twelve loss-making lanes, without cutting headcount.",
+  "template": "sample_template.pptx",
+  "slides": [
+    {
+      "type": "title",
+      "layout": "Cover",
+      "title": "Recovering three points of margin by repricing twelve lanes",
+      "subtitle": "Board discussion document | September 2026",
+      "notes": "Open with the answer: the margin gap is a pricing problem on a small set of lanes, not a cost problem."
+    },
+    {
+      "type": "agenda",
+      "layout": "Title and Content",
+      "title": "Repricing twelve loss-making lanes recovers three margin points without cutting headcount",
+      "bullets": [
+        "**Situation:** operating margin fell from 7.8% to 4.9% over two years while volume grew 11%",
+        "**Complication:** twelve of 140 lanes generate 80% of the operating loss",
+        "**Resolution:** reprice those lanes in two waves, 9-14% up, in line with competitors",
+        ["Wave 1 (Q1-Q2): six lanes with the weakest customer switching options"],
+        ["Wave 2 (Q3-Q4): six lanes tied to contract renewals"],
+        "**Decision today:** approve Wave 1 pricing and the customer communication plan"
+      ],
+      "source": "Source: Acme Freight lane P&L, FY2024-FY2026; team analysis",
+      "notes": "This is the whole deck on one page. If the board reads nothing else, it reads this."
+    },
+    {
+      "type": "one_message_chart",
+      "layout": "Title and Chart",
+      "title": "Twelve of 140 lanes generate 80% of the operating loss",
+      "chart": {
+        "type": "bar",
+        "categories": ["Top 12 lanes", "Next 28 lanes", "Remaining 100 lanes"],
+        "series": [{"name": "Share of operating loss", "values": [0.80, 0.15, 0.05]}],
+        "number_format": "0%",
+        "highlight": 0
+      },
+      "source": "Source: Acme Freight lane P&L, FY2026 year to date; n = 140 active lanes",
+      "notes": "The concentration is the insight: fixing a small set of lanes fixes most of the problem."
+    },
+    {
+      "type": "two_column",
+      "layout": "Two Column",
+      "title": "Competitors already charge 9-14% more on these lanes, so the increase is defensible",
+      "columns": [
+        {"heading": "What we charge today", "bullets": ["$2.41 per mile average on the twelve lanes", "Rates last reset in 2023", "Fuel surcharge capped at 6%"]},
+        {"heading": "What the market charges", "bullets": ["$2.63-$2.75 per mile from the three nearest competitors", "Two competitors repriced in the last nine months", "No competitor caps fuel surcharge"]}
+      ],
+      "source": "Source: broker rate benchmarks, Q2 2026; competitor tariff filings",
+      "notes": "Anticipate the objection that customers will leave; the market has already moved."
+    },
+    {
+      "type": "table",
+      "layout": "Title and Content",
+      "title": "A two-wave rollout captures 60% of the upside in the first two quarters",
+      "table": {
+        "columns": ["Wave", "Lanes", "Price change", "Margin impact", "Timing"],
+        "rows": [
+          ["Wave 1", "6", "+12%", "+1.8 pts", "Q1-Q2 2027"],
+          ["Wave 2", "6", "+9%", "+1.2 pts", "Q3-Q4 2027"],
+          ["Total", "12", "+10.5%", "+3.0 pts", "18 months"]
+        ],
+        "col_widths": [2, 1, 1.4, 1.6, 2],
+        "highlight_row": 2
+      },
+      "source": "Source: team pricing model; assumes 5% volume attrition on repriced lanes",
+      "notes": "The attrition assumption is conservative; the sensitivity is in the appendix."
+    },
+    {
+      "type": "quote",
+      "layout": "Quote",
+      "quote": "We would pay more on these lanes for guaranteed capacity. What we will not accept is surprise surcharges.",
+      "attribution": "VP Logistics, top-10 customer (interview, August 2026)",
+      "notes": "Close on the customer voice: price certainty matters more than price level."
+    }
+  ]
+}
