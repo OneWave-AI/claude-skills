@@ -2,7 +2,7 @@
 
 Production-ready skills for Claude Code. Built and maintained by [OneWave AI](https://www.onewave-ai.com) -- AI consulting for small and mid-size businesses.
 
-**219 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
+**225 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
 
 Companion repo: **[Open Agent Stack](https://github.com/OneWave-AI/open-agent-stack)** -- 27 artifacts that need more than a single file. Highlights: **[vibe-stack](https://github.com/OneWave-AI/open-agent-stack/tree/main/plugins/vibe-stack)** (14 skills: idea to shipped app, with a real motion system and an AI-slop detector), **[sales-desk](https://github.com/OneWave-AI/open-agent-stack/tree/main/plugins/sales-desk)** (the rep's whole daily loop), and **[7 design-token themes](https://github.com/OneWave-AI/open-agent-stack/tree/main/design-styles)**. Skills here stay single-file and zero-dependency; anything with a manifest, a team, or a build step lives there.
 
@@ -261,6 +261,18 @@ Build, install, and enforce design systems. Pairs with the 7 ready-made design-t
 | `doc-coauthoring` | Structured documentation co-authoring workflow |
 | `job-application-optimizer` | Tailor resumes to job postings |
 | `raise-negotiation-prep` | Salary research and negotiation scripts |
+
+### Work Tools
+Skills that ship scripts and reference data, not just instructions -- the jobs a model gets wrong on its own.
+
+| Skill | Description |
+|-------|-------------|
+| `bookkeeping-close` | Categorize, reconcile bank to ledger, and run month-end close from QuickBooks/Xero/bank exports -- never plugs a difference |
+| `spreadsheet-model-auditor` | Script audit of any xlsx model: hardcodes, broken ranges, circular refs, inconsistent formulas, totals that do not foot |
+| `bi-measure-builder` | DAX, Tableau calcs and LookML that total correctly -- filter context, LODs, time intelligence, with a checker script |
+| `trade-quote-builder` | Estimates and bids for trades and field services -- waste, burden, overhead, margin vs markup, client xlsx/PDF |
+| `crm-data-cleanup` | Vendor-neutral CRM dedupe and normalization -- confidence tiers, a dry-run merge plan, shared-inbox traps caught |
+| `devils-advocate` | The strongest honest case against a decision you are leaning toward -- steelman, pre-mortem, no reflexive contrarianism |
 
 ### Small Business Essentials
 The problems that actually kill small businesses -- cash, margins, visibility, people, the lease.

@@ -1,0 +1,83 @@
+{
+  "_note": "EXAMPLE SPEC -- all wages, burden, overhead and material costs are placeholders. Replace with your own before quoting.",
+  "trade": "painting",
+  "business": {"name": "Example Painting LLC", "phone": "(555) 010-0200", "email": "estimates@example.com", "license": "Lic. #EXAMPLE-0000"},
+  "client": {"name": "Homeowner (example)", "site_address": "456 Sample Ave", "view": "itemized"},
+  "quote": {"number": "Q-PAINT-2001", "title": "Interior repaint: three bedrooms and hallway", "date": "2026-09-22", "valid_days": 21},
+  "pricing": {"target_markup": 0.50},
+  "labor": {
+    "burden_pct": 0.28,
+    "roles": {"painter": {"wage": 24.00}, "lead": {"wage": 30.00}}
+  },
+  "overhead": {"pct_of_cost": 0.10, "per_labor_hour": 6.00},
+  "contingency_pct": 0.05,
+  "tax": {"mode": "contractor_pays_on_cost", "rate": 0.0625},
+  "min_effective_hourly": 65,
+  "base_items": [
+    {"id": "PREP", "section": "Preparation", "description": "Move furniture to room centers, mask and protect floors, fixtures and outlets",
+     "qty": 4, "unit": "rooms",
+     "materials": [{"item": "Plastic, masking tape, paper", "qty_per_unit": 1, "unit": "room kit", "unit_cost": 16.50, "waste_pct": 0}],
+     "labor": [{"role": "painter", "hours_per_unit": 1.0}]},
+    {"id": "WALLS", "section": "Painting", "description": "Walls: patch nail holes, spot prime patches, two coats eggshell",
+     "qty": 1850, "unit": "sf",
+     "notes": "Paint: 1,850 sf x 2 coats / 350 sf per gal = 10.57 gal before waste",
+     "materials": [
+       {"item": "Wall paint, eggshell", "qty": 10.57, "unit": "gal", "unit_cost": 42.00, "waste_pct": 0.10, "pack_size": 1},
+       {"item": "Patch compound and spot primer", "qty": 1, "unit": "kit", "unit_cost": 18.00, "waste_pct": 0}
+     ],
+     "labor": [{"role": "painter", "hours_per_unit": 0.0125}]},
+    {"id": "CEIL", "section": "Painting", "description": "Ceilings: one coat flat ceiling white",
+     "qty": 620, "unit": "sf",
+     "materials": [{"item": "Ceiling paint, flat", "qty": 1.77, "unit": "gal", "unit_cost": 34.00, "waste_pct": 0.10, "pack_size": 1}],
+     "labor": [{"role": "painter", "hours_per_unit": 0.02}]},
+    {"id": "TRIM", "section": "Painting", "description": "Baseboard and casing: caulk gaps, two coats semi-gloss",
+     "qty": 410, "unit": "lf",
+     "materials": [
+       {"item": "Trim paint, semi-gloss", "qty": 1.6, "unit": "gal", "unit_cost": 48.00, "waste_pct": 0.15, "pack_size": 1},
+       {"item": "Paintable caulk", "qty": 6, "unit": "tube", "unit_cost": 5.50, "waste_pct": 0}
+     ],
+     "labor": [{"role": "painter", "hours_per_unit": 0.04}]},
+    {"id": "DOORS", "section": "Painting", "description": "Interior doors, both sides and edges, two coats semi-gloss",
+     "qty": 7, "unit": "ea",
+     "materials": [{"item": "Trim paint, semi-gloss", "qty_per_unit": 0.15, "unit": "gal", "unit_cost": 48.00, "waste_pct": 0.10, "pack_size": 1}],
+     "labor": [{"role": "painter", "hours_per_unit": 1.25}]},
+    {"id": "CLEAN", "section": "Closeout", "description": "Daily cleanup, touch-up walkthrough with owner, furniture reset",
+     "qty": 1, "unit": "ls",
+     "labor": [{"role": "lead", "hours": 2}, {"role": "painter", "hours": 2}],
+     "fees": [{"item": "Paint and debris disposal", "qty": 1, "unit_cost": 25.00}]},
+    {"id": "MOB", "section": "Closeout", "description": "Mobilization and daily travel (4 crew days)",
+     "qty": 1, "unit": "ls", "lump_sum": true,
+     "fees": [{"item": "Truck, fuel, parking per crew day", "qty": 4, "unit_cost": 30.00}]}
+  ],
+  "add_ons": [
+    {"name": "Accent wall", "description": "One wall in a deep color, includes tinted primer coat",
+     "items": [{"id": "ACCENT", "description": "Accent wall, primer plus two coats", "qty": 1, "unit": "wall",
+                "materials": [{"item": "Deep-base paint and tinted primer", "qty": 2, "unit": "gal", "unit_cost": 52.00, "waste_pct": 0}],
+                "labor": [{"role": "painter", "hours": 3}]}]},
+    {"name": "Closet interiors", "description": "Walls and shelves of 3 reach-in closets",
+     "items": [{"id": "CLOSET", "description": "Reach-in closet interiors, two coats", "qty": 3, "unit": "ea",
+                "materials": [{"item": "Wall paint, eggshell", "qty_per_unit": 0.4, "unit": "gal", "unit_cost": 42.00, "waste_pct": 0.10, "pack_size": 1}],
+                "labor": [{"role": "painter", "hours_per_unit": 1.5}]}]}
+  ],
+  "payment_terms": {
+    "schedule": [
+      {"milestone": "Deposit to schedule and buy materials", "pct": 0.25},
+      {"milestone": "On completion and walkthrough", "pct": 0.75}
+    ],
+    "notes": ["Final payment due on completion. Colors selected by owner before start date."]
+  },
+  "exclusions": [
+    "Permit: none required for interior repainting",
+    "Wallpaper removal, drywall replacement, or repairs larger than nail holes and minor dings",
+    "Stairwells above 12 ft, cabinets, windows sashes, and floors"
+  ],
+  "assumptions": [
+    "Home built after 1978; if built before 1978, lead-safe work practices apply and change the price",
+    "Up to two wall colors plus ceiling white and trim white",
+    "Rooms are cleared of small items and valuables by the owner before start"
+  ],
+  "terms": [
+    "Changes to scope are priced and approved in writing before the work is done.",
+    "Workmanship warranty 2 years on peeling or blistering from application defects."
+  ]
+}

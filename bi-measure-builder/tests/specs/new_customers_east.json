@@ -1,0 +1,1 @@
+{"calc": "new_customers", "date_column": "order_date", "key_column": "customer", "grain": "month", "range": {"start": "2025-01-01", "end": "2025-03-31"}, "filters": {"region": ["East"]}, "expected": {"2025-01": null, "2025-02": 1, "2025-03": null, "Total": 1}}

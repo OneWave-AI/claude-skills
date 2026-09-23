@@ -1,0 +1,1 @@
+{"calc": "running_total", "date_column": "order_date", "value_column": "amount", "grain": "month", "range": {"start": "2025-01-01", "end": "2025-03-31"}, "expected": {"2025-01": 650, "2025-02": 830, "2025-03": 950, "Total": 950}}

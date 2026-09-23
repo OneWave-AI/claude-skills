@@ -1,0 +1,1 @@
+{"calc": "last_balance", "date_column": "snapshot_date", "value_column": "balance", "key_column": "account", "grain": "month", "data": "balances.csv", "range": {"start": "2025-01-01", "end": "2025-03-31"}, "expected": {"2025-01": 1500, "2025-02": 1650, "2025-03": 1500, "Total": 1500}}

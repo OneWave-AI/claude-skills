@@ -1,0 +1,247 @@
+# EXAMPLE SPEC -- every rate and cost below is a placeholder for illustration.
+# Replace wages, burden, overhead, unit costs and tax with your own numbers before quoting.
+trade: hvac
+
+business:
+  name: Example Heating & Air Co.
+  phone: (555) 010-0100
+  email: office@example.com
+  license: "Lic. #EXAMPLE-0000"
+
+client:
+  name: Homeowner (example)
+  site_address: 123 Example St
+  view: itemized            # itemized = show unit prices; lump_sum = amounts only
+
+quote:
+  number: Q-HVAC-1001
+  title: Replace 3-ton split system (single-family home)
+  date: 2026-09-22
+  valid_days: 30
+
+pricing:
+  target_margin: 0.25       # net profit margin on price after overhead; NOT a 25% markup
+  by_component:
+    subs: {markup: 0.15}    # licensed electrician sub marked up less than self-performed work
+    fees: {at_cost: true}   # permit and disposal passed through at cost
+
+labor:
+  burden_pct: 0.32          # payroll taxes, workers comp, liability, benefits as % of wage
+  roles:
+    lead_tech: {wage: 34.00}
+    installer: {wage: 25.00}
+    helper:    {wage: 19.00, burden_pct: 0.30}
+
+overhead:
+  pct_of_cost: 0.15         # office, trucks, insurance, software, marketing recovery
+  per_labor_hour: 0
+
+contingency_pct: 0.03
+
+tax:
+  mode: charge_on_sell      # charge sales tax to the client on the taxable portion
+  rate: 0.07
+  taxable: [materials]
+  label: Sales tax (materials)
+
+min_effective_hourly: 120
+
+base_items:
+  - id: MOB
+    section: Site
+    description: Mobilization, equipment delivery, floor and site protection
+    qty: 1
+    unit: ls
+    labor: [{role: helper, hours: 1.5}]
+    fees: [{item: Truck and fuel, qty: 1, unit_cost: 45, waste_pct: 0}]
+    materials: [{item: Floor protection and drop cloths, qty: 1, unit_cost: 22, waste_pct: 0}]
+  - id: DEMO
+    section: Site
+    description: Recover refrigerant, disconnect and remove existing condenser and furnace, haul away
+    qty: 1
+    unit: ls
+    labor: [{role: lead_tech, hours: 1}, {role: installer, hours: 3}]
+    fees: [{item: Equipment disposal / scrap haul, qty: 1, unit_cost: 85, waste_pct: 0}]
+  - id: LINE
+    section: Installation
+    description: Replace refrigerant line set (up to 25 ft), braze, pressure test, evacuate
+    qty: 25
+    unit: ft
+    materials:
+      - {item: "Line set 3/8 x 3/4, 25 ft coil", qty: 1, unit: coil, unit_cost: 165, waste_pct: 0}
+      - {item: "Brazing rod, nitrogen, fittings", qty_per_unit: 1.4, unit: "$", unit_cost: 1, waste_pct: 0.10}
+    labor: [{role: installer, hours: 2.5}]
+  - id: PAD
+    section: Installation
+    description: New composite condenser pad, leveled
+    qty: 1
+    unit: ea
+    unit_cost: 58
+    waste_pct: 0
+  - id: ELEC
+    section: Installation
+    description: Replace outdoor disconnect and whip (licensed electrical subcontractor)
+    qty: 1
+    unit: ls
+    subs: [{item: Electrical sub, qty: 1, unit_cost: 425, waste_pct: 0}]
+    materials:
+      - {item: Fused disconnect, qty: 1, unit_cost: 48, waste_pct: 0}
+      - {item: Whip 6 ft, qty: 1, unit_cost: 32, waste_pct: 0}
+  - id: COND
+    section: Installation
+    description: Condensate drain line and float safety switch
+    qty: 1
+    unit: ls
+    materials: [{item: "PVC, fittings, float switch", qty: 1, unit_cost: 42, waste_pct: 0.10}]
+    labor: [{role: installer, hours: 1}]
+  - id: PLEN
+    section: Installation
+    description: Fabricate supply plenum transition to new equipment
+    qty: 1
+    unit: ls
+    materials: [{item: "Sheet metal, tape, mastic", qty: 1, unit_cost: 120, waste_pct: 0.15}]
+    labor: [{role: lead_tech, hours: 3}]
+  - id: START
+    section: Commissioning
+    description: Start-up, refrigerant charge verification, airflow check, commissioning report
+    qty: 1
+    unit: ls
+    materials: [{item: Refrigerant top-off, qty: 3, unit: lb, unit_cost: 18, waste_pct: 0}]
+    labor: [{role: lead_tech, hours: 2}]
+  - id: PERMIT
+    section: Admin
+    description: Mechanical permit and inspection
+    qty: 1
+    unit: ls
+    fees: [{item: Permit fee, qty: 1, unit_cost: 185, waste_pct: 0}]
+    labor: [{role: lead_tech, hours: 1, item: Permit pull and inspection meet}]
+  - id: CLEAN
+    section: Admin
+    description: Final cleanup, walkthrough and owner orientation
+    qty: 1
+    unit: ls
+    labor: [{role: helper, hours: 1}, {role: lead_tech, hours: 0.5}]
+
+tiers:
+  - name: Good
+    description: 14.3 SEER2 single-stage AC with 80% gas furnace, basic thermostat
+    items:
+      - id: EQUIP
+        section: Equipment
+        description: 3-ton 14.3 SEER2 condenser, matched coil, 80% AFUE furnace
+        qty: 1
+        unit: sys
+        materials:
+          - {item: Condenser 3-ton single-stage, qty: 1, unit_cost: 2350, waste_pct: 0}
+          - {item: Evaporator coil, qty: 1, unit_cost: 640, waste_pct: 0}
+          - {item: Furnace 80% 60k, qty: 1, unit_cost: 1450, waste_pct: 0}
+        labor: [{role: lead_tech, hours: 6}, {role: installer, hours: 6}]
+      - id: TSTAT
+        section: Equipment
+        description: Non-programmable thermostat
+        qty: 1
+        unit: ea
+        unit_cost: 45
+        waste_pct: 0
+        hours: 0.5
+        role: installer
+  - name: Better
+    description: 16 SEER2 two-stage AC with 96% furnace and PVC venting, programmable thermostat
+    items:
+      - id: EQUIP
+        section: Equipment
+        description: 3-ton 16 SEER2 two-stage condenser, matched coil, 96% AFUE furnace
+        qty: 1
+        unit: sys
+        materials:
+          - {item: Condenser 3-ton two-stage, qty: 1, unit_cost: 3150, waste_pct: 0}
+          - {item: Evaporator coil, qty: 1, unit_cost: 720, waste_pct: 0}
+          - {item: Furnace 96% 60k, qty: 1, unit_cost: 2100, waste_pct: 0}
+          - {item: PVC vent and combustion air kit, qty: 1, unit_cost: 95, waste_pct: 0.10}
+        labor: [{role: lead_tech, hours: 7}, {role: installer, hours: 7}]
+      - id: TSTAT
+        section: Equipment
+        description: Programmable Wi-Fi thermostat
+        qty: 1
+        unit: ea
+        unit_cost: 140
+        waste_pct: 0
+        hours: 0.75
+        role: installer
+  - name: Best
+    description: Variable-speed heat pump with air handler, heat strips, communicating thermostat
+    items:
+      - id: EQUIP
+        section: Equipment
+        description: 3-ton variable-speed heat pump, variable-speed air handler, 10 kW heat strip
+        qty: 1
+        unit: sys
+        materials:
+          - {item: Heat pump 3-ton variable, qty: 1, unit_cost: 4850, waste_pct: 0}
+          - {item: Air handler variable-speed, qty: 1, unit_cost: 2250, waste_pct: 0}
+          - {item: Heat strip 10 kW, qty: 1, unit_cost: 180, waste_pct: 0}
+        labor: [{role: lead_tech, hours: 8}, {role: installer, hours: 8}]
+      - id: GASCAP
+        section: Equipment
+        description: Cap and test abandoned gas line at furnace location
+        qty: 1
+        unit: ls
+        materials: [{item: Cap and fittings, qty: 1, unit_cost: 15, waste_pct: 0}]
+        labor: [{role: lead_tech, hours: 1}]
+      - id: TSTAT
+        section: Equipment
+        description: Communicating thermostat matched to system
+        qty: 1
+        unit: ea
+        unit_cost: 395
+        waste_pct: 0
+        hours: 1
+        role: lead_tech
+
+add_ons:
+  - name: UV air purifier
+    description: In-duct UV lamp, installed and wired
+    items:
+      - id: UV
+        description: In-duct UV lamp assembly
+        qty: 1
+        unit: ea
+        unit_cost: 185
+        waste_pct: 0
+        hours: 1
+        role: lead_tech
+  - name: Surge protector
+    description: Outdoor unit surge protection device
+    items:
+      - id: SURGE
+        description: Surge protection device at condenser
+        qty: 1
+        unit: ea
+        unit_cost: 95
+        waste_pct: 0
+        hours: 0.5
+        role: installer
+
+payment_terms:
+  schedule:
+    - {milestone: Deposit on acceptance, pct: 0.30}
+    - {milestone: Equipment set and running, pct: 0.60}
+    - {milestone: Passed final inspection, pct: 0.10}
+  notes:
+    - Balance due within 10 days of each milestone. Card payments may carry a processing fee where allowed.
+
+exclusions:
+  - Ductwork beyond the supply plenum transition; duct cleaning or sealing
+  - Electrical panel upgrades or new circuits beyond the listed disconnect and whip
+  - Asbestos, mold or other hazardous material testing or abatement
+  - Drywall, carpentry or painting beyond minor touch-up at penetrations
+
+assumptions:
+  - Existing ducts are sized adequately for the new equipment (no Manual D redesign included)
+  - Indoor equipment location is accessible without removing finished surfaces
+  - Existing gas supply is adequate for the Good and Better furnaces
+  - Normal working hours; one mobilization
+
+terms:
+  - Changes to scope are priced and approved in writing (change order) before the work is done.
+  - Manufacturer equipment warranty per manufacturer registration; workmanship warranty 1 year.

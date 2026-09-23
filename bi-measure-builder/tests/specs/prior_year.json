@@ -1,0 +1,1 @@
+{"calc": "prior_year", "date_column": "order_date", "value_column": "amount", "grain": "month", "range": {"start": "2025-01-01", "end": "2025-03-31"}, "expected": {"2025-01": 100, "2025-02": 200, "2025-03": 50, "Total": 350}}

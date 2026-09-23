@@ -1,0 +1,7 @@
+{
+  "calc": "yoy_pct",
+  "date_column": "order_date",
+  "value_column": "amount",
+  "grain": "month",
+  "range": {"start": "2025-01-01", "end": "2025-03-31"}
+}

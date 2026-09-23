@@ -1,0 +1,1 @@
+{"calc": "ytd", "date_column": "order_date", "value_column": "amount", "grain": "month", "range": {"start": "2025-01-01", "end": "2025-03-31"}, "params": {"fiscal_year_start_month": 7}, "expected": {"2025-01": 300, "2025-02": 480, "2025-03": 600, "Total": 600}}
