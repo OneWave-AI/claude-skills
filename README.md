@@ -71,6 +71,7 @@ How to actually run a coding agent: what to put in context, what to write to dis
 | `claude-md-writer` | Write the CLAUDE.md / AGENTS.md that teaches an agent your repo's commands and traps |
 | `fresh-library-docs` | Check the installed version and real signatures before calling an API from memory |
 | `agent-eval-harness` | A 20-case eval set that catches prompt, model, and tool regressions before customers do |
+| `ledger-tasks-yylo` | Durable kanban board, typed task lifecycle, and receipt-backed merge orchestration for coding agents via the YYLO Ledger CLI |
 
 ### Anthropic / Claude Products
 Skills built around specific Anthropic product releases.
