@@ -1,0 +1,26 @@
+{
+  "name": "scout-pro",
+  "displayName": "Scout Pro",
+  "version": "1.0.0",
+  "description": "A deeper skill navigator: maps the whole conversation, verifies which skills you actually have installed, designs multi-skill chains, and keeps a local log of which recommendations worked so it gets better over time.",
+  "keywords": [
+    "skills",
+    "navigator",
+    "workflow",
+    "chains",
+    "orchestration",
+    "claude-code"
+  ],
+  "author": {
+    "name": "OneWave AI",
+    "url": "https://www.onewave-ai.com"
+  },
+  "repository": "https://github.com/OneWave-AI/claude-skills",
+  "license": "MIT",
+  "supportUrl": "https://www.onewave-ai.com/contact",
+  "privacyPolicyUrl": "https://www.onewave-ai.com/privacy",
+  "termsOfServiceUrl": "https://www.onewave-ai.com/terms",
+  "icon": "./.claude-plugin/icon.png",
+  "homepage": "https://github.com/OneWave-AI/claude-skills/tree/main/plugins/scout-pro",
+  "documentationUrl": "https://github.com/OneWave-AI/claude-skills/blob/main/plugins/scout-pro/README.md"
+}
