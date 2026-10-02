@@ -4,10 +4,24 @@
   "description": "Deploy a 2-layer parallel agent hierarchy for large, parallelizable work: big refactors, multi-file migrations, codebase-wide audits, and bulk generation. Pick an army size and power level; includes git checkpoints, a pre-deploy gate, phantom-completion checks, and multi-wave follow-up.",
   "author": {
     "name": "OneWave AI",
-    "url": "https://onewave-ai.com"
+    "url": "https://www.onewave-ai.com"
   },
   "homepage": "https://github.com/OneWave-AI/claude-skills/tree/main/plugins/agent-army",
   "repository": "https://github.com/OneWave-AI/claude-skills",
   "license": "MIT",
-  "keywords": ["agents", "multi-agent", "orchestration", "parallel", "refactor", "migration", "claude-code"]
+  "keywords": [
+    "agents",
+    "multi-agent",
+    "orchestration",
+    "parallel",
+    "refactor",
+    "migration",
+    "claude-code"
+  ],
+  "displayName": "Agent Army",
+  "icon": "./.claude-plugin/icon.png",
+  "documentationUrl": "https://github.com/OneWave-AI/claude-skills/blob/main/plugins/agent-army/README.md",
+  "supportUrl": "https://www.onewave-ai.com/contact",
+  "privacyPolicyUrl": "https://www.onewave-ai.com/privacy",
+  "termsOfServiceUrl": "https://www.onewave-ai.com/terms"
 }
