@@ -48,7 +48,7 @@ Use season and basin to distinguish recurring names, or select an exact ID. Requ
 {"name":"get_hurricane_history","arguments":{"query":{"id":"al122005","includeTrack":true}}}
 ```
 
-HTTP equivalent: `GET https://www.gillby.com/api/v1/tools/get_hurricane_history?id=al122005&includeTrack=true`. Filter by `startYear`, `endYear`, `basin`, `name`, `id`, `hurricanesOnly` or `landfallOnly`; follow returned `nextOffset` for pagination. Full examples and field meanings: https://github.com/OneWave-AI/gillby/blob/main/HURRICANES.md.
+HTTP equivalent: `GET https://www.gillby.com/api/v1/tools/get_hurricane_history?id=al122005&includeTrack=true`. Filter by `startYear`, `endYear`, `basin`, `name`, `id`, `hurricanesOnly` or `landfallOnly`; follow returned `nextOffset` for pagination. Full examples and field meanings: https://github.com/OneWave-AI/gillby-mcp/blob/main/HURRICANES.md.
 
 Track points use UTC timestamps, coordinates, sustained wind kt and pressure mb. Wind radii are nautical miles ordered NE, SE, SW, NW. Missing measurements are null; landfall flags can refer to any coastline. Active movement bearings point TOWARD, unlike marine wind directions FROM. Keep stale/unavailable status and advisory times. Historical best tracks are retrospective records, not forecasts or damage estimates. Current-season advisories use the active tool. Do not imply the app plots historical paths: it currently shows storm details and official NHC map links.
 
