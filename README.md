@@ -2,7 +2,7 @@
 
 Production-ready skills for Claude Code. Built and maintained by [OneWave AI](https://www.onewave-ai.com).
 
-**229 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
+**230 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
 
 Companion repo: **[Open Agent Stack](https://github.com/OneWave-AI/open-agent-stack)** -- 27 artifacts that need more than a single file. Highlights: **[vibe-stack](https://github.com/OneWave-AI/open-agent-stack/tree/main/plugins/vibe-stack)** (14 skills: idea to shipped app, with a real motion system and an AI-slop detector), **[sales-desk](https://github.com/OneWave-AI/open-agent-stack/tree/main/plugins/sales-desk)** (the rep's whole daily loop), and **[7 design-token themes](https://github.com/OneWave-AI/open-agent-stack/tree/main/design-styles)**. Skills here stay single-file and zero-dependency; anything with a manifest, a team, or a build step lives there.
 
@@ -291,6 +291,16 @@ The problems that actually kill small businesses -- cash, margins, visibility, p
 | `inventory-reorder-planner` | Sales history -> reorder points, this week's purchase list, and the dead-stock cash report |
 | `job-post-writer` | Job posts the right person actually applies to -- pruned requirements, honest sell, pay handled |
 | `commercial-lease-analyzer` | True all-in occupancy cost, the small-tenant trap clauses, and the negotiation ask list |
+
+---
+
+## Florida Water Planning
+
+| Skill | Description |
+|-------|-------------|
+| [`gillby-water`](gillby-water/SKILL.md) | Compare Florida water-day places and hours with Gillby's live forecasts, tides, coastal places and authorized vessel tools |
+
+Gillby public data needs no API key. Connect a compatible MCP client or use the documented HTTP API; the skill itself does not install a connection. [Setup and examples](https://www.gillby.com/skills/gillby-water).
 
 ---
 
