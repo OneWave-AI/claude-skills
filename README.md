@@ -298,7 +298,7 @@ The problems that actually kill small businesses -- cash, margins, visibility, p
 
 | Skill | Description |
 |-------|-------------|
-| [`gillby-water`](gillby-water/SKILL.md) | Compare Florida water-day places and hours with Gillby's live forecasts, tides, coastal places and authorized vessel tools |
+| [`gillby-water`](gillby-water/SKILL.md) | Compare Florida water-day places and hours with Gillby's live forecasts, tides, coastal places and authorized vessel tools; query active cyclones and full historical hurricane tracks since 2000 |
 
 Gillby public data needs no API key. Connect a compatible MCP client or use the documented HTTP API; the skill itself does not install a connection. [Setup and examples](https://www.gillby.com/skills/gillby-water).
 

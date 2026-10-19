@@ -1,6 +1,6 @@
 ---
 name: gillby-water
-description: Plan Florida boating, fishing, paddling, surf and beach outings using Gillby's sourced marine forecasts, tides, coastal places and vessel-aware tools. Use for comparing places or departure windows, checking inlet context, or planning with a user's saved boat and trips.
+description: Plan Florida boating, fishing, paddling, surf and beach outings using Gillby's sourced marine forecasts, tides, coastal places and vessel-aware tools. Use for comparing places or departure windows, checking inlet context, planning with a user's saved boat and trips, or researching active cyclones and recorded hurricane tracks since 2000.
 ---
 
 # Gillby water planning
@@ -37,6 +37,20 @@ GET https://www.gillby.com/api/v1/conditions?spot=boca-inlet&view=summary
 For a future comparison, request `get_forecast` for each resolved place and the actual window the user wants. Read the live schema for time and activity parameters. Compare departure and return hours, wind/gusts, waves/period/direction, tide/current, relevant advisories and unavailable sources. Use suitable place tools for ramps, fuel, anchorages, reefs or beaches. Verify access and operating details with the operator when they are material to the plan.
 
 For a vessel route, use the user's confirmed draft, air draft, clearance margin and departure time, or their authorized saved vessel. Keep route warnings, depth/bridge assumptions and data gaps attached. A point-depth reading alone cannot establish route clearance.
+
+## Active hurricanes and historical tracks
+
+For active tropical cyclones use `get_hurricanes` with optional `query.basin` (`all`, `al`, `ep`, `cp`). For historical paths use `get_hurricane_history`: finalized NOAA NHC HURDAT2 records for 2000–2025 across the Atlantic and eastern/central Pacific. These public tools need no account or API key.
+
+Use season and basin to distinguish recurring names, or select an exact ID. Request `includeTrack: true` for every recorded point from first observation to last; summaries otherwise omit the track. Example MCP call:
+
+```json
+{"name":"get_hurricane_history","arguments":{"query":{"id":"al122005","includeTrack":true}}}
+```
+
+HTTP equivalent: `GET https://www.gillby.com/api/v1/tools/get_hurricane_history?id=al122005&includeTrack=true`. Filter by `startYear`, `endYear`, `basin`, `name`, `id`, `hurricanesOnly` or `landfallOnly`; follow returned `nextOffset` for pagination. Full examples and field meanings: https://github.com/OneWave-AI/gillby/blob/main/HURRICANES.md.
+
+Track points use UTC timestamps, coordinates, sustained wind kt and pressure mb. Wind radii are nautical miles ordered NE, SE, SW, NW. Missing measurements are null; landfall flags can refer to any coastline. Active movement bearings point TOWARD, unlike marine wind directions FROM. Keep stale/unavailable status and advisory times. Historical best tracks are retrospective records, not forecasts or damage estimates. Current-season advisories use the active tool. Do not imply the app plots historical paths: it currently shows storm details and official NHC map links.
 
 ## Interpret the evidence
 
