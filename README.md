@@ -294,13 +294,19 @@ The problems that actually kill small businesses -- cash, margins, visibility, p
 
 ---
 
-## Florida Water Planning
+## Gillby MCP: Water Intelligence
+
+We built [Gillby](https://www.gillby.com) for anyone into boating, fishing, surfing or exploring the water in Florida and California—with more states to come. Gillby MCP offers free public water-data access within published limits, alongside open-source connection tools. Coverage varies by state and tool.
 
 | Skill | Description |
 |-------|-------------|
-| [`gillby-water`](gillby-water/SKILL.md) | Compare Florida water-day places and hours with Gillby's live forecasts, tides, coastal places and authorized vessel tools; query active cyclones and full historical hurricane tracks since 2000 |
+| [`gillby-water`](gillby-water/SKILL.md) | A general water-planning workflow for sourced conditions, tides, coastal places and authorized vessel context |
 
-Gillby public data needs no API key. Connect a compatible MCP client or use the documented HTTP API; the skill itself does not install a connection. [Setup and examples](https://www.gillby.com/skills/gillby-water).
+Want a specialist? The separate [Gillby MCP repository](https://github.com/OneWave-AI/gillby-mcp) contains **nine focused skills and six agent definitions**, including a surf guide. Those files are maintained there; installing this skills library does not install that bundle or connect the MCP server.
+
+[Connect Gillby MCP](https://www.gillby.com/integrations#setup) · [Explore skills & agents](https://www.gillby.com/skills) · [Visit Gillby](https://www.gillby.com)
+
+Public tools need no API key; personal boats, saved places and trips require authorization. The published tools have their own open-source licenses. Gillby’s hosted service, proprietary intelligence and underlying provider data remain subject to their own terms.
 
 ---
 
