@@ -2,7 +2,7 @@
 
 Production-ready skills for Claude Code. Built and maintained by [OneWave AI](https://www.onewave-ai.com).
 
-**230 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
+**231 skills** across three pillars: **business** (sales, marketing, consulting, ops), **everyday life** (personal finance, travel, fitness, job hunting), and **coding** (engineering, design, AI agent architecture).
 
 Companion repo: **[Open Agent Stack](https://github.com/OneWave-AI/open-agent-stack)** -- 27 artifacts that need more than a single file. Highlights: **[vibe-stack](https://github.com/OneWave-AI/open-agent-stack/tree/main/plugins/vibe-stack)** (14 skills: idea to shipped app, with a real motion system and an AI-slop detector), **[sales-desk](https://github.com/OneWave-AI/open-agent-stack/tree/main/plugins/sales-desk)** (the rep's whole daily loop), and **[7 design-token themes](https://github.com/OneWave-AI/open-agent-stack/tree/main/design-styles)**. Skills here stay single-file and zero-dependency; anything with a manifest, a team, or a build step lives there.
 
@@ -177,6 +177,7 @@ Folder-first knowledge-worker workflows built for Claude Cowork -- now with clou
 | `database-schema-designer` | Query-driven schemas, indexes, ERDs, and safe migrations (PostgreSQL 18 default) |
 | `landing-page-optimizer` | Conversion and performance optimization |
 | `browser-test-loop` | Drive a real browser to prove a UI change works -- console errors included |
+| `agent-qa-testing` | Natural-language web regression testing with advanced memidex memory and self-improvement |
 | `static-analysis-sweep` | Semgrep, secret, and CVE scanning over a diff, triaged into fix-now vs noise |
 
 ### Design Systems and UI
