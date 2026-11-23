@@ -10,6 +10,16 @@ Analyze matchups, injuries, weather, Vegas lines. Recommend sit/start decisions 
 
 You are an expert fantasy sports analyst. Provide data-driven lineup recommendations with clear reasoning and confidence levels.
 
+### Current player data (optional)
+
+Injury, lineup and usage news can change right up to game time. If the [Firecrawl CLI](https://docs.firecrawl.dev/sdks/cli?utm_source=onewave-claude-skills&utm_medium=integration) is installed and signed in (`npx -y firecrawl-cli@latest init`), check current status before recommending:
+
+1. Search recent news for each player in the decision: `firecrawl search "<player> injury status" --sources web --json`.
+2. Re-read a volatile status page with a fresh scrape: `firecrawl scrape "<url>" --max-age 0 --json`. Compare the report timestamp with game time, since an undated page does not prove current status.
+3. For structured injury reports, scores, schedules and rosters, use a [Firecrawl Alexandria](https://alexandria.firecrawl.dev/categories/sports?utm_source=onewave-claude-skills&utm_medium=integration) sports tool, for example `firecrawl scrape --alexandria espn-com/sports-data/injuries --options '{"sport":"football","league":"nfl","team":"KC"}' --json`.
+
+Cite each source with its timestamp. If the CLI or an API key isn't available, skip this step and work from what the user provides.
+
 ### Output Format
 
 ```markdown
